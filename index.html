@@ -55,11 +55,11 @@ footer{text-align:center;color:#91a3bd;font-size:12px;line-height:1.6;margin:24p
 </select>
 <label for="interval">Temporalidad</label>
 <select id="interval">
-<option>1 minuto</option>
-<option selected>5 minutos</option>
-<option>15 minutos</option>
-<option>30 minutos</option>
-<option>1 hora</option>
+<option value="1min">1 minuto</option>
+<option value="5min" selected>5 minutos</option>
+<option value="15min">15 minutos</option>
+<option value="30min">30 minutos</option>
+<option value="1h">1 hora</option>
 </select>
 <button id="analyze">ANALIZAR MERCADO</button>
 </section>
@@ -166,4 +166,5 @@ analyzeButton.addEventListener("click", async () => {
 </script>
 </body>
 </html>
+
 
