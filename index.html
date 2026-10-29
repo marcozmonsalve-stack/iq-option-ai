@@ -122,7 +122,16 @@ analyzeButton.addEventListener("click", async () => {
   try {
     const url = new URL(API_URL + "/analyze");
     url.searchParams.set("symbol", pair);
-    url.searchParams.set("interval", interval);
+    url.searchParams.set(
+  "interval",
+  ({
+    "1 minuto": "1min",
+    "5 minutos": "5min",
+    "15 minutos": "15min",
+    "30 minutos": "30min",
+    "1 hora": "1h"
+  })[interval] || interval
+);
 
     const response = await fetch(url);
     const data = await response.json();
