@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1120">
+<title>IQ OPTION AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1120;color:#eef4ff;font-family:Arial,sans-serif}
+main{max-width:680px;margin:auto;padding:20px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
+h1{font-size:24px;color:#35d6a4;margin:0}
+small,.muted{color:#91a3bd}
+.card{background:#141e30;border:1px solid #293750;border-radius:16px;padding:18px;margin:16px 0}
+label{display:block;color:#a9bad1;margin:12px 0 8px}
+select,button{width:100%;padding:14px;border-radius:10px;font-size:16px}
+select{background:#0b1120;color:white;border:1px solid #394963}
+button{background:#35d6a4;color:#071810;font-weight:bold;border:0;margin-top:16px}
+h2{font-size:18px;margin:0 0 16px}
+.signal{text-align:center;padding:22px 0}
+.signal strong{display:block;font-size:27px;margin:12px 0;color:#f5c66b}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:#0b1120;border-radius:10px;padding:12px 6px;text-align:center}
+.stat b{display:block;margin-top:8px;font-size:17px}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.actions button{font-size:12px;padding:12px 4px;margin:0}
+.buy{background:#12694f;color:white}
+.sell{background:#7d3040;color:white}
+.wait{background:#37465c;color:white}
+footer{text-align:center;color:#91a3bd;font-size:12px;line-height:1.6;margin:24px 0}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div>
+<h1>IQ OPTION AI</h1>
+<small>SMART MARKET ANALYSIS</small>
+</div>
+<span>◉ <small>DEMO</small></span>
+</header>
+
+<section class="card">
+<h2>Mercado</h2>
+<label for="pair">Par de divisas</label>
+<select id="pair">
+<option>EUR/USD</option>
+<option>GBP/USD</option>
+<option>USD/JPY</option>
+<option>AUD/USD</option>
+<option>EUR/JPY</option>
+<option>USD/CAD</option>
+</select>
+<label for="interval">Temporalidad</label>
+<select id="interval">
+<option>1 minuto</option>
+<option selected>5 minutos</option>
+<option>15 minutos</option>
+<option>30 minutos</option>
+<option>1 hora</option>
+</select>
+<button id="analyze">ANALIZAR MERCADO</button>
+</section>
+
+<section class="card">
+<h2>Señal del sistema</h2>
+<div class="signal">
+<small id="market">EUR/USD · 5 minutos</small>
+<strong id="signal">SIN DATOS</strong>
+<p id="reason" class="muted">Conecta una fuente de cotizaciones para iniciar el análisis.</p>
+</div>
+<div class="stats">
+<div class="stat"><small>RSI</small><b id="rsi">—</b></div>
+<div class="stat"><small>EMA 9</small><b id="ema9">—</b></div>
+<div class="stat"><small>EMA 21</small><b id="ema21">—</b></div>
+</div>
+<div class="actions">
+<button class="buy" disabled>COMPRA</button>
+<button class="sell" disabled>VENTA</button>
+<button class="wait" disabled>ESPERAR</button>
+</div>
+</section>
+
+<section class="card">
+<h2>Estado de conexión</h2>
+<p id="connection" class="muted">Fuente de datos: sin configurar</p>
+<p class="muted">No se generan señales hasta recibir datos reales.</p>
+</section>
+
+<footer>
+IQ OPTION AI · Versión inicial<br>
+Herramienta informativa. Las señales no garantizan beneficios.
+</footer>
+</main>
+<script>
+document.getElementById("analyze").addEventListener("click",()=>{
+document.getElementById("market").textContent=
+document.getElementById("pair").value+" · "+
+document.getElementById("interval").value;
+document.getElementById("signal").textContent="SIN DATOS";
+document.getElementById("reason").textContent=
+"Falta conectar la fuente de cotizaciones. No operes con señales no verificadas.";
+});
+</script>
+</body>
+</html>
