@@ -94,14 +94,65 @@ IQ OPTION AI · Versión inicial<br>
 Herramienta informativa. Las señales no garantizan beneficios.
 </footer>
 </main>
+
 <script>
-document.getElementById("analyze").addEventListener("click",()=>{
-document.getElementById("market").textContent=
-document.getElementById("pair").value+" · "+
-document.getElementById("interval").value;
-document.getElementById("signal").textContent="SIN DATOS";
-document.getElementById("reason").textContent=
-"Falta conectar la fuente de cotizaciones. No operes con señales no verificadas.";
+const API_URL = "https://iq-option-ai-api.marcozmonsalve.workers.dev";
+
+const analyzeButton = document.getElementById("analyze");
+
+analyzeButton.addEventListener("click", async () => {
+  const pair = document.getElementById("pair").value;
+  const interval = document.getElementById("interval").value;
+
+  const signalElement = document.getElementById("signal");
+  const reasonElement = document.getElementById("reason");
+  const marketElement = document.getElementById("market");
+  const connectionElement = document.getElementById("connection");
+
+  const rsiElement = document.getElementById("rsi");
+  const ema9Element = document.getElementById("ema9");
+  const ema21Element = document.getElementById("ema21");
+
+  analyzeButton.disabled = true;
+  analyzeButton.textContent = "ANALIZANDO...";
+  signalElement.textContent = "CARGANDO";
+  reasonElement.textContent = "Consultando datos del mercado...";
+  connectionElement.textContent = "Conectando con Cloudflare...";
+
+  try {
+    const url = new URL(API_URL + "/analyze");
+    url.searchParams.set("symbol", pair);
+    url.searchParams.set("interval", interval);
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!response.ok || data.status !== "ok") {
+      throw new Error(data.error || data.message || "No se pudieron obtener los datos.");
+    }
+
+    signalElement.textContent = data.signal || "ESPERAR";
+    reasonElement.textContent = data.reason || "Análisis técnico orientativo.";
+    marketElement.textContent = data.symbol + " · " + data.interval;
+    rsiElement.textContent = data.indicators?.rsi14 ?? "—";
+    ema9Element.textContent = data.indicators?.ema9 ?? "—";
+    ema21Element.textContent = data.indicators?.ema21 ?? "—";
+
+    document.querySelector(".buy").disabled = false;
+    document.querySelector(".sell").disabled = false;
+    document.querySelector(".wait").disabled = false;
+
+    connectionElement.textContent =
+      "Conectado · " + (data.candlesReceived ?? data.candlesReceived) +
+      " velas recibidas.";
+  } catch (error) {
+    signalElement.textContent = "SIN DATOS";
+    reasonElement.textContent = error.message;
+    connectionElement.textContent = "Error de conexión o de datos.";
+  } finally {
+    analyzeButton.disabled = false;
+    analyzeButton.textContent = "ANALIZAR MERCADO";
+  }
 });
 </script>
 </body>
