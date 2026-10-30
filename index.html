@@ -292,12 +292,12 @@ function initializeCharts(){
   lineWidth:2,
   priceLineVisible:false,
   lastValueVisible:true,
-  autoscaleInfoProvider:original=>{
-   return {
-    priceRange:{min:0,max:100}
-   };
+  priceFormat:{
+    type:"price",
+    precision:2,
+    minMove:0.01
   }
- });
+});
 
  [30,50,70].forEach(level=>{
   rsiSeries.createPriceLine({
