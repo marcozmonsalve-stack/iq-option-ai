@@ -4,167 +4,697 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1120">
-<title>IQ OPTION AI</title>
+<meta name="theme-color" content="#090f1c">
+<title>IQ OPTION AI | Smart Analysis</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0b1120;color:#eef4ff;font-family:Arial,sans-serif}
-main{max-width:680px;margin:auto;padding:20px}
-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
-h1{font-size:24px;color:#35d6a4;margin:0}
-small,.muted{color:#91a3bd}
-.card{background:#141e30;border:1px solid #293750;border-radius:16px;padding:18px;margin:16px 0}
-label{display:block;color:#a9bad1;margin:12px 0 8px}
-select,button{width:100%;padding:14px;border-radius:10px;font-size:16px}
-select{background:#0b1120;color:white;border:1px solid #394963}
-button{background:#35d6a4;color:#071810;font-weight:bold;border:0;margin-top:16px}
-h2{font-size:18px;margin:0 0 16px}
-.signal{text-align:center;padding:22px 0}
-.signal strong{display:block;font-size:27px;margin:12px 0;color:#f5c66b}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.stat{background:#0b1120;border-radius:10px;padding:12px 6px;text-align:center}
-.stat b{display:block;margin-top:8px;font-size:17px}
-.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
-.actions button{font-size:12px;padding:12px 4px;margin:0}
-.buy{background:#12694f;color:white}
-.sell{background:#7d3040;color:white}
-.wait{background:#37465c;color:white}
-footer{text-align:center;color:#91a3bd;font-size:12px;line-height:1.6;margin:24px 0}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #090f1c;
+  color: #eef4ff;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  max-width: 720px;
+  margin: auto;
+  padding: 18px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+h1 {
+  color: #35d6a4;
+  font-size: 25px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 17px;
+  margin: 0 0 17px;
+}
+
+h3 {
+  font-size: 14px;
+  margin: 0 0 12px;
+  color: #b9c9df;
+}
+
+small, .muted {
+  color: #91a3bd;
+}
+
+.card {
+  background: #141e30;
+  border: 1px solid #293750;
+  border-radius: 16px;
+  padding: 18px;
+  margin: 15px 0;
+}
+
+label {
+  display: block;
+  color: #a9bad1;
+  margin: 13px 0 8px;
+  font-size: 13px;
+}
+
+select, button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+select {
+  background: #0b1120;
+  color: white;
+  border: 1px solid #394963;
+}
+
+button {
+  background: #35d6a4;
+  color: #071810;
+  font-weight: bold;
+  border: 0;
+  margin-top: 17px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.top-status {
+  font-size: 12px;
+  color: #35d6a4;
+  border: 1px solid #245b4b;
+  padding: 7px 10px;
+  border-radius: 20px;
+}
+
+.signal-card {
+  text-align: center;
+  padding: 24px 16px;
+}
+
+.signal {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 15px 0;
+  color: #f5c66b;
+}
+
+.signal.buy-signal {
+  color: #35d6a4;
+}
+
+.signal.sell-signal {
+  color: #ff687c;
+}
+
+.signal.wait-signal {
+  color: #f5c66b;
+}
+
+.market-price {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+.reason {
+  color: #a9bad1;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+
+.stat {
+  background: #0b1120;
+  border-radius: 11px;
+  padding: 13px;
+  min-width: 0;
+}
+
+.stat small {
+  font-size: 11px;
+}
+
+.stat b {
+  display: block;
+  font-size: 19px;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
+
+.stat .detail {
+  font-size: 11px;
+  color: #91a3bd;
+  margin-top: 6px;
+}
+
+.good {
+  color: #35d6a4;
+}
+
+.bad {
+  color: #ff687c;
+}
+
+.neutral {
+  color: #f5c66b;
+}
+
+.level {
+  background: #0b1120;
+  padding: 15px;
+  border-radius: 11px;
+}
+
+.level b {
+  display: block;
+  font-size: 19px;
+  margin: 8px 0;
+}
+
+.score-track {
+  height: 9px;
+  border-radius: 10px;
+  background: #26354c;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.score-fill {
+  height: 100%;
+  width: 0%;
+  background: #35d6a4;
+  transition: width .3s;
+}
+
+.connection {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  color: #91a3bd;
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 28px 0;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 380px) {
+  main {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .signal {
+    font-size: 28px;
+  }
+}
 </style>
 </head>
+
 <body>
 <main>
+
 <header>
-<div>
-<h1>IQ OPTION AI</h1>
-<small>SMART MARKET ANALYSIS</small>
-</div>
-<span>◉ <small>DEMO</small></span>
+  <div>
+    <h1>IQ OPTION AI</h1>
+    <small>SMART MARKET ANALYSIS · v2.1</small>
+  </div>
+  <span class="top-status">● DEMO</span>
 </header>
 
-<section class="card">
-<h2>Mercado</h2>
-<label for="pair">Par de divisas</label>
-<select id="pair">
-<option>EUR/USD</option>
-<option>GBP/USD</option>
-<option>USD/JPY</option>
-<option>AUD/USD</option>
-<option>EUR/JPY</option>
-<option>USD/CAD</option>
-</select>
-<label for="interval">Temporalidad</label>
-<select id="interval">
-<option value="1min">1 minuto</option>
-<option value="5min" selected>5 minutos</option>
-<option value="15min">15 minutos</option>
-<option value="30min">30 minutos</option>
-<option value="1h">1 hora</option>
-</select>
-<button id="analyze">ANALIZAR MERCADO</button>
-</section>
+<!-- MERCADO -->
 
 <section class="card">
-<h2>Señal del sistema</h2>
-<div class="signal">
-<small id="market">EUR/USD · 5 minutos</small>
-<strong id="signal">SIN DATOS</strong>
-<p id="reason" class="muted">Conecta una fuente de cotizaciones para iniciar el análisis.</p>
-</div>
-<div class="stats">
-<div class="stat"><small>RSI</small><b id="rsi">—</b></div>
-<div class="stat"><small>EMA 9</small><b id="ema9">—</b></div>
-<div class="stat"><small>EMA 21</small><b id="ema21">—</b></div>
-</div>
-<div class="actions">
-<button class="buy" disabled>COMPRA</button>
-<button class="sell" disabled>VENTA</button>
-<button class="wait" disabled>ESPERAR</button>
-</div>
+  <h2>Configuración del mercado</h2>
+
+  <label for="pair">Par de divisas</label>
+
+  <select id="pair">
+    <option value="EUR/USD">EUR/USD</option>
+    <option value="GBP/USD">GBP/USD</option>
+    <option value="USD/JPY">USD/JPY</option>
+    <option value="AUD/USD">AUD/USD</option>
+    <option value="EUR/JPY">EUR/JPY</option>
+    <option value="USD/CAD">USD/CAD</option>
+  </select>
+
+  <label for="interval">Temporalidad</label>
+
+  <select id="interval">
+    <option value="1min">1 minuto</option>
+    <option value="5min" selected>5 minutos</option>
+    <option value="15min">15 minutos</option>
+    <option value="30min">30 minutos</option>
+    <option value="1h">1 hora</option>
+  </select>
+
+  <button id="analyze">ANALIZAR MERCADO</button>
 </section>
 
+<!-- SEÑAL PRINCIPAL -->
+
+<section class="card signal-card">
+
+  <small id="market">EUR/USD · 5min</small>
+
+  <div id="signal" class="signal wait-signal">
+    SIN DATOS
+  </div>
+
+  <div class="market-price" id="price">—</div>
+
+  <p id="reason" class="reason">
+    Pulsa analizar mercado para iniciar el análisis.
+  </p>
+
+  <div class="grid">
+    <div class="stat">
+      <small>TENDENCIA 1H</small>
+      <b id="trend">—</b>
+    </div>
+
+    <div class="stat">
+      <small>VOLATILIDAD</small>
+      <b id="volatility">—</b>
+    </div>
+  </div>
+</section>
+
+<!-- CONFLUENCIA -->
+
 <section class="card">
-<h2>Estado de conexión</h2>
-<p id="connection" class="muted">Fuente de datos: sin configurar</p>
-<p class="muted">No se generan señales hasta recibir datos reales.</p>
+  <h2>Confluencia técnica</h2>
+
+  <div class="grid">
+    <div class="stat">
+      <small>PUNTUACIÓN</small>
+      <b id="score">—</b>
+    </div>
+
+    <div class="stat">
+      <small>FUERZA</small>
+      <b id="strength">—</b>
+    </div>
+  </div>
+
+  <div class="score-track">
+    <div class="score-fill" id="scoreBar"></div>
+  </div>
+
+  <div class="grid">
+    <div class="stat">
+      <small>COMPRA</small>
+      <b id="buyScore" class="good">—</b>
+    </div>
+
+    <div class="stat">
+      <small>VENTA</small>
+      <b id="sellScore" class="bad">—</b>
+    </div>
+  </div>
+
+  <p class="muted">
+    Puntuación de coincidencia entre indicadores.
+    No representa una probabilidad de éxito.
+  </p>
+</section>
+
+<!-- SOPORTES Y RESISTENCIAS -->
+
+<section class="card">
+  <h2>Soportes y resistencias</h2>
+
+  <div class="grid">
+    <div class="level">
+      <small class="good">SOPORTE</small>
+      <b id="support">—</b>
+      <small id="supportDistance">Distancia: —</small>
+      <p class="muted" id="supportTouches">Contactos: —</p>
+    </div>
+
+    <div class="level">
+      <small class="bad">RESISTENCIA</small>
+      <b id="resistance">—</b>
+      <small id="resistanceDistance">Distancia: —</small>
+      <p class="muted" id="resistanceTouches">Contactos: —</p>
+    </div>
+  </div>
+</section>
+
+<!-- INDICADORES -->
+
+<section class="card">
+  <h2>Indicadores técnicos</h2>
+
+  <div class="stats">
+
+    <div class="stat">
+      <small>RSI 14</small>
+      <b id="rsi">—</b>
+      <div class="detail">Fuerza relativa</div>
+    </div>
+
+    <div class="stat">
+      <small>ADX</small>
+      <b id="adx">—</b>
+      <div class="detail" id="adxDirection">Fuerza de tendencia</div>
+    </div>
+
+    <div class="stat">
+      <small>EMA 9</small>
+      <b id="ema9">—</b>
+      <div class="detail">Media rápida</div>
+    </div>
+
+    <div class="stat">
+      <small>EMA 21</small>
+      <b id="ema21">—</b>
+      <div class="detail">Media lenta</div>
+    </div>
+
+    <div class="stat">
+      <small>MACD</small>
+      <b id="macd">—</b>
+      <div class="detail" id="macdSignal">Línea de señal: —</div>
+    </div>
+
+    <div class="stat">
+      <small>ATR</small>
+      <b id="atr">—</b>
+      <div class="detail">Volatilidad en pips</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONEXIÓN -->
+
+<section class="card">
+  <h2>Estado del sistema</h2>
+
+  <p id="connection" class="connection muted">
+    Esperando análisis...
+  </p>
+
+  <p class="muted" id="candleInfo">
+    Velas recibidas: —
+  </p>
+
+  <p class="muted" id="updated">
+    Última actualización: —
+  </p>
 </section>
 
 <footer>
-IQ OPTION AI · Versión inicial<br>
-Herramienta informativa. Las señales no garantizan beneficios.
+  IQ OPTION AI · SMART MARKET ANALYSIS<br>
+  Análisis técnico informativo. No garantiza beneficios.
+  No incluye cotizaciones OTC ni ejecuta operaciones.
 </footer>
+
 </main>
 
 <script>
-const API_URL = "https://iq-option-ai-api.marcozmonsalve.workers.dev";
+const API_URL =
+  "https://iq-option-ai-api.marcozmonsalve.workers.dev";
 
 const analyzeButton = document.getElementById("analyze");
 
+const $ = id => document.getElementById(id);
+
+function show(id, value) {
+  $(id).textContent = value ?? "—";
+}
+
+function formatPrice(value) {
+  if (value === null || value === undefined) return "—";
+  return Number(value).toFixed(6);
+}
+
+function formatNumber(value, decimals = 2) {
+  if (value === null || value === undefined) return "—";
+  return Number(value).toFixed(decimals);
+}
+
+function setSignal(signal) {
+  const element = $("signal");
+
+  element.textContent = signal || "ESPERAR";
+
+  element.className = "signal";
+
+  if (signal === "COMPRA") {
+    element.classList.add("buy-signal");
+  } else if (signal === "VENTA") {
+    element.classList.add("sell-signal");
+  } else {
+    element.classList.add("wait-signal");
+  }
+}
+
+function setColor(id, value, positive, negative) {
+  const element = $(id);
+
+  element.classList.remove("good", "bad", "neutral");
+
+  if (value > positive) {
+    element.classList.add("good");
+  } else if (value < negative) {
+    element.classList.add("bad");
+  } else {
+    element.classList.add("neutral");
+  }
+}
+
+function resetDashboard() {
+  const fields = [
+    "price", "trend", "volatility", "score", "strength",
+    "buyScore", "sellScore", "support", "resistance",
+    "supportDistance", "resistanceDistance",
+    "supportTouches", "resistanceTouches",
+    "rsi", "adx", "adxDirection", "ema9", "ema21",
+    "macd", "macdSignal", "atr", "candleInfo", "updated"
+  ];
+
+  fields.forEach(id => show(id, "—"));
+
+  $("scoreBar").style.width = "0%";
+
+  setSignal("CARGANDO");
+}
+
+function renderAnalysis(data) {
+  const indicators = data.indicators || {};
+  const levels = data.levels || {};
+  const trend = data.trend || {};
+  const volatility = data.volatility || {};
+  const confluence = data.confluence || {};
+
+  // Señal principal
+
+  setSignal(data.signal);
+
+  show("market", data.symbol + " · " + data.interval);
+  show("price", formatPrice(data.price));
+  show("reason", data.reason);
+
+  // Tendencia y volatilidad
+
+  show("trend", trend.direction || "—");
+  show("volatility", volatility.state || "—");
+
+  // Confluencia
+
+  show("score", (confluence.score ?? "—") + "/6");
+  show("strength", confluence.strength || "—");
+  show("buyScore", confluence.buyScore ?? "—");
+  show("sellScore", confluence.sellScore ?? "—");
+
+  const percentage = Math.min(
+    100,
+    Math.max(0, ((confluence.score || 0) / 6) * 100)
+  );
+
+  $("scoreBar").style.width = percentage + "%";
+
+  // Soporte y resistencia
+
+  show("support", formatPrice(levels.support));
+  show("resistance", formatPrice(levels.resistance));
+
+  show(
+    "supportDistance",
+    levels.supportDistancePips === null ||
+    levels.supportDistancePips === undefined
+      ? "Distancia: —"
+      : "Distancia: " + levels.supportDistancePips + " pips"
+  );
+
+  show(
+    "resistanceDistance",
+    levels.resistanceDistancePips === null ||
+    levels.resistanceDistancePips === undefined
+      ? "Distancia: —"
+      : "Distancia: " + levels.resistanceDistancePips + " pips"
+  );
+
+  show(
+    "supportTouches",
+    "Contactos: " + (levels.supportTouches ?? 0)
+  );
+
+  show(
+    "resistanceTouches",
+    "Contactos: " + (levels.resistanceTouches ?? 0)
+  );
+
+  // RSI y EMA
+
+  show("rsi", formatNumber(indicators.rsi14));
+  show("ema9", formatPrice(indicators.ema9));
+  show("ema21", formatPrice(indicators.ema21));
+
+  setColor("rsi", indicators.rsi14, 50, 30);
+
+  // ADX
+
+  const adxData = indicators.adx || {};
+
+  show("adx", formatNumber(adxData.value));
+  show(
+    "adxDirection",
+    adxData.plusDI > adxData.minusDI
+      ? "Presión compradora"
+      : adxData.minusDI > adxData.plusDI
+        ? "Presión vendedora"
+        : "Sin dirección clara"
+  );
+
+  setColor("adx", adxData.value, 25, 20);
+
+  // MACD
+
+  const macdData = indicators.macd || {};
+
+  show("macd", formatNumber(macdData.histogram, 6));
+  show(
+    "macdSignal",
+    "Línea de señal: " + formatNumber(macdData.signal, 6)
+  );
+
+  setColor("macd", macdData.histogram, 0, 0);
+
+  // ATR
+
+  const atrData = indicators.atr || {};
+
+  show("atr", formatNumber(atrData.pips) + " pips");
+
+  // Conexión
+
+  show(
+    "connection",
+    "Conectado correctamente con Cloudflare y Twelve Data."
+  );
+
+  show(
+    "candleInfo",
+    "Velas recibidas: " + (data.candlesReceived ?? "—") +
+    " · Tendencia 1H: " +
+    (data.trendCandlesReceived ?? "—")
+  );
+
+  show(
+    "updated",
+    "Última actualización: " +
+    new Date().toLocaleString("es-CO")
+  );
+}
+
+// ==================================
+// ANALIZAR MERCADO
+// ==================================
+
 analyzeButton.addEventListener("click", async () => {
-  const pair = document.getElementById("pair").value;
-  const interval = document.getElementById("interval").value;
-
-  const signalElement = document.getElementById("signal");
-  const reasonElement = document.getElementById("reason");
-  const marketElement = document.getElementById("market");
-  const connectionElement = document.getElementById("connection");
-
-  const rsiElement = document.getElementById("rsi");
-  const ema9Element = document.getElementById("ema9");
-  const ema21Element = document.getElementById("ema21");
+  const pair = $("pair").value;
+  const interval = $("interval").value;
 
   analyzeButton.disabled = true;
   analyzeButton.textContent = "ANALIZANDO...";
-  signalElement.textContent = "CARGANDO";
-  reasonElement.textContent = "Consultando datos del mercado...";
-  connectionElement.textContent = "Conectando con Cloudflare...";
+
+  resetDashboard();
+
+  show("reason", "Consultando datos reales del mercado...");
+  show("connection", "Conectando con Cloudflare...");
 
   try {
     const url = new URL(API_URL + "/analyze");
-    url.searchParams.set("symbol", pair);
-    url.searchParams.set(
-  "interval",
-  ({
-    "1 minuto": "1min",
-    "5 minutos": "5min",
-    "15 minutos": "15min",
-    "30 minutos": "30min",
-    "1 hora": "1h"
-  })[interval] || interval
-);
 
-    const response = await fetch(url);
+    url.searchParams.set("symbol", pair);
+    url.searchParams.set("interval", interval);
+
+    const response = await fetch(url.toString());
     const data = await response.json();
 
     if (!response.ok || data.status !== "ok") {
-      throw new Error(data.error || data.message || "No se pudieron obtener los datos.");
+      throw new Error(
+        data.error || "No se pudo completar el análisis."
+      );
     }
 
-    signalElement.textContent = data.signal || "ESPERAR";
-    reasonElement.textContent = data.reason || "Análisis técnico orientativo.";
-    marketElement.textContent = data.symbol + " · " + data.interval;
-    rsiElement.textContent = data.indicators?.rsi14 ?? "—";
-    ema9Element.textContent = data.indicators?.ema9 ?? "—";
-    ema21Element.textContent = data.indicators?.ema21 ?? "—";
+    renderAnalysis(data);
 
-    document.querySelector(".buy").disabled = false;
-    document.querySelector(".sell").disabled = false;
-    document.querySelector(".wait").disabled = false;
-
-    connectionElement.textContent =
-      "Conectado · " + (data.candlesReceived ?? data.candlesReceived) +
-      " velas recibidas.";
   } catch (error) {
-    signalElement.textContent = "SIN DATOS";
-    reasonElement.textContent = error.message;
-    connectionElement.textContent = "Error de conexión o de datos.";
+    setSignal("SIN DATOS");
+
+    show("reason", error.message);
+
+    show(
+      "connection",
+      "Error de conexión o de datos. Intenta nuevamente."
+    );
+
   } finally {
     analyzeButton.disabled = false;
     analyzeButton.textContent = "ANALIZAR MERCADO";
   }
 });
 </script>
+
 </body>
 </html>
-
-
