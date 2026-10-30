@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090f1c">
-<title>IQ OPTION AI | Smart Analysis 3.2</title>
+<title>IQ OPTION AI | Smart Analysis 4.0</title>
 
 <script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
 
@@ -55,12 +55,92 @@ button:disabled{opacity:.55}
 .panel-subtitle{font-size:11px;color:#91a3bd;padding:0 7px 9px}
 .connection{font-size:13px;line-height:1.6}
 footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28px 0}
+
+/* ESTRUCTURA DE MERCADO */
+
+.structure-bias{
+ font-size:25px;
+ font-weight:bold;
+ margin:8px 0;
+}
+
+.structure-event{
+ display:inline-block;
+ padding:7px 13px;
+ border-radius:20px;
+ font-size:12px;
+ font-weight:bold;
+ background:#26354c;
+ color:#f5c66b;
+}
+
+.structure-event.bullish{
+ background:#123e35;
+ color:#35d6a4;
+}
+
+.structure-event.bearish{
+ background:#451f2a;
+ color:#ff687c;
+}
+
+.structure-event.neutral{
+ background:#26354c;
+ color:#f5c66b;
+}
+
+.structure-flags{
+ display:grid;
+ grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:8px;
+ margin-top:14px;
+}
+
+.structure-flag{
+ background:#0b1120;
+ border-radius:9px;
+ padding:12px 5px;
+ text-align:center;
+}
+
+.structure-flag small{
+ display:block;
+ font-size:10px;
+}
+
+.structure-flag b{
+ display:block;
+ font-size:16px;
+ margin-top:7px;
+}
+
+.structure-info{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;
+ margin-top:12px;
+}
+
+.structure-info .stat b{
+ font-size:16px;
+}
+
+.structure-note{
+ font-size:12px;
+ color:#91a3bd;
+ line-height:1.6;
+ margin:14px 0 0;
+}
+
 @media(max-width:380px){
  main{padding:11px}
  .card{padding:13px}
  .signal{font-size:28px}
  .chart-box{height:270px}
  .indicator-box{height:155px}
+ .structure-flags{gap:5px}
+ .structure-flag{padding:10px 3px}
+ .structure-flag b{font-size:14px}
 }
 </style>
 </head>
@@ -71,7 +151,7 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 <header>
  <div>
   <h1>IQ OPTION AI</h1>
-  <small>SMART MARKET ANALYSIS · v3.2</small>
+  <small>SMART MARKET ANALYSIS · v4.0</small>
  </div>
  <span class="top-status">● DEMO</span>
 </header>
@@ -119,6 +199,65 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
  </div>
 </section>
 
+<!-- ESTRUCTURA DEL MERCADO -->
+
+<section class="card">
+ <h2>Estructura del mercado</h2>
+
+ <small>SESGO ESTRUCTURAL</small>
+ <div id="structureBias" class="structure-bias neutral">—</div>
+
+ <div>
+  <span id="structureEvent" class="structure-event neutral">
+   ESPERANDO DATOS
+  </span>
+ </div>
+
+ <div class="structure-info">
+  <div class="stat">
+   <small>EVENTO DIRECCIONAL</small>
+   <b id="structureDirection">—</b>
+  </div>
+  <div class="stat">
+   <small>NIVEL ROTO</small>
+   <b id="brokenLevel">—</b>
+  </div>
+  <div class="stat">
+   <small>SWING HIGH</small>
+   <b id="swingHigh">—</b>
+   <div class="detail" id="swingHighTime">—</div>
+  </div>
+  <div class="stat">
+   <small>SWING LOW</small>
+   <b id="swingLow">—</b>
+   <div class="detail" id="swingLowTime">—</div>
+  </div>
+ </div>
+
+ <div class="structure-flags">
+  <div class="structure-flag">
+   <small>HH</small>
+   <b id="flagHH">—</b>
+  </div>
+  <div class="structure-flag">
+   <small>HL</small>
+   <b id="flagHL">—</b>
+  </div>
+  <div class="structure-flag">
+   <small>LH</small>
+   <b id="flagLH">—</b>
+  </div>
+  <div class="structure-flag">
+   <small>LL</small>
+   <b id="flagLL">—</b>
+  </div>
+ </div>
+
+ <p class="structure-note" id="structureStatus">
+  La estructura del mercado aparecerá después del análisis.
+ </p>
+</section>
+
 <section class="card chart-card">
  <div class="chart-heading">
   <h2>Gráfico de velas japonesas</h2>
@@ -130,11 +269,16 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
   <span class="legend-item"><i class="dot" style="background:#ff687c"></i>Bajista</span>
   <span class="legend-item"><i class="dot" style="background:#f5c66b"></i>EMA 9</span>
   <span class="legend-item"><i class="dot" style="background:#54a6ff"></i>EMA 21</span>
+  <span class="legend-item"><i class="dot" style="background:#b48cff"></i>Swing High</span>
+  <span class="legend-item"><i class="dot" style="background:#54a6ff"></i>Swing Low</span>
  </div>
 
  <div id="chart" class="chart-box"></div>
 
- <p class="chart-note">Últimas 100 velas · Datos de Twelve Data.</p>
+ <p class="chart-note">
+  BOS = ruptura de estructura · CHoCH = cambio de carácter.
+  Las líneas Swing High y Swing Low representan los últimos pivotes detectados.
+ </p>
 
  <div class="panel-title">
   <h2>RSI · Fuerza relativa</h2>
@@ -164,7 +308,9 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
   <div class="stat"><small>VENTA</small><b id="sellScore" class="bad">—</b></div>
  </div>
 
- <p class="muted">Coincidencia técnica entre indicadores. No representa una probabilidad de éxito.</p>
+ <p class="muted">
+  Coincidencia técnica entre indicadores. No representa una probabilidad de éxito.
+ </p>
 </section>
 
 <section class="card">
@@ -205,7 +351,7 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 </section>
 
 <footer>
- IQ OPTION AI · SMART MARKET ANALYSIS<br>
+ IQ OPTION AI · SMART MARKET ANALYSIS v4.0<br>
  Análisis técnico informativo. No garantiza beneficios.
  No incluye cotizaciones OTC ni ejecuta operaciones.
 </footer>
@@ -232,7 +378,14 @@ let macdHistogramSeries=null;
 
 let supportLine=null;
 let resistanceLine=null;
+let swingHighLine=null;
+let swingLowLine=null;
+
 let resizeObserver=null;
+
+// =====================================
+// GRÁFICOS
+// =====================================
 
 function createBaseChart(containerId,height){
  const container=$(containerId);
@@ -352,7 +505,7 @@ function initializeCharts(){
   });
  }
 
- // Sincronización de desplazamiento.
+ // Sincronizar desplazamiento de los gráficos.
  let syncing=false;
 
  function synchronize(source,targets){
@@ -375,6 +528,10 @@ function initializeCharts(){
  synchronize(rsiChart,[chart,macdChart]);
  synchronize(macdChart,[chart,rsiChart]);
 }
+
+// =====================================
+// INDICADORES DEL GRÁFICO
+// =====================================
 
 function calculateEMA(values,period){
  if(values.length<period)return [];
@@ -495,6 +652,10 @@ function calculateMACD(candles){
  return {line,signal,histogram};
 }
 
+// =====================================
+// UTILIDADES
+// =====================================
+
 function show(id,value){
  const element=$(id);
  if(element)element.textContent=value??"—";
@@ -508,6 +669,33 @@ function formatPrice(value){
 function formatNumber(value,decimals=2){
  if(value===null||value===undefined||!Number.isFinite(Number(value)))return "—";
  return Number(value).toFixed(decimals);
+}
+
+function toChartTime(value){
+ if(value===null||value===undefined)return null;
+
+ if(typeof value==="number"&&Number.isFinite(value)){
+  return Math.floor(value);
+ }
+
+ const parsed=Date.parse(value);
+
+ return Number.isFinite(parsed)
+  ?Math.floor(parsed/1000)
+  :null;
+}
+
+function formatStructureTime(value){
+ const time=toChartTime(value);
+
+ if(time===null)return "Tiempo no disponible";
+
+ return new Date(time*1000).toLocaleString("es-CO",{
+  day:"2-digit",
+  month:"2-digit",
+  hour:"2-digit",
+  minute:"2-digit"
+ });
 }
 
 function setSignal(signal){
@@ -536,7 +724,23 @@ function setColor(id,value,positive,negative){
  }
 }
 
-// Normalización y validación de las velas.
+function setStructureFlag(id,value){
+ const element=$(id);
+
+ element.textContent=value===true?"SÍ":
+  value===false?"NO":"—";
+
+ element.className="";
+
+ if(value===true)element.classList.add("good");
+ else if(value===false)element.classList.add("bad");
+ else element.classList.add("neutral");
+}
+
+// =====================================
+// NORMALIZAR VELAS
+// =====================================
+
 function normalizeCandles(raw){
  if(!Array.isArray(raw)){
   throw new Error("El servidor no ha enviado las velas.");
@@ -576,27 +780,139 @@ function normalizeCandles(raw){
  return unique;
 }
 
+// =====================================
+// DIBUJAR ESTRUCTURA EN EL GRÁFICO
+// =====================================
+
+function clearStructureLines(){
+ [
+  supportLine,
+  resistanceLine,
+  swingHighLine,
+  swingLowLine
+ ].forEach(line=>{
+  if(line){
+   try{candleSeries.removePriceLine(line)}catch(error){}
+  }
+ });
+
+ supportLine=null;
+ resistanceLine=null;
+ swingHighLine=null;
+ swingLowLine=null;
+}
+
+function drawStructureLines(structure){
+ if(!structure||!candleSeries)return;
+
+ const high=structure.swingHigh||{};
+ const low=structure.swingLow||{};
+
+ if(Number.isFinite(Number(high.price))&&high.price!==null){
+  swingHighLine=candleSeries.createPriceLine({
+   price:Number(high.price),
+   color:"#b48cff",
+   lineWidth:2,
+   lineStyle:LightweightCharts.LineStyle.Dashed,
+   axisLabelVisible:true,
+   title:"SWING HIGH"
+  });
+ }
+
+ if(Number.isFinite(Number(low.price))&&low.price!==null){
+  swingLowLine=candleSeries.createPriceLine({
+   price:Number(low.price),
+   color:"#54a6ff",
+   lineWidth:2,
+   lineStyle:LightweightCharts.LineStyle.Dashed,
+   axisLabelVisible:true,
+   title:"SWING LOW"
+  });
+ }
+}
+
+// =====================================
+// MARCADORES BOS / CHoCH
+// =====================================
+
+function buildMarkers(data,candles){
+ const markers=[];
+ const lastCandle=candles[candles.length-1];
+
+ // Marcador de señal.
+ let markerText="ESPERAR";
+ let position="aboveBar";
+ let color="#f5c66b";
+ let shape="circle";
+
+ if(data.signal==="COMPRA"){
+  markerText="COMPRA";
+  position="belowBar";
+  color="#35d6a4";
+  shape="arrowUp";
+ }else if(data.signal==="VENTA"){
+  markerText="VENTA";
+  position="aboveBar";
+  color="#ff687c";
+  shape="arrowDown";
+ }
+
+ markers.push({
+  time:lastCandle.time,
+  position,
+  color,
+  shape,
+  text:markerText
+ });
+
+ // Marcador del evento estructural.
+ const structure=data.structure;
+
+ if(
+  structure&&
+  structure.structureConfirmed===true&&
+  structure.event&&
+  ["BOS","CHOCH","CHoCH"].includes(structure.event.toUpperCase())
+ ){
+  const eventTime=
+   toChartTime(structure.lastClosedCandle)||
+   lastCandle.time;
+
+  const bullish=structure.eventDirection==="ALCISTA";
+  const eventColor=bullish?"#35d6a4":"#ff687c";
+
+  markers.push({
+   time:eventTime,
+   position:bullish?"belowBar":"aboveBar",
+   color:eventColor,
+   shape:bullish?"arrowUp":"arrowDown",
+   text:structure.event.toUpperCase()==="CHOCH"?"CHoCH":"BOS"
+  });
+ }
+
+ // Lightweight Charts necesita los marcadores ordenados por tiempo.
+ markers.sort((a,b)=>a.time-b.time);
+
+ return markers;
+}
+
+// =====================================
+// DIBUJAR GRÁFICOS
+// =====================================
+
 function renderChart(data){
- // IMPORTANTE: el Worker entrega las velas en data.candles.
- const unique=normalizeCandles(data.candles);
+ const raw=data.chartCandles||data.candles;
+ const unique=normalizeCandles(raw);
 
  candleSeries.setData(unique);
  ema9Series.setData(calculateEMAPoints(unique,9));
  ema21Series.setData(calculateEMAPoints(unique,21));
 
- if(supportLine){
-  candleSeries.removePriceLine(supportLine);
-  supportLine=null;
- }
-
- if(resistanceLine){
-  candleSeries.removePriceLine(resistanceLine);
-  resistanceLine=null;
- }
+ clearStructureLines();
 
  const levels=data.levels||{};
 
- if(levels.support!==null&&Number.isFinite(Number(levels.support))){
+ if(levels.support!==null&&levels.support!==undefined&&Number.isFinite(Number(levels.support))){
   supportLine=candleSeries.createPriceLine({
    price:Number(levels.support),
    color:"#35d6a4",
@@ -607,7 +923,7 @@ function renderChart(data){
   });
  }
 
- if(levels.resistance!==null&&Number.isFinite(Number(levels.resistance))){
+ if(levels.resistance!==null&&levels.resistance!==undefined&&Number.isFinite(Number(levels.resistance))){
   resistanceLine=candleSeries.createPriceLine({
    price:Number(levels.resistance),
    color:"#ff687c",
@@ -618,7 +934,10 @@ function renderChart(data){
   });
  }
 
- // RSI
+ // Líneas de estructura.
+ drawStructureLines(data.structure);
+
+ // RSI.
  const rsiPoints=calculateRSIPoints(unique,14);
  rsiSeries.setData(rsiPoints);
 
@@ -634,7 +953,7 @@ function renderChart(data){
     lastRSI>=50?"Impulso positivo":"Impulso negativo");
  }
 
- // MACD
+ // MACD.
  const macd=calculateMACD(unique);
 
  if(macd){
@@ -655,33 +974,8 @@ function renderChart(data){
  rsiChart.timeScale().fitContent();
  macdChart.timeScale().fitContent();
 
- // Marcador de la señal.
- const lastCandle=unique[unique.length-1];
-
- let markerText="ESPERAR";
- let position="aboveBar";
- let color="#f5c66b";
- let shape="circle";
-
- if(data.signal==="COMPRA"){
-  markerText="COMPRA";
-  position="belowBar";
-  color="#35d6a4";
-  shape="arrowUp";
- }else if(data.signal==="VENTA"){
-  markerText="VENTA";
-  position="aboveBar";
-  color="#ff687c";
-  shape="arrowDown";
- }
-
- candleSeries.setMarkers([{
-  time:lastCandle.time,
-  position,
-  color,
-  shape,
-  text:markerText
- }]);
+ // Marcadores de señal y estructura.
+ candleSeries.setMarkers(buildMarkers(data,unique));
 
  show(
   "chartMarket",
@@ -690,6 +984,90 @@ function renderChart(data){
 
  return unique.length;
 }
+
+// =====================================
+// PANEL DE ESTRUCTURA
+// =====================================
+
+function renderStructure(structure){
+ if(!structure){
+  show("structureBias","NO DISPONIBLE");
+  show("structureEvent","SIN DATOS");
+  show("structureDirection","—");
+  show("brokenLevel","—");
+  show("swingHigh","—");
+  show("swingLow","—");
+  show("swingHighTime","—");
+  show("swingLowTime","—");
+  show("structureStatus","El Worker no ha enviado datos de estructura.");
+  ["flagHH","flagHL","flagLH","flagLL"].forEach(id=>show(id,"—"));
+  return;
+ }
+
+ const bias=structure.bias||"INDETERMINADO";
+ const event=structure.event||"SIN EVENTO";
+ const direction=structure.eventDirection||"—";
+
+ show("structureBias",bias);
+ show("structureDirection",direction);
+ show("structureEvent",event);
+ show("brokenLevel",formatPrice(structure.brokenLevel));
+
+ const biasElement=$("structureBias");
+ biasElement.className="structure-bias";
+
+ if(bias==="ALCISTA")biasElement.classList.add("good");
+ else if(bias==="BAJISTA")biasElement.classList.add("bad");
+ else biasElement.classList.add("neutral");
+
+ const eventElement=$("structureEvent");
+ eventElement.className="structure-event";
+
+ if(direction==="ALCISTA"){
+  eventElement.classList.add("bullish");
+ }else if(direction==="BAJISTA"){
+  eventElement.classList.add("bearish");
+ }else{
+  eventElement.classList.add("neutral");
+ }
+
+ const high=structure.swingHigh||{};
+ const low=structure.swingLow||{};
+
+ show("swingHigh",formatPrice(high.price));
+ show("swingLow",formatPrice(low.price));
+
+ show("swingHighTime",formatStructureTime(high.time));
+ show("swingLowTime",formatStructureTime(low.time));
+
+ setStructureFlag("flagHH",structure.higherHigh);
+ setStructureFlag("flagHL",structure.higherLow);
+ setStructureFlag("flagLH",structure.lowerHigh);
+ setStructureFlag("flagLL",structure.lowerLow);
+
+ let statusText="Estado: "+(structure.status||"SIN ESTADO");
+
+ if(structure.structureConfirmed===true){
+  statusText+=" · Estructura confirmada.";
+ }else{
+  statusText+=" · Estructura pendiente de confirmación.";
+ }
+
+ if(structure.previousBias){
+  statusText+=" Sesgo anterior: "+structure.previousBias+".";
+ }
+
+ if(structure.lastClosedCandle){
+  statusText+=" Última vela cerrada: "+
+   formatStructureTime(structure.lastClosedCandle)+".";
+ }
+
+ show("structureStatus",statusText);
+}
+
+// =====================================
+// RENDERIZAR ANÁLISIS
+// =====================================
 
 function renderAnalysis(data){
  const indicators=data.indicators||{};
@@ -712,8 +1090,11 @@ function renderAnalysis(data){
  show("buyScore",confluence.buyScore);
  show("sellScore",confluence.sellScore);
 
+ const maximum=Number(confluence.maximumScore)||6;
+ const score=Number(confluence.score)||0;
+
  $("scoreBar").style.width=
-  Math.min(100,Math.max(0,(Number(confluence.score)||0)/6*100))+"%";
+  Math.min(100,Math.max(0,score/maximum*100))+"%";
 
  show("support",formatPrice(levels.support));
  show("resistance",formatPrice(levels.resistance));
@@ -756,6 +1137,9 @@ function renderAnalysis(data){
  const atr=indicators.atr||{};
  show("atr",formatNumber(atr.pips)+" pips");
 
+ // Estructura v4.0.
+ renderStructure(data.structure);
+
  show(
   "connection",
   "Análisis recibido correctamente desde Cloudflare y Twelve Data."
@@ -764,14 +1148,13 @@ function renderAnalysis(data){
  show(
   "candleInfo",
   "Velas recibidas: "+(data.candlesReceived??"—")+
-  " · Velas del gráfico: "+(data.chartCandlesReceived??data.candles?.length??"—")+
+  " · Velas del gráfico: "+(data.chartCandlesReceived??data.chartCandles?.length??data.candles?.length??"—")+
   " · Tendencia 1H: "+(data.trendCandlesReceived??"—")
  );
 
  show("updated","Última actualización: "+new Date().toLocaleString("es-CO"));
 
  // El gráfico se dibuja de forma independiente.
- // Un fallo visual no debe borrar el análisis recibido.
  try{
   const count=renderChart(data);
   show("chartMarket",data.symbol+" · "+data.interval+" · "+count+" velas");
@@ -818,14 +1201,15 @@ $("analyze").addEventListener("click",async()=>{
    );
   }
 
-  // El Worker 2.3 envía las velas en data.candles.
-  if(!Array.isArray(data.candles)){
+  const candles=data.chartCandles||data.candles;
+
+  if(!Array.isArray(candles)){
    throw new Error(
-    "El servidor respondió, pero no envió el arreglo candles."
+    "El servidor respondió, pero no envió chartCandles ni candles."
    );
   }
 
-  if(data.candles.length<30){
+  if(candles.length<30){
    throw new Error("El servidor envió menos de 30 velas.");
   }
 
