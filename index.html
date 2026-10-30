@@ -5,244 +5,250 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090f1c">
-<title>IQ OPTION AI | Smart Analysis</title>
+<title>IQ OPTION AI | Smart Trading</title>
+
+<script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#090f1c;
+  color:#eef4ff;
+  font-family:Arial,sans-serif;
 }
 
-body {
-  margin: 0;
-  background: #090f1c;
-  color: #eef4ff;
-  font-family: Arial, sans-serif;
+main{
+  max-width:760px;
+  margin:auto;
+  padding:16px;
 }
 
-main {
-  max-width: 720px;
-  margin: auto;
-  padding: 18px;
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
+h1{
+  color:#35d6a4;
+  font-size:25px;
+  margin:0;
 }
 
-h1 {
-  color: #35d6a4;
-  font-size: 25px;
-  margin: 0;
+h2{
+  font-size:17px;
+  margin:0 0 17px;
 }
 
-h2 {
-  font-size: 17px;
-  margin: 0 0 17px;
+small,.muted{
+  color:#91a3bd;
 }
 
-h3 {
-  font-size: 14px;
-  margin: 0 0 12px;
-  color: #b9c9df;
+.card{
+  background:#141e30;
+  border:1px solid #293750;
+  border-radius:16px;
+  padding:17px;
+  margin:15px 0;
 }
 
-small, .muted {
-  color: #91a3bd;
+label{
+  display:block;
+  color:#a9bad1;
+  margin:13px 0 8px;
+  font-size:13px;
 }
 
-.card {
-  background: #141e30;
-  border: 1px solid #293750;
-  border-radius: 16px;
-  padding: 18px;
-  margin: 15px 0;
+select,button{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  font-size:15px;
 }
 
-label {
-  display: block;
-  color: #a9bad1;
-  margin: 13px 0 8px;
-  font-size: 13px;
+select{
+  background:#0b1120;
+  color:white;
+  border:1px solid #394963;
 }
 
-select, button {
-  width: 100%;
-  padding: 14px;
-  border-radius: 10px;
-  font-size: 15px;
+button{
+  background:#35d6a4;
+  color:#071810;
+  font-weight:bold;
+  border:0;
+  margin-top:17px;
 }
 
-select {
-  background: #0b1120;
-  color: white;
-  border: 1px solid #394963;
+button:disabled{
+  opacity:.55;
 }
 
-button {
-  background: #35d6a4;
-  color: #071810;
-  font-weight: bold;
-  border: 0;
-  margin-top: 17px;
-  cursor: pointer;
+.top-status{
+  font-size:12px;
+  color:#35d6a4;
+  border:1px solid #245b4b;
+  padding:8px 11px;
+  border-radius:20px;
 }
 
-button:disabled {
-  opacity: .55;
-  cursor: wait;
+.signal-card{
+  text-align:center;
+  padding:24px 16px;
 }
 
-.top-status {
-  font-size: 12px;
-  color: #35d6a4;
-  border: 1px solid #245b4b;
-  padding: 7px 10px;
-  border-radius: 20px;
+.signal{
+  font-size:32px;
+  font-weight:bold;
+  margin:15px 0;
+  color:#f5c66b;
 }
 
-.signal-card {
-  text-align: center;
-  padding: 24px 16px;
+.buy-signal{color:#35d6a4}
+.sell-signal{color:#ff687c}
+.wait-signal{color:#f5c66b}
+
+.market-price{
+  font-size:25px;
+  font-weight:bold;
+  margin:12px 0;
 }
 
-.signal {
-  font-size: 32px;
-  font-weight: bold;
-  margin: 15px 0;
-  color: #f5c66b;
+.reason{
+  color:#a9bad1;
+  font-size:13px;
+  line-height:1.6;
 }
 
-.signal.buy-signal {
-  color: #35d6a4;
+.grid,.stats{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
 }
 
-.signal.sell-signal {
-  color: #ff687c;
+.stat{
+  background:#0b1120;
+  border-radius:11px;
+  padding:13px;
+  min-width:0;
 }
 
-.signal.wait-signal {
-  color: #f5c66b;
+.stat small{
+  font-size:11px;
 }
 
-.market-price {
-  font-size: 25px;
-  font-weight: bold;
-  margin: 12px 0;
+.stat b{
+  display:block;
+  font-size:19px;
+  margin-top:8px;
+  overflow-wrap:anywhere;
 }
 
-.reason {
-  color: #a9bad1;
-  font-size: 13px;
-  line-height: 1.6;
+.detail{
+  font-size:11px;
+  color:#91a3bd;
+  margin-top:6px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+.good{color:#35d6a4}
+.bad{color:#ff687c}
+.neutral{color:#f5c66b}
+
+.level{
+  background:#0b1120;
+  padding:14px;
+  border-radius:11px;
+  min-width:0;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 9px;
+.level b{
+  display:block;
+  font-size:18px;
+  margin:9px 0;
+  overflow-wrap:anywhere;
 }
 
-.stat {
-  background: #0b1120;
-  border-radius: 11px;
-  padding: 13px;
-  min-width: 0;
+.score-track{
+  height:9px;
+  border-radius:10px;
+  background:#26354c;
+  overflow:hidden;
+  margin:13px 0;
 }
 
-.stat small {
-  font-size: 11px;
+.score-fill{
+  height:100%;
+  width:0%;
+  background:#35d6a4;
+  transition:width .3s;
 }
 
-.stat b {
-  display: block;
-  font-size: 19px;
-  margin-top: 8px;
-  overflow-wrap: anywhere;
+.chart-card{
+  padding:15px 10px;
 }
 
-.stat .detail {
-  font-size: 11px;
-  color: #91a3bd;
-  margin-top: 6px;
+.chart-heading{
+  padding:0 7px;
 }
 
-.good {
-  color: #35d6a4;
+.chart-legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:13px;
+  padding:10px 7px;
+  font-size:11px;
+  color:#a9bad1;
 }
 
-.bad {
-  color: #ff687c;
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:5px;
 }
 
-.neutral {
-  color: #f5c66b;
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  display:inline-block;
 }
 
-.level {
-  background: #0b1120;
-  padding: 15px;
-  border-radius: 11px;
+#chart{
+  width:100%;
+  height:340px;
+  min-height:300px;
+  overflow:hidden;
+  border-radius:10px;
 }
 
-.level b {
-  display: block;
-  font-size: 19px;
-  margin: 8px 0;
+.chart-note{
+  font-size:11px;
+  color:#91a3bd;
+  padding:10px 7px 0;
+  line-height:1.5;
 }
 
-.score-track {
-  height: 9px;
-  border-radius: 10px;
-  background: #26354c;
-  overflow: hidden;
-  margin: 12px 0;
+.connection{
+  font-size:13px;
+  line-height:1.6;
 }
 
-.score-fill {
-  height: 100%;
-  width: 0%;
-  background: #35d6a4;
-  transition: width .3s;
+footer{
+  text-align:center;
+  color:#91a3bd;
+  font-size:11px;
+  line-height:1.7;
+  margin:28px 0;
 }
 
-.connection {
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-footer {
-  text-align: center;
-  color: #91a3bd;
-  font-size: 11px;
-  line-height: 1.7;
-  margin: 28px 0;
-}
-
-.hidden {
-  display: none;
-}
-
-@media (max-width: 380px) {
-  main {
-    padding: 12px;
-  }
-
-  .card {
-    padding: 14px;
-  }
-
-  .signal {
-    font-size: 28px;
-  }
+@media(max-width:380px){
+  main{padding:11px}
+  .card{padding:13px}
+  .signal{font-size:28px}
+  #chart{height:300px}
 }
 </style>
 </head>
@@ -253,18 +259,15 @@ footer {
 <header>
   <div>
     <h1>IQ OPTION AI</h1>
-    <small>SMART MARKET ANALYSIS · v2.1</small>
+    <small>SMART MARKET ANALYSIS · v3.0</small>
   </div>
   <span class="top-status">● DEMO</span>
 </header>
-
-<!-- MERCADO -->
 
 <section class="card">
   <h2>Configuración del mercado</h2>
 
   <label for="pair">Par de divisas</label>
-
   <select id="pair">
     <option value="EUR/USD">EUR/USD</option>
     <option value="GBP/USD">GBP/USD</option>
@@ -275,7 +278,6 @@ footer {
   </select>
 
   <label for="interval">Temporalidad</label>
-
   <select id="interval">
     <option value="1min">1 minuto</option>
     <option value="5min" selected>5 minutos</option>
@@ -287,20 +289,12 @@ footer {
   <button id="analyze">ANALIZAR MERCADO</button>
 </section>
 
-<!-- SEÑAL PRINCIPAL -->
-
 <section class="card signal-card">
-
   <small id="market">EUR/USD · 5min</small>
-
-  <div id="signal" class="signal wait-signal">
-    SIN DATOS
-  </div>
-
+  <div id="signal" class="signal wait-signal">SIN DATOS</div>
   <div class="market-price" id="price">—</div>
-
   <p id="reason" class="reason">
-    Pulsa analizar mercado para iniciar el análisis.
+    Pulsa analizar mercado para comenzar.
   </p>
 
   <div class="grid">
@@ -308,7 +302,6 @@ footer {
       <small>TENDENCIA 1H</small>
       <b id="trend">—</b>
     </div>
-
     <div class="stat">
       <small>VOLATILIDAD</small>
       <b id="volatility">—</b>
@@ -316,7 +309,40 @@ footer {
   </div>
 </section>
 
-<!-- CONFLUENCIA -->
+<!-- GRÁFICO INTERACTIVO -->
+
+<section class="card chart-card">
+  <div class="chart-heading">
+    <h2>Gráfico del mercado</h2>
+    <small id="chartMarket">Esperando cotizaciones...</small>
+  </div>
+
+  <div class="chart-legend">
+    <span class="legend-item">
+      <i class="dot" style="background:#35d6a4"></i>
+      Velas alcistas
+    </span>
+    <span class="legend-item">
+      <i class="dot" style="background:#ff687c"></i>
+      Velas bajistas
+    </span>
+    <span class="legend-item">
+      <i class="dot" style="background:#f5c66b"></i>
+      EMA 9
+    </span>
+    <span class="legend-item">
+      <i class="dot" style="background:#54a6ff"></i>
+      EMA 21
+    </span>
+  </div>
+
+  <div id="chart"></div>
+
+  <p class="chart-note">
+    Datos de Twelve Data · Últimas 80 velas.
+    Puedes ampliar y desplazar el gráfico con los dedos.
+  </p>
+</section>
 
 <section class="card">
   <h2>Confluencia técnica</h2>
@@ -326,7 +352,6 @@ footer {
       <small>PUNTUACIÓN</small>
       <b id="score">—</b>
     </div>
-
     <div class="stat">
       <small>FUERZA</small>
       <b id="strength">—</b>
@@ -342,7 +367,6 @@ footer {
       <small>COMPRA</small>
       <b id="buyScore" class="good">—</b>
     </div>
-
     <div class="stat">
       <small>VENTA</small>
       <b id="sellScore" class="bad">—</b>
@@ -350,12 +374,10 @@ footer {
   </div>
 
   <p class="muted">
-    Puntuación de coincidencia entre indicadores.
+    Coincidencia técnica entre indicadores.
     No representa una probabilidad de éxito.
   </p>
 </section>
-
-<!-- SOPORTES Y RESISTENCIAS -->
 
 <section class="card">
   <h2>Soportes y resistencias</h2>
@@ -377,13 +399,10 @@ footer {
   </div>
 </section>
 
-<!-- INDICADORES -->
-
 <section class="card">
   <h2>Indicadores técnicos</h2>
 
   <div class="stats">
-
     <div class="stat">
       <small>RSI 14</small>
       <b id="rsi">—</b>
@@ -419,31 +438,21 @@ footer {
       <b id="atr">—</b>
       <div class="detail">Volatilidad en pips</div>
     </div>
-
   </div>
 </section>
 
-<!-- CONEXIÓN -->
-
 <section class="card">
   <h2>Estado del sistema</h2>
-
   <p id="connection" class="connection muted">
     Esperando análisis...
   </p>
-
-  <p class="muted" id="candleInfo">
-    Velas recibidas: —
-  </p>
-
-  <p class="muted" id="updated">
-    Última actualización: —
-  </p>
+  <p class="muted" id="candleInfo">Velas recibidas: —</p>
+  <p class="muted" id="updated">Última actualización: —</p>
 </section>
 
 <footer>
   IQ OPTION AI · SMART MARKET ANALYSIS<br>
-  Análisis técnico informativo. No garantiza beneficios.
+  Análisis informativo. No garantiza beneficios.
   No incluye cotizaciones OTC ni ejecuta operaciones.
 </footer>
 
@@ -453,9 +462,255 @@ footer {
 const API_URL =
   "https://iq-option-ai-api.marcozmonsalve.workers.dev";
 
-const analyzeButton = document.getElementById("analyze");
-
 const $ = id => document.getElementById(id);
+const analyzeButton = $("analyze");
+
+let chart = null;
+let candleSeries = null;
+let ema9Series = null;
+let ema21Series = null;
+let supportLine = null;
+let resistanceLine = null;
+
+// ==================================
+// INICIALIZAR GRÁFICO
+// ==================================
+
+function initializeChart() {
+  if (typeof LightweightCharts === "undefined") {
+    $("chartMarket").textContent =
+      "No se pudo cargar la biblioteca del gráfico.";
+    return;
+  }
+
+  const container = $("chart");
+
+  chart = LightweightCharts.createChart(container, {
+    width: container.clientWidth,
+    height: container.clientHeight,
+
+    layout: {
+      background: {
+        color: "#0b1120"
+      },
+      textColor: "#a9bad1"
+    },
+
+    grid: {
+      vertLines: {
+        color: "#18243a"
+      },
+      horzLines: {
+        color: "#18243a"
+      }
+    },
+
+    rightPriceScale: {
+      borderColor: "#293750"
+    },
+
+    timeScale: {
+      borderColor: "#293750",
+      timeVisible: true,
+      secondsVisible: false
+    },
+
+    crosshair: {
+      mode: LightweightCharts.CrosshairMode.Normal
+    },
+
+    handleScroll: true,
+    handleScale: true
+  });
+
+  candleSeries = chart.addCandlestickSeries({
+    upColor: "#35d6a4",
+    downColor: "#ff687c",
+    borderUpColor: "#35d6a4",
+    borderDownColor: "#ff687c",
+    wickUpColor: "#35d6a4",
+    wickDownColor: "#ff687c"
+  });
+
+  ema9Series = chart.addLineSeries({
+    color: "#f5c66b",
+    lineWidth: 2,
+    priceLineVisible: false,
+    lastValueVisible: true
+  });
+
+  ema21Series = chart.addLineSeries({
+    color: "#54a6ff",
+    lineWidth: 2,
+    priceLineVisible: false,
+    lastValueVisible: true
+  });
+
+  if (typeof ResizeObserver !== "undefined") {
+    const observer = new ResizeObserver(() => {
+      if (chart) {
+        chart.applyOptions({
+          width: container.clientWidth,
+          height: container.clientHeight
+        });
+      }
+    });
+
+    observer.observe(container);
+  }
+
+  window.addEventListener("resize", () => {
+    if (chart) {
+      chart.applyOptions({
+        width: container.clientWidth
+      });
+    }
+  });
+}
+
+// ==================================
+// CALCULAR EMA PARA EL GRÁFICO
+// ==================================
+
+function calculateEmaPoints(candles, period) {
+  if (candles.length < period) return [];
+
+  const alpha = 2 / (period + 1);
+
+  let value = candles
+    .slice(0, period)
+    .reduce((sum, candle) => sum + candle.close, 0) / period;
+
+  const points = [];
+
+  points.push({
+    time: candles[period - 1].time,
+    value
+  });
+
+  for (let i = period; i < candles.length; i++) {
+    value =
+      candles[i].close * alpha +
+      value * (1 - alpha);
+
+    points.push({
+      time: candles[i].time,
+      value
+    });
+  }
+
+  return points;
+}
+
+// ==================================
+// DIBUJAR VELAS Y MEDIAS
+// ==================================
+
+function renderChart(data) {
+  if (!chart || !candleSeries) {
+    initializeChart();
+  }
+
+  if (!chart || !candleSeries) return;
+
+  const rawCandles = data.chartCandles;
+
+  if (!Array.isArray(rawCandles) || rawCandles.length < 2) {
+    $("chartMarket").textContent =
+      "No hay suficientes velas para mostrar el gráfico.";
+    return;
+  }
+
+  const candles = rawCandles
+    .map(item => ({
+      time: Number(item.time),
+      open: Number(item.open),
+      high: Number(item.high),
+      low: Number(item.low),
+      close: Number(item.close)
+    }))
+    .filter(item =>
+      Number.isFinite(item.time) &&
+      Number.isFinite(item.open) &&
+      Number.isFinite(item.high) &&
+      Number.isFinite(item.low) &&
+      Number.isFinite(item.close)
+    )
+    .sort((a, b) => a.time - b.time);
+
+  // Eliminar tiempos duplicados.
+  const uniqueCandles = [];
+
+  for (const candle of candles) {
+    if (
+      !uniqueCandles.length ||
+      uniqueCandles[uniqueCandles.length - 1].time !== candle.time
+    ) {
+      uniqueCandles.push(candle);
+    }
+  }
+
+  if (uniqueCandles.length < 2) {
+    $("chartMarket").textContent =
+      "Datos insuficientes para dibujar el gráfico.";
+    return;
+  }
+
+  candleSeries.setData(uniqueCandles);
+
+  ema9Series.setData(
+    calculateEmaPoints(uniqueCandles, 9)
+  );
+
+  ema21Series.setData(
+    calculateEmaPoints(uniqueCandles, 21)
+  );
+
+  // Eliminar líneas anteriores.
+  if (supportLine) {
+    candleSeries.removePriceLine(supportLine);
+    supportLine = null;
+  }
+
+  if (resistanceLine) {
+    candleSeries.removePriceLine(resistanceLine);
+    resistanceLine = null;
+  }
+
+  const levels = data.levels || {};
+
+  if (Number.isFinite(levels.support)) {
+    supportLine = candleSeries.createPriceLine({
+      price: levels.support,
+      color: "#35d6a4",
+      lineWidth: 2,
+      lineStyle: LightweightCharts.LineStyle.Dashed,
+      axisLabelVisible: true,
+      title: "SOPORTE"
+    });
+  }
+
+  if (Number.isFinite(levels.resistance)) {
+    resistanceLine = candleSeries.createPriceLine({
+      price: levels.resistance,
+      color: "#ff687c",
+      lineWidth: 2,
+      lineStyle: LightweightCharts.LineStyle.Dashed,
+      axisLabelVisible: true,
+      title: "RESISTENCIA"
+    });
+  }
+
+  chart.timeScale().fitContent();
+
+  $("chartMarket").textContent =
+    data.symbol + " · " + data.interval +
+    " · " + uniqueCandles.length + " velas";
+}
+
+// ==================================
+// FUNCIONES DE INTERFAZ
+// ==================================
 
 function show(id, value) {
   $(id).textContent = value ?? "—";
@@ -475,7 +730,6 @@ function setSignal(signal) {
   const element = $("signal");
 
   element.textContent = signal || "ESPERAR";
-
   element.className = "signal";
 
   if (signal === "COMPRA") {
@@ -501,22 +755,9 @@ function setColor(id, value, positive, negative) {
   }
 }
 
-function resetDashboard() {
-  const fields = [
-    "price", "trend", "volatility", "score", "strength",
-    "buyScore", "sellScore", "support", "resistance",
-    "supportDistance", "resistanceDistance",
-    "supportTouches", "resistanceTouches",
-    "rsi", "adx", "adxDirection", "ema9", "ema21",
-    "macd", "macdSignal", "atr", "candleInfo", "updated"
-  ];
-
-  fields.forEach(id => show(id, "—"));
-
-  $("scoreBar").style.width = "0%";
-
-  setSignal("CARGANDO");
-}
+// ==================================
+// MOSTRAR ANÁLISIS
+// ==================================
 
 function renderAnalysis(data) {
   const indicators = data.indicators || {};
@@ -525,20 +766,14 @@ function renderAnalysis(data) {
   const volatility = data.volatility || {};
   const confluence = data.confluence || {};
 
-  // Señal principal
-
   setSignal(data.signal);
 
   show("market", data.symbol + " · " + data.interval);
   show("price", formatPrice(data.price));
   show("reason", data.reason);
 
-  // Tendencia y volatilidad
-
   show("trend", trend.direction || "—");
   show("volatility", volatility.state || "—");
-
-  // Confluencia
 
   show("score", (confluence.score ?? "—") + "/6");
   show("strength", confluence.strength || "—");
@@ -552,23 +787,19 @@ function renderAnalysis(data) {
 
   $("scoreBar").style.width = percentage + "%";
 
-  // Soporte y resistencia
-
   show("support", formatPrice(levels.support));
   show("resistance", formatPrice(levels.resistance));
 
   show(
     "supportDistance",
-    levels.supportDistancePips === null ||
-    levels.supportDistancePips === undefined
+    levels.supportDistancePips == null
       ? "Distancia: —"
       : "Distancia: " + levels.supportDistancePips + " pips"
   );
 
   show(
     "resistanceDistance",
-    levels.resistanceDistancePips === null ||
-    levels.resistanceDistancePips === undefined
+    levels.resistanceDistancePips == null
       ? "Distancia: —"
       : "Distancia: " + levels.resistanceDistancePips + " pips"
   );
@@ -583,19 +814,16 @@ function renderAnalysis(data) {
     "Contactos: " + (levels.resistanceTouches ?? 0)
   );
 
-  // RSI y EMA
-
   show("rsi", formatNumber(indicators.rsi14));
   show("ema9", formatPrice(indicators.ema9));
   show("ema21", formatPrice(indicators.ema21));
 
   setColor("rsi", indicators.rsi14, 50, 30);
 
-  // ADX
-
   const adxData = indicators.adx || {};
 
   show("adx", formatNumber(adxData.value));
+
   show(
     "adxDirection",
     adxData.plusDI > adxData.minusDI
@@ -607,11 +835,10 @@ function renderAnalysis(data) {
 
   setColor("adx", adxData.value, 25, 20);
 
-  // MACD
-
   const macdData = indicators.macd || {};
 
   show("macd", formatNumber(macdData.histogram, 6));
+
   show(
     "macdSignal",
     "Línea de señal: " + formatNumber(macdData.signal, 6)
@@ -619,13 +846,9 @@ function renderAnalysis(data) {
 
   setColor("macd", macdData.histogram, 0, 0);
 
-  // ATR
-
   const atrData = indicators.atr || {};
 
   show("atr", formatNumber(atrData.pips) + " pips");
-
-  // Conexión
 
   show(
     "connection",
@@ -644,6 +867,8 @@ function renderAnalysis(data) {
     "Última actualización: " +
     new Date().toLocaleString("es-CO")
   );
+
+  renderChart(data);
 }
 
 // ==================================
@@ -657,9 +882,8 @@ analyzeButton.addEventListener("click", async () => {
   analyzeButton.disabled = true;
   analyzeButton.textContent = "ANALIZANDO...";
 
-  resetDashboard();
-
-  show("reason", "Consultando datos reales del mercado...");
+  setSignal("CARGANDO");
+  show("reason", "Consultando datos del mercado...");
   show("connection", "Conectando con Cloudflare...");
 
   try {
@@ -677,24 +901,27 @@ analyzeButton.addEventListener("click", async () => {
       );
     }
 
+    if (!Array.isArray(data.chartCandles)) {
+      throw new Error(
+        "El servidor no ha enviado los datos del gráfico."
+      );
+    }
+
     renderAnalysis(data);
 
   } catch (error) {
     setSignal("SIN DATOS");
-
     show("reason", error.message);
-
-    show(
-      "connection",
-      "Error de conexión o de datos. Intenta nuevamente."
-    );
-
+    show("connection", "Error de conexión o de datos.");
   } finally {
     analyzeButton.disabled = false;
     analyzeButton.textContent = "ANALIZAR MERCADO";
   }
 });
-</script>
 
+// Iniciar gráfico al cargar la aplicación.
+initializeChart();
+
+</script>
 </body>
 </html>
