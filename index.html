@@ -1111,26 +1111,73 @@ function renderStructure(structure){
 // VALIDACIÓN DE FILTROS
 // =====================================
 
-function filterState(value){
- if(value===true)return "pass";
- if(value===false)return "fail";
 
- if(value&&typeof value==="object"){
-  if(
-   value.passed===true||
-   value.confirmed===true||
-   value.ok===true
-  ){
-   return "pass";
+function filterState(value) {
+  if (value === true) return "pass";
+  if (value === false) return "fail";
+
+  if (value && typeof value === "object") {
+    const status = String(value.status || "").toUpperCase();
+
+    // Un evento inexistente no significa que exista un bloqueo.
+    if ([
+      "SIN_EVENTO",
+      "NINGUNO",
+      "SIN_DATOS",
+      "PENDIENTE",
+      "INDETERMINADA"
+    ].includes(status)) {
+      return "pending";
+    }
+
+    if (status === "CONFIRMADO") return "pass";
+    if (status === "BLOQUEADO") return "fail";
+
+    if (value.passed === true) return "pass";
+    if (value.passed === false) return "fail";
+
+    if (value.confirmed === true || value.ok === true) {
+      return "pass";
+    }
+
+    if (value.confirmed === false || value.ok === false) {
+      return "fail";
+    }
+
+    return "pending";
   }
 
-  if(
-   value.passed===false||
-   value.confirmed===false||
-   value.ok===false
-  ){
-   return "fail";
+  if (typeof value === "string") {
+    const status = value.trim().toUpperCase();
+
+    if ([
+      "PASS", "PASSED", "OK",
+      "CONFIRMADO", "CONFIRMADA",
+      "APROBADO", "APROBADA", "TRUE"
+    ].includes(status)) {
+      return "pass";
+    }
+
+    if ([
+      "FAIL", "FAILED",
+      "BLOQUEADO", "BLOQUEADA",
+      "RECHAZADO", "RECHAZADA", "FALSE"
+    ].includes(status)) {
+      return "fail";
+    }
+
+    if ([
+      "SIN_EVENTO", "NINGUNO",
+      "PENDING", "PENDIENTE",
+      "NEUTRAL", "WAITING",
+      "INDETERMINADA", "SIN_DATOS"
+    ].includes(status)) {
+      return "pending";
+    }
   }
+
+  return "pending";
+}
 
   if(value.status){
    return filterState(value.status);
