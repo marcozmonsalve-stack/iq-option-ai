@@ -5,8 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090f1c">
-<title>IQ OPTION AI | Smart Analysis 4.1</title>
-
+<title>IQ OPTION AI | Smart Analysis 4.2</title>
 <script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
 
 <style>
@@ -26,9 +25,7 @@ button:disabled{opacity:.55}
 .top-status{font-size:12px;color:#35d6a4;border:1px solid #245b4b;padding:8px 11px;border-radius:20px}
 .signal-card{text-align:center;padding:24px 16px}
 .signal{font-size:32px;font-weight:bold;margin:15px 0;color:#f5c66b}
-.buy-signal{color:#35d6a4}
-.sell-signal{color:#ff687c}
-.wait-signal{color:#f5c66b}
+.buy-signal{color:#35d6a4}.sell-signal{color:#ff687c}.wait-signal{color:#f5c66b}
 .market-price{font-size:25px;font-weight:bold;margin:12px 0}
 .reason{color:#a9bad1;font-size:13px;line-height:1.6}
 .grid,.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -38,26 +35,19 @@ button:disabled{opacity:.55}
 .detail{font-size:11px;color:#91a3bd;margin-top:6px}
 .level{background:#0b1120;padding:14px;border-radius:11px;min-width:0}
 .level b{display:block;font-size:18px;margin:9px 0;overflow-wrap:anywhere}
-.good{color:#35d6a4}
-.bad{color:#ff687c}
-.neutral{color:#f5c66b}
+.good{color:#35d6a4}.bad{color:#ff687c}.neutral{color:#f5c66b}
 .score-track{height:9px;border-radius:10px;background:#26354c;overflow:hidden;margin:13px 0}
 .score-fill{height:100%;width:0%;background:#35d6a4;transition:width .3s}
-.chart-card{padding:15px 10px}
-.chart-heading{padding:0 7px}
+.chart-card{padding:15px 10px}.chart-heading{padding:0 7px}
 .chart-legend{display:flex;flex-wrap:wrap;gap:13px;padding:10px 7px;font-size:11px;color:#a9bad1}
 .legend-item{display:flex;align-items:center;gap:5px}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 .chart-box{width:100%;height:300px;overflow:hidden;border-radius:10px}
 .indicator-box{width:100%;height:175px;overflow:hidden;border-radius:10px;margin-top:8px}
 .chart-note{font-size:11px;color:#91a3bd;padding:10px 7px 0;line-height:1.5}
-.panel-title{padding:15px 7px 5px}
-.panel-subtitle{font-size:11px;color:#91a3bd;padding:0 7px 9px}
+.panel-title{padding:15px 7px 5px}.panel-subtitle{font-size:11px;color:#91a3bd;padding:0 7px 9px}
 .connection{font-size:13px;line-height:1.6}
 footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28px 0}
-
-/* ESTRUCTURA */
-
 .structure-bias{font-size:25px;font-weight:bold;margin:8px 0}
 .structure-event{display:inline-block;padding:7px 13px;border-radius:20px;font-size:12px;font-weight:bold;background:#26354c;color:#f5c66b}
 .structure-event.bullish{background:#123e35;color:#35d6a4}
@@ -70,31 +60,25 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 .structure-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
 .structure-info .stat b{font-size:16px}
 .structure-note{font-size:12px;color:#91a3bd;line-height:1.6;margin:14px 0 0}
-
-/* VALIDACIÓN */
-
 .validation-list{display:grid;gap:9px}
-.validation-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0b1120;padding:12px;border-radius:10px}
+.validation-row{background:#0b1120;padding:12px;border-radius:10px}
+.validation-main{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .validation-row span:first-child{font-size:13px;color:#c4d0e1}
 .validation-status{font-size:11px;font-weight:bold;padding:6px 9px;border-radius:20px;white-space:nowrap}
 .validation-status.pass{background:#123e35;color:#35d6a4}
 .validation-status.fail{background:#451f2a;color:#ff687c}
 .validation-status.pending{background:#3c3320;color:#f5c66b}
 .validation-status.info{background:#26354c;color:#a9bad1}
+.validation-reason{font-size:11px;color:#91a3bd;line-height:1.5;margin-top:8px}
 .validation-summary{font-size:13px;line-height:1.6;color:#a9bad1;margin-top:13px}
 .validation-footnote{font-size:11px;color:#91a3bd;line-height:1.6;margin-top:12px}
+.warning-list{margin:10px 0 0;padding-left:19px;color:#f5c66b;font-size:12px;line-height:1.7}
 .data-time{font-size:12px;color:#91a3bd;line-height:1.6;margin-top:10px}
-
 @media(max-width:380px){
- main{padding:11px}
- .card{padding:13px}
- .signal{font-size:28px}
- .chart-box{height:270px}
- .indicator-box{height:155px}
- .structure-flags{gap:5px}
- .structure-flag{padding:10px 3px}
- .structure-flag b{font-size:14px}
- .validation-row{padding:10px}
+ main{padding:11px}.card{padding:13px}.signal{font-size:28px}
+ .chart-box{height:270px}.indicator-box{height:155px}
+ .structure-flags{gap:5px}.structure-flag{padding:10px 3px}
+ .structure-flag b{font-size:14px}.validation-row{padding:10px}
 }
 </style>
 </head>
@@ -105,14 +89,13 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 <header>
  <div>
   <h1>IQ OPTION AI</h1>
-  <small>SMART MARKET ANALYSIS · v4.1</small>
+  <small>SMART MARKET ANALYSIS · v4.2</small>
  </div>
  <span class="top-status">● DEMO</span>
 </header>
 
 <section class="card">
  <h2>Configuración del mercado</h2>
-
  <label for="pair">Par de divisas</label>
  <select id="pair">
   <option value="EUR/USD">EUR/USD</option>
@@ -131,7 +114,6 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
   <option value="30min">30 minutos</option>
   <option value="1h">1 hora</option>
  </select>
-
  <button id="analyze">ANALIZAR MERCADO</button>
 </section>
 
@@ -140,16 +122,9 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
  <div id="signal" class="signal wait-signal">SIN DATOS</div>
  <div class="market-price" id="price">—</div>
  <p id="reason" class="reason">Pulsa analizar mercado para comenzar.</p>
-
  <div class="grid">
-  <div class="stat">
-   <small>TENDENCIA 1H</small>
-   <b id="trend">—</b>
-  </div>
-  <div class="stat">
-   <small>VOLATILIDAD</small>
-   <b id="volatility">—</b>
-  </div>
+  <div class="stat"><small>TENDENCIA 1H</small><b id="trend">—</b></div>
+  <div class="stat"><small>VOLATILIDAD</small><b id="volatility">—</b></div>
  </div>
 </section>
 
@@ -157,59 +132,35 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
  <h2>Validación de señal</h2>
  <div id="validationList" class="validation-list">
   <div class="validation-row">
-   <span>Esperando análisis</span>
-   <span class="validation-status info">SIN DATOS</span>
+   <div class="validation-main">
+    <span>Esperando análisis</span>
+    <span class="validation-status info">SIN DATOS</span>
+   </div>
   </div>
  </div>
- <p id="validationSummary" class="validation-summary">
-  Los filtros se mostrarán después de recibir el análisis del servidor.
- </p>
- <p class="validation-footnote">
-  Los estados describen las condiciones técnicas detectadas. No representan una probabilidad de éxito ni garantizan resultados.
- </p>
+ <p id="validationSummary" class="validation-summary">Los filtros aparecerán después del análisis.</p>
+ <ul id="warningList" class="warning-list" hidden></ul>
+ <p class="validation-footnote">Los estados describen condiciones técnicas detectadas. No representan una probabilidad de éxito ni garantizan resultados.</p>
 </section>
 
 <section class="card">
  <h2>Estructura del mercado</h2>
-
  <small>SESGO ESTRUCTURAL</small>
  <div id="structureBias" class="structure-bias neutral">—</div>
-
- <div>
-  <span id="structureEvent" class="structure-event neutral">ESPERANDO DATOS</span>
- </div>
-
+ <div><span id="structureEvent" class="structure-event neutral">ESPERANDO DATOS</span></div>
  <div class="structure-info">
-  <div class="stat">
-   <small>EVENTO DIRECCIONAL</small>
-   <b id="structureDirection">—</b>
-  </div>
-  <div class="stat">
-   <small>NIVEL ROTO</small>
-   <b id="brokenLevel">—</b>
-  </div>
-  <div class="stat">
-   <small>SWING HIGH</small>
-   <b id="swingHigh">—</b>
-   <div class="detail" id="swingHighTime">—</div>
-  </div>
-  <div class="stat">
-   <small>SWING LOW</small>
-   <b id="swingLow">—</b>
-   <div class="detail" id="swingLowTime">—</div>
-  </div>
+  <div class="stat"><small>EVENTO DIRECCIONAL</small><b id="structureDirection">—</b></div>
+  <div class="stat"><small>NIVEL ROTO</small><b id="brokenLevel">—</b></div>
+  <div class="stat"><small>SWING HIGH</small><b id="swingHigh">—</b><div class="detail" id="swingHighTime">—</div></div>
+  <div class="stat"><small>SWING LOW</small><b id="swingLow">—</b><div class="detail" id="swingLowTime">—</div></div>
  </div>
-
  <div class="structure-flags">
   <div class="structure-flag"><small>HH</small><b id="flagHH">—</b></div>
   <div class="structure-flag"><small>HL</small><b id="flagHL">—</b></div>
   <div class="structure-flag"><small>LH</small><b id="flagLH">—</b></div>
   <div class="structure-flag"><small>LL</small><b id="flagLL">—</b></div>
  </div>
-
- <p class="structure-note" id="structureStatus">
-  La estructura del mercado aparecerá después del análisis.
- </p>
+ <p class="structure-note" id="structureStatus">La estructura aparecerá después del análisis.</p>
 </section>
 
 <section class="card chart-card">
@@ -217,7 +168,6 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
   <h2>Gráfico de velas japonesas</h2>
   <small id="chartMarket">Esperando cotizaciones...</small>
  </div>
-
  <div class="chart-legend">
   <span class="legend-item"><i class="dot" style="background:#35d6a4"></i>Alcista</span>
   <span class="legend-item"><i class="dot" style="background:#ff687c"></i>Bajista</span>
@@ -226,13 +176,8 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
   <span class="legend-item"><i class="dot" style="background:#b48cff"></i>Swing High</span>
   <span class="legend-item"><i class="dot" style="background:#54a6ff"></i>Swing Low</span>
  </div>
-
  <div id="chart" class="chart-box"></div>
-
- <p class="chart-note">
-  BOS = ruptura de estructura · CHoCH = cambio de carácter.
-  Las líneas Swing High y Swing Low representan los últimos pivotes detectados.
- </p>
+ <p class="chart-note">BOS = ruptura de estructura · CHoCH = cambio de carácter. Las líneas Swing High y Swing Low representan los últimos pivotes detectados.</p>
 
  <div class="panel-title"><h2>RSI · Fuerza relativa</h2></div>
  <div class="panel-subtitle" id="rsiStatus">RSI 14 · Esperando datos</div>
@@ -245,36 +190,28 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 
 <section class="card">
  <h2>Confluencia técnica</h2>
-
  <div class="grid">
   <div class="stat"><small>PUNTUACIÓN</small><b id="score">—</b></div>
   <div class="stat"><small>FUERZA</small><b id="strength">—</b></div>
  </div>
-
  <div class="score-track"><div class="score-fill" id="scoreBar"></div></div>
-
  <div class="grid">
   <div class="stat"><small>COMPRA</small><b id="buyScore" class="good">—</b></div>
   <div class="stat"><small>VENTA</small><b id="sellScore" class="bad">—</b></div>
  </div>
-
- <p class="muted">
-  Coincidencia técnica entre indicadores. No representa una probabilidad de éxito.
- </p>
+ <p class="muted">Coincidencia técnica entre indicadores. No representa una probabilidad de éxito.</p>
 </section>
 
 <section class="card">
  <h2>Soportes y resistencias</h2>
  <div class="grid">
   <div class="level">
-   <small class="good">SOPORTE</small>
-   <b id="support">—</b>
+   <small class="good">SOPORTE</small><b id="support">—</b>
    <small id="supportDistance">Distancia: —</small>
    <p class="muted" id="supportTouches">Contactos: —</p>
   </div>
   <div class="level">
-   <small class="bad">RESISTENCIA</small>
-   <b id="resistance">—</b>
+   <small class="bad">RESISTENCIA</small><b id="resistance">—</b>
    <small id="resistanceDistance">Distancia: —</small>
    <p class="muted" id="resistanceTouches">Contactos: —</p>
   </div>
@@ -302,11 +239,10 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 </section>
 
 <footer>
- IQ OPTION AI · SMART MARKET ANALYSIS v4.1<br>
+ IQ OPTION AI · SMART MARKET ANALYSIS v4.2<br>
  Análisis técnico informativo. No garantiza beneficios.
  No incluye cotizaciones OTC ni ejecuta operaciones.
 </footer>
-
 </main>
 
 <script>
@@ -315,215 +251,126 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 const API_URL="https://iq-option-ai-api.marcozmonsalve.workers.dev";
 const $=id=>document.getElementById(id);
 
-let chart=null;
-let rsiChart=null;
-let macdChart=null;
-let candleSeries=null;
-let ema9Series=null;
-let ema21Series=null;
-let rsiSeries=null;
-let macdLineSeries=null;
-let macdSignalSeries=null;
-let macdHistogramSeries=null;
-
-let supportLine=null;
-let resistanceLine=null;
-let swingHighLine=null;
-let swingLowLine=null;
+let chart,rsiChart,macdChart;
+let candleSeries,ema9Series,ema21Series,rsiSeries;
+let macdLineSeries,macdSignalSeries,macdHistogramSeries;
+let supportLine=null,resistanceLine=null,swingHighLine=null,swingLowLine=null;
 let resizeObserver=null;
 
 // =====================================
 // GRÁFICOS
 // =====================================
 
-function createBaseChart(containerId,height){
- const container=$(containerId);
-
+function createBaseChart(id,height){
+ const container=$(id);
  return LightweightCharts.createChart(container,{
   width:Math.max(container.clientWidth,300),
   height,
-  layout:{
-   background:{color:"#0b1120"},
-   textColor:"#a9bad1"
-  },
-  grid:{
-   vertLines:{color:"#18243a"},
-   horzLines:{color:"#18243a"}
-  },
+  layout:{background:{color:"#0b1120"},textColor:"#a9bad1"},
+  grid:{vertLines:{color:"#18243a"},horzLines:{color:"#18243a"}},
   rightPriceScale:{borderColor:"#293750"},
-  timeScale:{
-   borderColor:"#293750",
-   timeVisible:true,
-   secondsVisible:false
-  },
+  timeScale:{borderColor:"#293750",timeVisible:true,secondsVisible:false},
   crosshair:{mode:LightweightCharts.CrosshairMode.Normal},
-  handleScroll:true,
-  handleScale:true
+  handleScroll:true,handleScale:true
  });
 }
 
 function initializeCharts(){
- if(typeof LightweightCharts==="undefined"){
-  throw new Error("No se pudo cargar la biblioteca de gráficos.");
- }
+ if(typeof LightweightCharts==="undefined")throw new Error("No se pudo cargar la biblioteca de gráficos.");
 
  chart=createBaseChart("chart",300);
-
  candleSeries=chart.addCandlestickSeries({
-  upColor:"#35d6a4",
-  downColor:"#ff687c",
-  borderUpColor:"#35d6a4",
-  borderDownColor:"#ff687c",
-  wickUpColor:"#35d6a4",
-  wickDownColor:"#ff687c"
+  upColor:"#35d6a4",downColor:"#ff687c",
+  borderUpColor:"#35d6a4",borderDownColor:"#ff687c",
+  wickUpColor:"#35d6a4",wickDownColor:"#ff687c"
  });
-
- ema9Series=chart.addLineSeries({
-  color:"#f5c66b",lineWidth:2,priceLineVisible:false
- });
-
- ema21Series=chart.addLineSeries({
-  color:"#54a6ff",lineWidth:2,priceLineVisible:false
- });
+ ema9Series=chart.addLineSeries({color:"#f5c66b",lineWidth:2,priceLineVisible:false});
+ ema21Series=chart.addLineSeries({color:"#54a6ff",lineWidth:2,priceLineVisible:false});
 
  rsiChart=createBaseChart("rsiChart",175);
-
  rsiSeries=rsiChart.addLineSeries({
-  color:"#b48cff",
-  lineWidth:2,
-  priceLineVisible:false,
-  lastValueVisible:true,
-  priceFormat:{type:"price",precision:2,minMove:0.01}
+  color:"#b48cff",lineWidth:2,priceLineVisible:false,
+  lastValueVisible:true,priceFormat:{type:"price",precision:2,minMove:.01}
  });
-
- [30,50,70].forEach(level=>{
-  rsiSeries.createPriceLine({
-   price:level,
-   color:level===50?"#53647c":"#394963",
-   lineWidth:1,
-   lineStyle:LightweightCharts.LineStyle.Dashed,
-   axisLabelVisible:true,
-   title:String(level)
-  });
- });
+ [30,50,70].forEach(level=>rsiSeries.createPriceLine({
+  price:level,color:level===50?"#53647c":"#394963",
+  lineWidth:1,lineStyle:LightweightCharts.LineStyle.Dashed,
+  axisLabelVisible:true,title:String(level)
+ }));
 
  macdChart=createBaseChart("macdChart",175);
-
  macdHistogramSeries=macdChart.addHistogramSeries({
   priceLineVisible:false,lastValueVisible:false,base:0
  });
-
- macdLineSeries=macdChart.addLineSeries({
-  color:"#35d6a4",lineWidth:2,priceLineVisible:false
- });
-
- macdSignalSeries=macdChart.addLineSeries({
-  color:"#f5c66b",lineWidth:2,priceLineVisible:false
- });
+ macdLineSeries=macdChart.addLineSeries({color:"#35d6a4",lineWidth:2,priceLineVisible:false});
+ macdSignalSeries=macdChart.addLineSeries({color:"#f5c66b",lineWidth:2,priceLineVisible:false});
 
  if(typeof ResizeObserver!=="undefined"){
   resizeObserver=new ResizeObserver(()=>{
-   [["chart",chart],["rsiChart",rsiChart],["macdChart",macdChart]]
-   .forEach(([id,instance])=>{
-    const element=$(id);
-    if(instance&&element.clientWidth>0){
-     instance.applyOptions({width:element.clientWidth});
-    }
+   [["chart",chart],["rsiChart",rsiChart],["macdChart",macdChart]].forEach(([id,instance])=>{
+    if(instance&&$(id).clientWidth>0)instance.applyOptions({width:$(id).clientWidth});
    });
   });
-
-  ["chart","rsiChart","macdChart"].forEach(id=>{
-   resizeObserver.observe($(id));
-  });
+  ["chart","rsiChart","macdChart"].forEach(id=>resizeObserver.observe($(id)));
  }
 
  let syncing=false;
-
  function synchronize(source,targets){
   source.timeScale().subscribeVisibleLogicalRangeChange(range=>{
    if(!range||syncing)return;
    syncing=true;
-   targets.forEach(target=>{
-    try{target.timeScale().setVisibleLogicalRange(range)}catch(error){}
-   });
+   targets.forEach(target=>{try{target.timeScale().setVisibleLogicalRange(range)}catch(e){}});
    syncing=false;
   });
  }
-
  synchronize(chart,[rsiChart,macdChart]);
  synchronize(rsiChart,[chart,macdChart]);
  synchronize(macdChart,[chart,rsiChart]);
 }
 
 // =====================================
-// INDICADORES LOCALES DEL GRÁFICO
+// INDICADORES PARA LOS GRÁFICOS
 // =====================================
 
 function calculateEMA(values,period){
  if(values.length<period)return [];
-
  const alpha=2/(period+1);
  let value=values.slice(0,period).reduce((a,b)=>a+b,0)/period;
  const output=[value];
-
  for(let i=period;i<values.length;i++){
   value=values[i]*alpha+value*(1-alpha);
   output.push(value);
  }
-
  return output;
 }
 
 function calculateEMAPoints(candles,period){
  const values=candles.map(c=>c.close);
- const result=calculateEMA(values,period);
-
- return result.map((value,index)=>({
-  time:candles[index+period-1].time,
-  value
+ return calculateEMA(values,period).map((value,index)=>({
+  time:candles[index+period-1].time,value
  }));
 }
 
 function calculateMACD(candles){
  const values=candles.map(c=>c.close);
- const ema12=calculateEMA(values,12);
- const ema26=calculateEMA(values,26);
-
- if(!ema12.length||!ema26.length)return null;
-
- const offset=26-12;
- const macdValues=[];
-
- for(let i=0;i<ema26.length;i++){
-  macdValues.push(ema12[i+offset]-ema26[i]);
- }
-
+ const e12=calculateEMA(values,12),e26=calculateEMA(values,26);
+ if(!e12.length||!e26.length)return null;
+ const offset=14,macdValues=[];
+ for(let i=0;i<e26.length;i++)macdValues.push(e12[i+offset]-e26[i]);
  const signalValues=calculateEMA(macdValues,9);
  if(!signalValues.length)return null;
 
- const signalOffset=8;
- const line=[];
- const signal=[];
- const histogram=[];
-
+ const line=[],signal=[],histogram=[];
  for(let i=0;i<macdValues.length;i++){
   const time=candles[i+25].time;
   line.push({time,value:macdValues[i]});
-
-  if(i>=signalOffset){
-   const signalValue=signalValues[i-signalOffset];
+  if(i>=8){
+   const signalValue=signalValues[i-8];
    signal.push({time,value:signalValue});
-
    const difference=macdValues[i]-signalValue;
-
-   histogram.push({
-    time,
-    value:difference,
-    color:difference>=0?"#35d6a4":"#ff687c"
-   });
+   histogram.push({time,value:difference,color:difference>=0?"#35d6a4":"#ff687c"});
   }
  }
-
  return {line,signal,histogram};
 }
 
@@ -535,192 +382,117 @@ function show(id,value){
  const element=$(id);
  if(element)element.textContent=value??"—";
 }
-
 function formatPrice(value){
  if(value===null||value===undefined||!Number.isFinite(Number(value)))return "—";
  return Number(value).toFixed(6);
 }
-
 function formatNumber(value,decimals=2){
  if(value===null||value===undefined||!Number.isFinite(Number(value)))return "—";
  return Number(value).toFixed(decimals);
 }
-
 function toChartTime(value){
  if(value===null||value===undefined)return null;
-
- if(typeof value==="number"&&Number.isFinite(value)){
-  return Math.floor(value);
- }
-
+ if(typeof value==="number"&&Number.isFinite(value))return Math.floor(value);
  const parsed=Date.parse(value);
  return Number.isFinite(parsed)?Math.floor(parsed/1000):null;
 }
-
 function formatStructureTime(value){
  const time=toChartTime(value);
  if(time===null)return "Tiempo no disponible";
-
  return new Date(time*1000).toLocaleString("es-CO",{
   day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"
  });
 }
-
 function setSignal(signal){
  const element=$("signal");
  element.textContent=signal||"ESPERAR";
  element.className="signal";
-
- if(signal==="COMPRA")element.classList.add("buy-signal");
- else if(signal==="VENTA")element.classList.add("sell-signal");
- else element.classList.add("wait-signal");
+ element.classList.add(signal==="COMPRA"?"buy-signal":signal==="VENTA"?"sell-signal":"wait-signal");
 }
-
 function setColor(id,value,positive,negative){
  const element=$(id);
  element.classList.remove("good","bad","neutral");
-
  if(!Number.isFinite(value))element.classList.add("neutral");
  else if(value>positive)element.classList.add("good");
  else if(value<negative)element.classList.add("bad");
  else element.classList.add("neutral");
 }
-
 function setStructureFlag(id,value){
  const element=$(id);
  element.textContent=value===true?"SÍ":value===false?"NO":"—";
- element.className="";
-
- if(value===true)element.classList.add("good");
- else if(value===false)element.classList.add("bad");
- else element.classList.add("neutral");
+ element.className=value===true?"good":value===false?"bad":"neutral";
 }
-
 function normalizeCandles(raw){
- if(!Array.isArray(raw)){
-  throw new Error("El servidor no ha enviado las velas.");
- }
-
+ if(!Array.isArray(raw))throw new Error("El servidor no ha enviado las velas.");
  const candles=raw.map(item=>({
-  time:typeof item.time==="number"
-   ?item.time
-   :Math.floor(Date.parse(item.time)/1000),
-  open:Number(item.open),
-  high:Number(item.high),
-  low:Number(item.low),
-  close:Number(item.close)
- }))
- .filter(c=>
-  Number.isFinite(c.time)&&
-  Number.isFinite(c.open)&&
-  Number.isFinite(c.high)&&
-  Number.isFinite(c.low)&&
-  Number.isFinite(c.close)&&
-  c.high>=c.low
- )
- .sort((a,b)=>a.time-b.time);
+  time:typeof item.time==="number"?item.time:Math.floor(Date.parse(item.time)/1000),
+  open:Number(item.open),high:Number(item.high),low:Number(item.low),close:Number(item.close)
+ })).filter(c=>
+  Number.isFinite(c.time)&&Number.isFinite(c.open)&&
+  Number.isFinite(c.high)&&Number.isFinite(c.low)&&
+  Number.isFinite(c.close)&&c.high>=c.low
+ ).sort((a,b)=>a.time-b.time);
 
  const unique=[];
-
  candles.forEach(c=>{
-  if(!unique.length||unique[unique.length-1].time!==c.time){
-   unique.push(c);
-  }
+  if(!unique.length||unique[unique.length-1].time!==c.time)unique.push(c);
  });
-
- if(unique.length<30){
-  throw new Error("No hay suficientes velas válidas para dibujar el gráfico.");
- }
-
+ if(unique.length<30)throw new Error("No hay suficientes velas válidas para dibujar el gráfico.");
  return unique;
 }
 
 // =====================================
-// ESTRUCTURA EN EL GRÁFICO
+// LÍNEAS Y MARCADORES
 // =====================================
 
 function clearStructureLines(){
  [supportLine,resistanceLine,swingHighLine,swingLowLine].forEach(line=>{
-  if(line){
-   try{candleSeries.removePriceLine(line)}catch(error){}
-  }
+  if(line){try{candleSeries.removePriceLine(line)}catch(e){}}
  });
-
- supportLine=null;
- resistanceLine=null;
- swingHighLine=null;
- swingLowLine=null;
+ supportLine=resistanceLine=swingHighLine=swingLowLine=null;
 }
 
 function drawStructureLines(structure){
  if(!structure||!candleSeries)return;
-
- const high=structure.swingHigh||{};
- const low=structure.swingLow||{};
-
+ const high=structure.swingHigh||{},low=structure.swingLow||{};
  if(high.price!==null&&high.price!==undefined&&Number.isFinite(Number(high.price))){
   swingHighLine=candleSeries.createPriceLine({
-   price:Number(high.price),
-   color:"#b48cff",
-   lineWidth:2,
-   lineStyle:LightweightCharts.LineStyle.Dashed,
-   axisLabelVisible:true,
-   title:"SWING HIGH"
+   price:Number(high.price),color:"#b48cff",lineWidth:2,
+   lineStyle:LightweightCharts.LineStyle.Dashed,axisLabelVisible:true,title:"SWING HIGH"
   });
  }
-
  if(low.price!==null&&low.price!==undefined&&Number.isFinite(Number(low.price))){
   swingLowLine=candleSeries.createPriceLine({
-   price:Number(low.price),
-   color:"#54a6ff",
-   lineWidth:2,
-   lineStyle:LightweightCharts.LineStyle.Dashed,
-   axisLabelVisible:true,
-   title:"SWING LOW"
+   price:Number(low.price),color:"#54a6ff",lineWidth:2,
+   lineStyle:LightweightCharts.LineStyle.Dashed,axisLabelVisible:true,title:"SWING LOW"
   });
  }
-
 }
 
 function buildMarkers(data,candles){
  const markers=[];
- const lastCandle=candles[candles.length-1];
+ if(!candles.length)return markers;
+ const last=candles[candles.length-1];
+ let text="ESPERAR",position="aboveBar",color="#f5c66b",shape="circle";
+ if(data.signal==="COMPRA"){text="COMPRA";position="belowBar";color="#35d6a4";shape="arrowUp"}
+ if(data.signal==="VENTA"){text="VENTA";position="aboveBar";color="#ff687c";shape="arrowDown"}
+ markers.push({time:last.time,position,color,shape,text});
 
- let markerText="ESPERAR";
- let position="aboveBar";
- let color="#f5c66b";
- let shape="circle";
-
- if(data.signal==="COMPRA"){
-  markerText="COMPRA";position="belowBar";color="#35d6a4";shape="arrowUp";
- }else if(data.signal==="VENTA"){
-  markerText="VENTA";position="aboveBar";color="#ff687c";shape="arrowDown";
+ const structure=data.structure||{};
+ if(structure.eventConfirmed===true||structure.structureConfirmed===true){
+  const event=String(structure.event||"").toUpperCase();
+  if(event==="BOS"||event==="CHOCH"){
+   const eventTime=toChartTime(structure.lastClosedCandle)||last.time;
+   const bullish=structure.eventDirection==="ALCISTA";
+   markers.push({
+    time:eventTime,position:bullish?"belowBar":"aboveBar",
+    color:bullish?"#35d6a4":"#ff687c",
+    shape:bullish?"arrowUp":"arrowDown",
+    text:event==="CHOCH"?"CHoCH":"BOS"
+   });
+  }
  }
-
- markers.push({time:lastCandle.time,position,color,shape,text:markerText});
-
- const structure=data.structure;
-
- if(
-  structure&&
-  structure.structureConfirmed===true&&
-  structure.event&&
-  ["BOS","CHOCH"].includes(String(structure.event).toUpperCase())
- ){
-  const eventTime=toChartTime(structure.lastClosedCandle)||lastCandle.time;
-  const bullish=structure.eventDirection==="ALCISTA";
-
-  markers.push({
-   time:eventTime,
-   position:bullish?"belowBar":"aboveBar",
-   color:bullish?"#35d6a4":"#ff687c",
-   shape:bullish?"arrowUp":"arrowDown",
-   text:String(structure.event).toUpperCase()==="CHOCH"?"CHoCH":"BOS"
-  });
- }
-
- markers.sort((a,b)=>a.time-b.time);
- return markers;
+ return markers.sort((a,b)=>a.time-b.time);
 }
 
 // =====================================
@@ -729,143 +501,94 @@ function buildMarkers(data,candles){
 
 function normalizeRSISeries(raw){
  if(!Array.isArray(raw))return [];
-
  return raw.map(point=>({
-  time:toChartTime(point.time),
-  value:Number(point.value)
- }))
- .filter(point=>
-  point.time!==null&&
-  Number.isFinite(point.value)&&
-  point.value>=0&&point.value<=100
- )
- .sort((a,b)=>a.time-b.time)
- .filter((point,index,array)=>index===0||point.time!==array[index-1].time);
+  time:toChartTime(point.time),value:Number(point.value)
+ })).filter(p=>
+  p.time!==null&&Number.isFinite(p.value)&&p.value>=0&&p.value<=100
+ ).sort((a,b)=>a.time-b.time)
+ .filter((p,i,a)=>i===0||p.time!==a[i-1].time);
 }
 
 function renderChart(data){
- const raw=data.chartCandles||data.candles;
- const unique=normalizeCandles(raw);
-
+ const unique=normalizeCandles(data.chartCandles||data.candles);
  candleSeries.setData(unique);
  ema9Series.setData(calculateEMAPoints(unique,9));
  ema21Series.setData(calculateEMAPoints(unique,21));
-
  clearStructureLines();
 
  const levels=data.levels||{};
-
- if(levels.support!==null&&levels.support!==undefined&&Number.isFinite(Number(levels.support))){
+ if(levels.support!=null){
   supportLine=candleSeries.createPriceLine({
    price:Number(levels.support),color:"#35d6a4",lineWidth:2,
-   lineStyle:LightweightCharts.LineStyle.Dashed,
-   axisLabelVisible:true,title:"SOPORTE"
+   lineStyle:LightweightCharts.LineStyle.Dashed,axisLabelVisible:true,title:"SOPORTE"
   });
  }
-
- if(levels.resistance!==null&&levels.resistance!==undefined&&Number.isFinite(Number(levels.resistance))){
+ if(levels.resistance!=null){
   resistanceLine=candleSeries.createPriceLine({
    price:Number(levels.resistance),color:"#ff687c",lineWidth:2,
-   lineStyle:LightweightCharts.LineStyle.Dashed,
-   axisLabelVisible:true,title:"RESISTENCIA"
+   lineStyle:LightweightCharts.LineStyle.Dashed,axisLabelVisible:true,title:"RESISTENCIA"
   });
  }
-
  drawStructureLines(data.structure);
 
- // RSI del servidor: misma serie utilizada por el análisis.
  const serverRSI=normalizeRSISeries(data.rsiSeries);
  rsiSeries.setData(serverRSI);
-
  const lastRSI=serverRSI.length?serverRSI[serverRSI.length-1].value:null;
+ show("rsiStatus",lastRSI===null?"RSI del servidor no disponible.":
+  "RSI 14: "+lastRSI.toFixed(2)+" · "+
+  (lastRSI>=70?"Sobrecompra":lastRSI<=30?"Sobreventa":lastRSI>=50?"Impulso positivo":"Impulso negativo")
+ );
 
- if(lastRSI!==null){
-  show("rsiStatus",
-   "RSI 14: "+lastRSI.toFixed(2)+" · "+
-   (lastRSI>=70?"Sobrecompra":
-    lastRSI<=30?"Sobreventa":
-    lastRSI>=50?"Impulso positivo":"Impulso negativo")
-  );
- }else{
-  show("rsiStatus","RSI del servidor no disponible.");
- }
-
- // MACD del gráfico.
  const macd=calculateMACD(unique);
-
  if(macd){
   macdLineSeries.setData(macd.line);
   macdSignalSeries.setData(macd.signal);
   macdHistogramSeries.setData(macd.histogram);
-
-  const lastHistogram=macd.histogram.length
-   ?macd.histogram[macd.histogram.length-1]:null;
-
-  show("macdStatus",lastHistogram
-   ?"MACD 12,26,9 · Histograma: "+lastHistogram.value.toFixed(6)
-   :"MACD calculándose"
-  );
+  const lastHistogram=macd.histogram[macd.histogram.length-1];
+  show("macdStatus",lastHistogram?
+   "MACD 12,26,9 · Histograma: "+lastHistogram.value.toFixed(6):
+   "MACD calculándose");
  }
 
  chart.timeScale().fitContent();
  rsiChart.timeScale().fitContent();
  macdChart.timeScale().fitContent();
-
  candleSeries.setMarkers(buildMarkers(data,unique));
-
  show("chartMarket",data.symbol+" · "+data.interval+" · "+unique.length+" velas");
-
- const last=unique[unique.length-1];
- show("dataTime","Hora de la última vela recibida: "+formatStructureTime(last.time));
-
+ show("dataTime","Hora de la última vela recibida: "+formatStructureTime(unique[unique.length-1].time));
  return unique.length;
 }
 
 // =====================================
-// PANEL DE ESTRUCTURA
+// ESTRUCTURA DEL MERCADO
 // =====================================
 
 function renderStructure(structure){
  if(!structure){
   show("structureBias","NO DISPONIBLE");
   show("structureEvent","SIN DATOS");
-  show("structureDirection","—");
-  show("brokenLevel","—");
-  show("swingHigh","—");
-  show("swingLow","—");
-  show("swingHighTime","—");
-  show("swingLowTime","—");
+  show("structureDirection","—");show("brokenLevel","—");
+  show("swingHigh","—");show("swingLow","—");
+  show("swingHighTime","—");show("swingLowTime","—");
   show("structureStatus","El Worker no ha enviado datos de estructura.");
   ["flagHH","flagHL","flagLH","flagLL"].forEach(id=>show(id,"—"));
   return;
  }
 
- const bias=structure.bias||"INDETERMINADO";
- const event=structure.event||"SIN EVENTO";
+ const bias=structure.bias||"INDETERMINADA";
+ const event=structure.event||"NINGUNO";
  const direction=structure.eventDirection||"—";
-
  show("structureBias",bias);
  show("structureDirection",direction);
  show("structureEvent",event);
  show("brokenLevel",formatPrice(structure.brokenLevel));
 
- const biasElement=$("structureBias");
- biasElement.className="structure-bias";
+ $("structureBias").className="structure-bias "+
+  (bias==="ALCISTA"?"good":bias==="BAJISTA"?"bad":"neutral");
+ $("structureEvent").className="structure-event "+
+  (direction==="ALCISTA"?"bullish":direction==="BAJISTA"?"bearish":"neutral");
 
- if(bias==="ALCISTA")biasElement.classList.add("good");
- else if(bias==="BAJISTA")biasElement.classList.add("bad");
- else biasElement.classList.add("neutral");
-
- const eventElement=$("structureEvent");
- eventElement.className="structure-event";
-
- if(direction==="ALCISTA")eventElement.classList.add("bullish");
- else if(direction==="BAJISTA")eventElement.classList.add("bearish");
- else eventElement.classList.add("neutral");
-
- const high=structure.swingHigh||{};
- const low=structure.swingLow||{};
-
+ const high=structure.swingHigh||{},low=structure.swingLow||{};
  show("swingHigh",formatPrice(high.price));
  show("swingLow",formatPrice(low.price));
  show("swingHighTime",formatStructureTime(high.time));
@@ -876,76 +599,44 @@ function renderStructure(structure){
  setStructureFlag("flagLH",structure.lowerHigh);
  setStructureFlag("flagLL",structure.lowerLow);
 
- let statusText="Estado: "+(structure.status||"SIN ESTADO");
-
- statusText+=structure.structureConfirmed===true
-  ?" · Estructura confirmada."
-  :" · Estructura pendiente de confirmación.";
-
- if(structure.previousBias)statusText+=" Sesgo anterior: "+structure.previousBias+".";
- if(structure.lastClosedCandle){
-  statusText+=" Última vela cerrada: "+formatStructureTime(structure.lastClosedCandle)+".";
- }
- if(structure.confirmation){
-  statusText+=" Confirmación: "+structure.confirmation+".";
- }
- if(Number.isFinite(Number(structure.breakBuffer))){
-  statusText+=" Margen de ruptura: "+structure.breakBuffer+".";
- }
-
- show("structureStatus",statusText);
+ let text="Estado: "+(structure.status||"SIN ESTADO");
+ text+=" · Sesgo: "+bias+".";
+ text+=" · Estructura: "+(structure.structureConfirmed===true?"confirmada":"pendiente");
+ text+=" · Evento: "+(structure.eventConfirmed===true?"confirmado":"no confirmado")+".";
+ if(structure.lastClosedCandle)text+=" Última vela cerrada: "+formatStructureTime(structure.lastClosedCandle)+".";
+ if(structure.confirmation)text+=" Confirmación: "+structure.confirmation+".";
+ if(structure.breakBuffer!=null)text+=" Margen de ruptura: "+structure.breakBuffer+".";
+ show("structureStatus",text);
 }
 
 // =====================================
-// VALIDACIÓN DE SEÑAL
+// VALIDACIÓN V4.2
 // =====================================
 
-function normalizeKey(key){
- return String(key).toLowerCase().replace(/[^a-z0-9]/g,"");
-}
-
-function findFilter(filters,candidates){
- if(!filters||typeof filters!=="object")return undefined;
-
- const entries=Array.isArray(filters)
-  ?filters.map(item=>[item.name||item.key,item])
-  :Object.entries(filters);
-
- for(const candidate of candidates){
-  const wanted=normalizeKey(candidate);
-  const found=entries.find(([key])=>normalizeKey(key)===wanted);
-  if(found)return found[1];
- }
-
- return undefined;
-}
-
-function filterState(value){
+function getFilterStatus(value){
  if(value===true)return "pass";
  if(value===false)return "fail";
-
- if(value&&typeof value==="object"){
-  if(value.passed===true||value.confirmed===true||value.ok===true)return "pass";
-  if(value.passed===false||value.confirmed===false||value.ok===false)return "fail";
-  if(value.status)return filterState(value.status);
- }
+ if(value==null)return "pending";
 
  if(typeof value==="string"){
-  const text=value.toLowerCase();
-
-  if(["pass","passed","ok","confirmado","confirmada","aprobado","aprobada","true"].includes(text))return "pass";
-  if(["fail","failed","bloqueado","bloqueada","rechazado","rechazada","false"].includes(text))return "fail";
-  if(["pending","pendiente","neutral","waiting"].includes(text))return "pending";
+  const s=value.toLowerCase();
+  if(["pass","passed","ok","confirmado","confirmada","aprobado","aprobada","true","fuerte","moderado"].includes(s))return "pass";
+  if(["fail","failed","bloqueado","bloqueada","rechazado","rechazada","false","debil","débil"].includes(s))return "fail";
+  return "pending";
  }
 
+ if(typeof value==="object"){
+  if(value.passed===true||value.confirmed===true||value.ok===true)return "pass";
+  if(value.passed===false||value.confirmed===false||value.ok===false)return "fail";
+  if(value.status)return getFilterStatus(value.status);
+  if(value.state)return getFilterStatus(value.state);
+ }
  return "pending";
 }
 
-function filterDescription(value){
- if(value&&typeof value==="object"){
-  return value.reason||value.message||value.description||value.status||"Condición recibida";
- }
- return "";
+function getFilterReason(value){
+ if(!value||typeof value!=="object")return "";
+ return value.reason||value.message||value.description||"";
 }
 
 function renderValidation(data){
@@ -954,116 +645,90 @@ function renderValidation(data){
 
  const filters=data.filters||{};
  const structure=data.structure||{};
- const indicators=data.indicators||{};
- const adx=indicators.adx||{};
- const volatility=data.volatility||{};
 
- const rows=[
-  {
-   label:"Tendencia de 1 hora",
-   value:findFilter(filters,["trendAligned","trendConfirmed","trendFilter","trend"])
-  },
-  {
-   label:"Estructura del mercado",
-   value:structure.structureConfirmed===true?true:
-    structure.structureConfirmed===false?false:undefined
-  },
-  {
-   label:"Fuerza ADX",
-   value:findFilter(filters,["adxConfirmed","adxAllowed","adxFilter","adx"])
-  },
-  {
-   label:"Volatilidad",
-   value:findFilter(filters,["volatilityAllowed","volatilityFilter","volatility"])
-  },
-  {
-   label:"RSI",
-   value:findFilter(filters,["rsiAllowed","rsiFilter","rsi"])
-  },
-  {
-   label:"Distancia a soporte/resistencia",
-   value:findFilter(filters,["nearLevel","levelAllowed","levelFilter","supportResistance"])
-  },
-  {
-   label:"Evento estructural",
-   value:structure.event&&structure.event!=="NINGUNO"
-    ?(structure.structureConfirmed===true?true:undefined)
-    :undefined
-  }
+ // En v4.2 cada filtro puede llegar como objeto:
+ // {status, passed, reason}.
+ const definitions=[
+  ["Tendencia de 1 hora",filters.trend],
+  ["Estructura del mercado",filters.structure],
+  ["Evento estructural",filters.event],
+  ["Fuerza ADX",filters.adx],
+  ["Volatilidad",filters.volatility],
+  ["RSI",filters.rsi],
+  ["Distancia a soporte/resistencia",filters.level]
  ];
 
- // Si el Worker entrega filtros adicionales, también se muestran.
- const knownKeys=[
-  "trendAligned","trendConfirmed","trendFilter","trend",
-  "adxConfirmed","adxAllowed","adxFilter","adx",
-  "volatilityAllowed","volatilityFilter","volatility",
-  "rsiAllowed","rsiFilter","rsi",
-  "nearLevel","levelAllowed","levelFilter","supportResistance"
- ].map(normalizeKey);
+ // Compatibilidad con la estructura de filtros anterior.
+ const legacy={
+  trend:filters.trendConfirmed??filters.trendAligned,
+  structure:structure.structureConfirmed,
+  event:structure.eventConfirmed??filters.eventConfirmed,
+  adx:filters.adxConfirmed,
+  volatility:filters.volatilityAllowed,
+  rsi:filters.rsiAllowed,
+  level:filters.levelAllowed
+ };
 
- if(filters&&typeof filters==="object"){
-  const entries=Array.isArray(filters)
-   ?filters.map(item=>[item.name||item.key,item])
-   :Object.entries(filters);
-
-  entries.forEach(([key,value])=>{
-   if(!knownKeys.includes(normalizeKey(key))){
-    rows.push({label:String(key),value});
-   }
-  });
- }
-
- const uniqueRows=[];
- const seen=new Set();
-
- rows.forEach(row=>{
-  const key=normalizeKey(row.label);
-  if(!seen.has(key)){
-   seen.add(key);
-   uniqueRows.push(row);
-  }
+ const rows=definitions.map(([label,value],index)=>{
+  const key=["trend","structure","event","adx","volatility","rsi","level"][index];
+  if(value===undefined||value===null)value=legacy[key];
+  return {label,value};
  });
 
- uniqueRows.forEach(row=>{
-  const state=filterState(row.value);
+ rows.forEach(row=>{
+  const state=getFilterStatus(row.value);
   const badge=document.createElement("span");
-  badge.className="validation-status "+(
-   state==="pass"?"pass":
-   state==="fail"?"fail":
-   "pending"
-  );
-  badge.textContent=state==="pass"?"CONFIRMADO":
-   state==="fail"?"BLOQUEADO":"PENDIENTE";
+  badge.className="validation-status "+state;
+  badge.textContent=state==="pass"?"CONFIRMADO":state==="fail"?"BLOQUEADO":"PENDIENTE";
 
   const label=document.createElement("span");
   label.textContent=row.label;
 
+  const top=document.createElement("div");
+  top.className="validation-main";
+  top.append(label,badge);
+
   const container=document.createElement("div");
   container.className="validation-row";
-  container.append(label,badge);
+  container.appendChild(top);
 
+  const reason=getFilterReason(row.value);
+  if(reason){
+   const detail=document.createElement("div");
+   detail.className="validation-reason";
+   detail.textContent=reason;
+   container.appendChild(detail);
+  }
   list.appendChild(container);
  });
 
- const passed=uniqueRows.filter(row=>filterState(row.value)==="pass").length;
- const failed=uniqueRows.filter(row=>filterState(row.value)==="fail").length;
- const pending=uniqueRows.filter(row=>filterState(row.value)==="pending").length;
+ const passed=rows.filter(r=>getFilterStatus(r.value)==="pass").length;
+ const failed=rows.filter(r=>getFilterStatus(r.value)==="fail").length;
+ const pending=rows.filter(r=>getFilterStatus(r.value)==="pending").length;
 
  let summary="Condiciones confirmadas: "+passed+
   " · Bloqueadas: "+failed+" · Pendientes: "+pending+".";
-
- if(data.signal==="ESPERAR"){
-  summary+=" El sistema no ha validado una entrada.";
- }else if(data.signal==="COMPRA"||data.signal==="VENTA"){
-  summary+=" El motor ha generado una señal "+data.signal+
-   "; revisa siempre los filtros y el contexto del mercado.";
- }
-
+ if(data.signal==="ESPERAR")summary+=" El sistema no ha validado una entrada.";
+ else summary+=" Señal generada: "+data.signal+".";
  show("validationSummary",summary);
+
+ // Advertencias recibidas del Worker.
+ const warningList=$("warningList");
+ warningList.innerHTML="";
+ let warnings=Array.isArray(data.warnings)?data.warnings:[];
+ if(Array.isArray(filters.warnings))warnings=warnings.concat(filters.warnings);
+ warnings=[...new Set(warnings.filter(w=>typeof w==="string"&&w.trim()))];
+
+ warnings.forEach(warning=>{
+  const li=document.createElement("li");
+  li.textContent=warning;
+  warningList.appendChild(li);
+ });
+ warningList.hidden=warnings.length===0;
 }
 
 // =====================================
-// ANÁLISIS COMPLETO
+// RENDERIZAR ANÁLISIS
 // =====================================
 
 function renderAnalysis(data){
@@ -1074,65 +739,46 @@ function renderAnalysis(data){
  const confluence=data.confluence||{};
 
  setSignal(data.signal);
-
  show("market",data.symbol+" · "+data.interval);
  show("price",formatPrice(data.price));
  show("reason",data.reason);
-
  show("trend",trend.direction||"—");
  show("volatility",volatility.state||"—");
 
  show("score",(confluence.score??"—")+"/"+(confluence.maximumScore??6));
- show("strength",confluence.strength||"—");
+ show("strength",confluence.strength||confluence.signalStrength||"—");
  show("buyScore",confluence.buyScore??"—");
  show("sellScore",confluence.sellScore??"—");
 
  const maximum=Number(confluence.maximumScore)||6;
  const score=Number(confluence.score)||0;
-
  $("scoreBar").style.width=Math.min(100,Math.max(0,score/maximum*100))+"%";
 
  show("support",formatPrice(levels.support));
  show("resistance",formatPrice(levels.resistance));
-
- show("supportDistance",levels.supportDistancePips==null
-  ?"Distancia: —":"Distancia: "+levels.supportDistancePips+" pips");
-
- show("resistanceDistance",levels.resistanceDistancePips==null
-  ?"Distancia: —":"Distancia: "+levels.resistanceDistancePips+" pips");
-
+ show("supportDistance",levels.supportDistancePips==null?"Distancia: —":"Distancia: "+levels.supportDistancePips+" pips");
+ show("resistanceDistance",levels.resistanceDistancePips==null?"Distancia: —":"Distancia: "+levels.resistanceDistancePips+" pips");
  show("supportTouches","Contactos: "+(levels.supportTouches??0));
  show("resistanceTouches","Contactos: "+(levels.resistanceTouches??0));
 
  const rsiValue=Number(indicators.rsi14);
  show("rsi",formatNumber(indicators.rsi14));
-
- // Color RSI: neutral en extremos y cerca del punto medio.
- const rsiElement=$("rsi");
- rsiElement.className="";
- if(!Number.isFinite(rsiValue))rsiElement.classList.add("neutral");
- else if(rsiValue>=70||rsiValue<=30)rsiElement.classList.add("bad");
- else if(rsiValue>50)rsiElement.classList.add("good");
- else if(rsiValue<50)rsiElement.classList.add("bad");
- else rsiElement.classList.add("neutral");
+ $("rsi").className=!Number.isFinite(rsiValue)?"neutral":
+  (rsiValue>=70||rsiValue<=30)?"bad":
+  rsiValue>50?"good":rsiValue<50?"bad":"neutral";
 
  show("ema9",formatPrice(indicators.ema9));
  show("ema21",formatPrice(indicators.ema21));
 
  const adx=indicators.adx||{};
  const adxValue=Number(adx.value);
- const plusDI=Number(adx.plusDI);
- const minusDI=Number(adx.minusDI);
-
+ const plusDI=Number(adx.plusDI),minusDI=Number(adx.minusDI);
  show("adx",formatNumber(adx.value));
-
  let adxText="Fuerza de tendencia";
  if(Number.isFinite(plusDI)&&Number.isFinite(minusDI)){
-  adxText+=" · "+(plusDI>minusDI?"Dirección alcista":
-   minusDI>plusDI?"Dirección bajista":"Dirección equilibrada");
+  adxText+=" · "+(plusDI>minusDI?"Dirección alcista":minusDI>plusDI?"Dirección bajista":"Dirección equilibrada");
  }
  show("adxDirection",adxText);
-
  setColor("adx",adxValue,25,20);
 
  const macd=indicators.macd||{};
@@ -1147,21 +793,19 @@ function renderAnalysis(data){
  renderValidation(data);
 
  show("connection","Análisis recibido correctamente desde Cloudflare y Twelve Data.");
-
- show(
-  "candleInfo",
+ show("candleInfo",
   "Velas recibidas: "+(data.candlesReceived??"—")+
-  " · Velas del gráfico: "+(data.chartCandlesReceived??data.chartCandles?.length??data.candles?.length??"—")+
+  " · Velas cerradas: "+(data.closedCandlesReceived??"—")+
+  " · Gráfico: "+(data.chartCandlesReceived??data.chartCandles?.length??data.candles?.length??"—")+
   " · Tendencia 1H: "+(data.trendCandlesReceived??"—")
  );
-
  show("updated","Última actualización: "+new Date().toLocaleString("es-CO"));
 
  try{
   const count=renderChart(data);
   show("chartMarket",data.symbol+" · "+data.interval+" · "+count+" velas");
  }catch(error){
-  console.error("Error al dibujar los gráficos:",error);
+  console.error("Error al dibujar gráficos:",error);
   show("chartMarket","Error al dibujar el gráfico: "+error.message);
   show("connection","Análisis recibido. Problema visual del gráfico: "+error.message);
  }
@@ -1173,10 +817,8 @@ function renderAnalysis(data){
 
 $("analyze").addEventListener("click",async()=>{
  const button=$("analyze");
-
  button.disabled=true;
  button.textContent="ANALIZANDO...";
-
  setSignal("CARGANDO");
  show("reason","Consultando datos del mercado...");
  show("connection","Conectando con Cloudflare...");
@@ -1186,27 +828,18 @@ $("analyze").addEventListener("click",async()=>{
   url.searchParams.set("symbol",$("pair").value);
   url.searchParams.set("interval",$("interval").value);
 
-  const response=await fetch(url.toString(),{
-   method:"GET",
-   cache:"no-store"
-  });
-
+  const response=await fetch(url.toString(),{method:"GET",cache:"no-store"});
   const data=await response.json();
 
   if(!response.ok||data.status!=="ok"){
    throw new Error(data.error||data.message||"Error al analizar el mercado.");
   }
-
-  const candles=data.chartCandles||data.candles;
-
-  if(!Array.isArray(candles)){
+  if(!Array.isArray(data.chartCandles||data.candles)){
    throw new Error("El servidor respondió, pero no envió las velas.");
   }
-
-  if(candles.length<30){
+  if((data.chartCandles||data.candles).length<30){
    throw new Error("El servidor envió menos de 30 velas.");
   }
-
   renderAnalysis(data);
 
  }catch(error){
@@ -1214,7 +847,6 @@ $("analyze").addEventListener("click",async()=>{
   setSignal("SIN DATOS");
   show("reason",error.message);
   show("connection","Error de conexión o de datos: "+error.message);
-
  }finally{
   button.disabled=false;
   button.textContent="ANALIZAR MERCADO";
@@ -1227,13 +859,12 @@ $("analyze").addEventListener("click",async()=>{
 
 try{
  initializeCharts();
- show("connection","Gráficos inicializados. Esperando análisis...");
+ show("connection","Gráficos inicializados. Worker v4.2 listo para el análisis.");
 }catch(error){
  console.error("Error inicializando gráficos:",error);
  show("connection",error.message);
  show("chartMarket","No se pudieron inicializar los gráficos.");
 }
 </script>
-
 </body>
 </html>
