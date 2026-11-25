@@ -5,8 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090f1c">
-<title>IQ OPTION AI | Smart Analysis 4.6</title>
-
+<title>IQ OPTION AI | Smart Analysis 4.7</title>
 <script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
 
 <style>
@@ -92,14 +91,13 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 <header>
  <div>
   <h1>IQ OPTION AI</h1>
-  <small>SMART MARKET ANALYSIS · v4.6</small>
+  <small>SMART MARKET ANALYSIS · v4.7</small>
  </div>
  <span class="top-status">● DEMO</span>
 </header>
 
 <section class="card">
  <h2>Configuración del mercado</h2>
-
  <label for="pair">Par de divisas</label>
  <select id="pair">
   <option value="EUR/USD">EUR/USD</option>
@@ -127,16 +125,9 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
  <div id="signal" class="signal wait-signal">SIN DATOS</div>
  <div class="market-price" id="price">—</div>
  <p id="reason" class="reason">Pulsa analizar mercado para comenzar.</p>
-
  <div class="grid">
-  <div class="stat">
-   <small>TENDENCIA 1H</small>
-   <b id="trend">—</b>
-  </div>
-  <div class="stat">
-   <small>VOLATILIDAD</small>
-   <b id="volatility">—</b>
-  </div>
+  <div class="stat"><small>TENDENCIA 1H</small><b id="trend">—</b></div>
+  <div class="stat"><small>VOLATILIDAD</small><b id="volatility">—</b></div>
  </div>
 </section>
 
@@ -159,23 +150,23 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
  <div><span id="structureEvent" class="structure-event neutral">ESPERANDO DATOS</span></div>
 
  <div class="structure-info">
+  <div class="stat"><small>EVENTO DIRECCIONAL</small><b id="structureDirection">—</b></div>
+  <div class="stat"><small>NIVEL ROTO</small><b id="brokenLevel">—</b></div>
   <div class="stat">
-   <small>EVENTO DIRECCIONAL</small>
-   <b id="structureDirection">—</b>
-  </div>
-  <div class="stat">
-   <small>NIVEL ROTO</small>
-   <b id="brokenLevel">—</b>
-  </div>
-  <div class="stat">
-   <small>SWING HIGH</small>
-   <b id="swingHigh">—</b>
+   <small>SWING HIGH</small><b id="swingHigh">—</b>
    <div class="detail" id="swingHighTime">—</div>
   </div>
   <div class="stat">
-   <small>SWING LOW</small>
-   <b id="swingLow">—</b>
+   <small>SWING LOW</small><b id="swingLow">—</b>
    <div class="detail" id="swingLowTime">—</div>
+  </div>
+  <div class="stat">
+   <small>RETESTEO</small><b id="retestStatus">—</b>
+   <div class="detail" id="retestReason">Esperando información.</div>
+  </div>
+  <div class="stat">
+   <small>ESTRUCTURA</small><b id="structureConfirmed">—</b>
+   <div class="detail" id="structureConfirmation">—</div>
   </div>
  </div>
 
@@ -205,7 +196,6 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
  </div>
 
  <div id="chart" class="chart-box"></div>
-
  <p class="chart-note">BOS = ruptura de estructura · CHoCH = cambio de carácter. Los swings representan pivotes detectados.</p>
 
  <div class="panel-title"><h2>RSI · Fuerza relativa</h2></div>
@@ -220,27 +210,13 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 <section class="card">
  <h2>Confluencia técnica</h2>
  <div class="grid">
-  <div class="stat">
-   <small>PUNTUACIÓN</small>
-   <b id="score">—</b>
-  </div>
-  <div class="stat">
-   <small>FUERZA</small>
-   <b id="strength">—</b>
-  </div>
+  <div class="stat"><small>PUNTUACIÓN</small><b id="score">—</b></div>
+  <div class="stat"><small>FUERZA</small><b id="strength">—</b></div>
  </div>
-
  <div class="score-track"><div class="score-fill" id="scoreBar"></div></div>
-
  <div class="grid">
-  <div class="stat">
-   <small>COMPRA</small>
-   <b id="buyScore" class="good">—</b>
-  </div>
-  <div class="stat">
-   <small>VENTA</small>
-   <b id="sellScore" class="bad">—</b>
-  </div>
+  <div class="stat"><small>COMPRA</small><b id="buyScore" class="good">—</b></div>
+  <div class="stat"><small>VENTA</small><b id="sellScore" class="bad">—</b></div>
  </div>
  <p class="muted">Coincidencia técnica entre indicadores. No representa una probabilidad de éxito.</p>
 </section>
@@ -249,14 +225,12 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
  <h2>Soportes y resistencias</h2>
  <div class="grid">
   <div class="level">
-   <small class="good">SOPORTE</small>
-   <b id="support">—</b>
+   <small class="good">SOPORTE</small><b id="support">—</b>
    <small id="supportDistance">Distancia: —</small>
    <p class="muted" id="supportTouches">Contactos: —</p>
   </div>
   <div class="level">
-   <small class="bad">RESISTENCIA</small>
-   <b id="resistance">—</b>
+   <small class="bad">RESISTENCIA</small><b id="resistance">—</b>
    <small id="resistanceDistance">Distancia: —</small>
    <p class="muted" id="resistanceTouches">Contactos: —</p>
   </div>
@@ -266,36 +240,12 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 <section class="card">
  <h2>Indicadores técnicos</h2>
  <div class="stats">
-  <div class="stat">
-   <small>RSI 14</small>
-   <b id="rsi">—</b>
-   <div class="detail">Fuerza relativa</div>
-  </div>
-  <div class="stat">
-   <small>ADX</small>
-   <b id="adx">—</b>
-   <div class="detail" id="adxDirection">Fuerza de tendencia</div>
-  </div>
-  <div class="stat">
-   <small>EMA 9</small>
-   <b id="ema9">—</b>
-   <div class="detail">Media rápida</div>
-  </div>
-  <div class="stat">
-   <small>EMA 21</small>
-   <b id="ema21">—</b>
-   <div class="detail">Media lenta</div>
-  </div>
-  <div class="stat">
-   <small>MACD</small>
-   <b id="macd">—</b>
-   <div class="detail" id="macdSignal">Línea de señal: —</div>
-  </div>
-  <div class="stat">
-   <small>ATR</small>
-   <b id="atr">—</b>
-   <div class="detail">Volatilidad en pips</div>
-  </div>
+  <div class="stat"><small>RSI 14</small><b id="rsi">—</b><div class="detail">Fuerza relativa</div></div>
+  <div class="stat"><small>ADX</small><b id="adx">—</b><div class="detail" id="adxDirection">Fuerza de tendencia</div></div>
+  <div class="stat"><small>EMA 9</small><b id="ema9">—</b><div class="detail">Media rápida</div></div>
+  <div class="stat"><small>EMA 21</small><b id="ema21">—</b><div class="detail">Media lenta</div></div>
+  <div class="stat"><small>MACD</small><b id="macd">—</b><div class="detail" id="macdSignal">Línea de señal: —</div></div>
+  <div class="stat"><small>ATR</small><b id="atr">—</b><div class="detail">Volatilidad en pips</div></div>
  </div>
 </section>
 
@@ -305,10 +255,11 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
  <p class="muted" id="candleInfo">Velas recibidas: —</p>
  <p class="muted" id="updated">Última actualización: —</p>
  <p class="data-time" id="dataTime">Hora de la última vela: —</p>
+ <div id="warnings" class="detail"></div>
 </section>
 
 <footer>
- IQ OPTION AI · SMART MARKET ANALYSIS v4.6<br>
+ IQ OPTION AI · SMART MARKET ANALYSIS v4.7<br>
  Análisis técnico informativo. No garantiza beneficios.
  No incluye cotizaciones OTC ni ejecuta operaciones.
 </footer>
@@ -319,21 +270,13 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 "use strict";
 
 const API_URL = "https://iq-option-ai-api.marcozmonsalve.workers.dev";
+const REQUIRED_VERSION = "4.7";
 
 const $ = id => document.getElementById(id);
 
-let chart = null;
-let rsiChart = null;
-let macdChart = null;
-
-let candleSeries = null;
-let ema9Series = null;
-let ema21Series = null;
-let rsiLineSeries = null;
-let macdLineSeries = null;
-let macdSignalSeries = null;
-let macdHistogramSeries = null;
-
+let chart, rsiChart, macdChart;
+let candleSeries, ema9Series, ema21Series;
+let rsiLineSeries, macdLineSeries, macdSignalSeries, macdHistogramSeries;
 let priceLines = [];
 let resizeObserver = null;
 
@@ -347,26 +290,16 @@ function show(id, value) {
 }
 
 function formatPrice(value) {
- // Admite tanto un precio numérico como un objeto de swing.
- if (value && typeof value === "object") {
-  value = value.price;
- }
-
+ if (value && typeof value === "object") value = value.price;
  if (value === null || value === undefined || value === "") return "—";
-
  const number = Number(value);
- if (!Number.isFinite(number)) return "—";
-
- return number.toFixed(6);
+ return Number.isFinite(number) ? number.toFixed(6) : "—";
 }
 
 function formatNumber(value, decimals = 2) {
  if (value === null || value === undefined || value === "") return "—";
-
  const number = Number(value);
- if (!Number.isFinite(number)) return "—";
-
- return number.toFixed(decimals);
+ return Number.isFinite(number) ? number.toFixed(decimals) : "—";
 }
 
 function pipSize(symbol) {
@@ -375,32 +308,47 @@ function pipSize(symbol) {
 
 function formatTime(value) {
  if (value === null || value === undefined || value === "") return "—";
-
  let timestamp;
 
- if (typeof value === "number") {
-  timestamp = value;
- } else if (typeof value === "string" && /^\d+$/.test(value)) {
-  timestamp = Number(value);
- } else {
-  timestamp = Date.parse(value) / 1000;
- }
+ if (typeof value === "number") timestamp = value;
+ else if (typeof value === "string" && /^\d+$/.test(value)) timestamp = Number(value);
+ else timestamp = Date.parse(value) / 1000;
 
  if (!Number.isFinite(timestamp)) return "—";
 
  return new Date(timestamp * 1000).toLocaleString("es-CO", {
-  day: "2-digit",
-  month: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit"
+  day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"
  });
 }
 
-function getPrice(value) {
- if (value && typeof value === "object") {
-  return value.price ?? null;
- }
- return value ?? null;
+function setSignal(signal) {
+ const element = $("signal");
+ element.textContent = signal || "ESPERAR";
+ element.className = "signal";
+ element.classList.add(
+  signal === "COMPRA" ? "buy-signal" :
+  signal === "VENTA" ? "sell-signal" : "wait-signal"
+ );
+}
+
+function setColor(id, value, positive, negative) {
+ const element = $(id);
+ if (!element) return;
+ element.classList.remove("good","bad","neutral");
+ const number = Number(value);
+
+ if (!Number.isFinite(number)) element.classList.add("neutral");
+ else if (number > positive) element.classList.add("good");
+ else if (number < negative) element.classList.add("bad");
+ else element.classList.add("neutral");
+}
+
+function setFlag(id, value) {
+ const element = $(id);
+ if (!element) return;
+
+ element.textContent = value === true ? "SÍ" : value === false ? "NO" : "—";
+ element.className = value === true ? "good" : value === false ? "bad" : "neutral";
 }
 
 function getPivotTime(pivot) {
@@ -408,48 +356,8 @@ function getPivotTime(pivot) {
  return pivot.unix ?? pivot.time ?? null;
 }
 
-function setSignal(signal) {
- const element = $("signal");
- element.textContent = signal || "ESPERAR";
- element.className = "signal";
-
- element.classList.add(
-  signal === "COMPRA" ? "buy-signal" :
-  signal === "VENTA" ? "sell-signal" :
-  "wait-signal"
- );
-}
-
-function setColor(id, value, positive, negative) {
- const element = $(id);
- if (!element) return;
-
- element.classList.remove("good", "bad", "neutral");
-
- const number = Number(value);
-
- if (!Number.isFinite(number)) {
-  element.classList.add("neutral");
- } else if (number > positive) {
-  element.classList.add("good");
- } else if (number < negative) {
-  element.classList.add("bad");
- } else {
-  element.classList.add("neutral");
- }
-}
-
-function setFlag(id, value) {
- const element = $(id);
- if (!element) return;
-
- element.textContent =
-  value === true ? "SÍ" :
-  value === false ? "NO" : "—";
-
- element.className =
-  value === true ? "good" :
-  value === false ? "bad" : "neutral";
+function getLatestPivot(items) {
+ return Array.isArray(items) && items.length ? items[items.length - 1] : null;
 }
 
 // =====================================================
@@ -458,29 +366,16 @@ function setFlag(id, value) {
 
 function createBaseChart(id, height) {
  const element = $(id);
-
  return LightweightCharts.createChart(element, {
-  width: Math.max(element.clientWidth, 300),
+  width: Math.max(element.clientWidth,300),
   height,
-  layout: {
-   background: { color: "#0b1120" },
-   textColor: "#a9bad1"
-  },
-  grid: {
-   vertLines: { color: "#18243a" },
-   horzLines: { color: "#18243a" }
-  },
-  rightPriceScale: { borderColor: "#293750" },
-  timeScale: {
-   borderColor: "#293750",
-   timeVisible: true,
-   secondsVisible: false
-  },
-  crosshair: {
-   mode: LightweightCharts.CrosshairMode.Normal
-  },
-  handleScroll: true,
-  handleScale: true
+  layout:{background:{color:"#0b1120"},textColor:"#a9bad1"},
+  grid:{vertLines:{color:"#18243a"},horzLines:{color:"#18243a"}},
+  rightPriceScale:{borderColor:"#293750"},
+  timeScale:{borderColor:"#293750",timeVisible:true,secondsVisible:false},
+  crosshair:{mode:LightweightCharts.CrosshairMode.Normal},
+  handleScroll:true,
+  handleScale:true
  });
 }
 
@@ -489,601 +384,456 @@ function initializeCharts() {
   throw new Error("No se pudo cargar la biblioteca de gráficos.");
  }
 
- chart = createBaseChart("chart", 300);
+ chart = createBaseChart("chart",300);
 
  candleSeries = chart.addCandlestickSeries({
-  upColor: "#35d6a4",
-  downColor: "#ff687c",
-  borderUpColor: "#35d6a4",
-  borderDownColor: "#ff687c",
-  wickUpColor: "#35d6a4",
-  wickDownColor: "#ff687c"
+  upColor:"#35d6a4",downColor:"#ff687c",
+  borderUpColor:"#35d6a4",borderDownColor:"#ff687c",
+  wickUpColor:"#35d6a4",wickDownColor:"#ff687c"
  });
 
  ema9Series = chart.addLineSeries({
-  color: "#f5c66b",
-  lineWidth: 2,
-  priceLineVisible: false
+  color:"#f5c66b",lineWidth:2,priceLineVisible:false
  });
-
  ema21Series = chart.addLineSeries({
-  color: "#54a6ff",
-  lineWidth: 2,
-  priceLineVisible: false
+  color:"#54a6ff",lineWidth:2,priceLineVisible:false
  });
 
- rsiChart = createBaseChart("rsiChart", 175);
-
+ rsiChart = createBaseChart("rsiChart",175);
  rsiLineSeries = rsiChart.addLineSeries({
-  color: "#b48cff",
-  lineWidth: 2,
-  priceLineVisible: false,
-  priceFormat: {
-   type: "price",
-   precision: 2,
-   minMove: 0.01
-  }
+  color:"#b48cff",lineWidth:2,priceLineVisible:false,
+  priceFormat:{type:"price",precision:2,minMove:0.01}
  });
 
- [30, 50, 70].forEach(level => {
+ [30,50,70].forEach(level => {
   rsiLineSeries.createPriceLine({
-   price: level,
-   color: level === 50 ? "#53647c" : "#394963",
-   lineWidth: 1,
-   lineStyle: LightweightCharts.LineStyle.Dashed,
-   axisLabelVisible: true,
-   title: String(level)
+   price:level,
+   color:level===50?"#53647c":"#394963",
+   lineWidth:1,
+   lineStyle:LightweightCharts.LineStyle.Dashed,
+   axisLabelVisible:true,
+   title:String(level)
   });
  });
 
- macdChart = createBaseChart("macdChart", 175);
-
+ macdChart = createBaseChart("macdChart",175);
  macdHistogramSeries = macdChart.addHistogramSeries({
-  priceLineVisible: false,
-  lastValueVisible: false,
-  base: 0
+  priceLineVisible:false,lastValueVisible:false,base:0
  });
-
  macdLineSeries = macdChart.addLineSeries({
-  color: "#35d6a4",
-  lineWidth: 2,
-  priceLineVisible: false
+  color:"#35d6a4",lineWidth:2,priceLineVisible:false
  });
-
  macdSignalSeries = macdChart.addLineSeries({
-  color: "#f5c66b",
-  lineWidth: 2,
-  priceLineVisible: false
+  color:"#f5c66b",lineWidth:2,priceLineVisible:false
  });
 
  if (typeof ResizeObserver !== "undefined") {
   resizeObserver = new ResizeObserver(() => {
-   [
-    ["chart", chart],
-    ["rsiChart", rsiChart],
-    ["macdChart", macdChart]
-   ].forEach(([id, instance]) => {
+   [["chart",chart],["rsiChart",rsiChart],["macdChart",macdChart]]
+   .forEach(([id,instance]) => {
     const element = $(id);
-
     if (instance && element.clientWidth > 0) {
-     instance.applyOptions({ width: element.clientWidth });
+     instance.applyOptions({width:element.clientWidth});
     }
    });
   });
-
-  ["chart", "rsiChart", "macdChart"].forEach(id => {
-   resizeObserver.observe($(id));
-  });
+  ["chart","rsiChart","macdChart"].forEach(id => resizeObserver.observe($(id)));
  }
 
  let syncing = false;
-
- function synchronize(source, targets) {
+ function synchronize(source,targets) {
   source.timeScale().subscribeVisibleLogicalRangeChange(range => {
    if (!range || syncing) return;
-
    syncing = true;
-
    targets.forEach(target => {
-    try {
-     target.timeScale().setVisibleLogicalRange(range);
-    } catch (error) {}
+    try { target.timeScale().setVisibleLogicalRange(range); } catch(error) {}
    });
-
    syncing = false;
   });
  }
-
- synchronize(chart, [rsiChart, macdChart]);
- synchronize(rsiChart, [chart, macdChart]);
- synchronize(macdChart, [chart, rsiChart]);
+ synchronize(chart,[rsiChart,macdChart]);
+ synchronize(rsiChart,[chart,macdChart]);
+ synchronize(macdChart,[chart,rsiChart]);
 }
 
 // =====================================================
-// EMA Y MACD
+// INDICADORES PARA LOS GRÁFICOS
 // =====================================================
 
-function calculateEMA(values, period) {
+function calculateEMA(values,period) {
  if (values.length < period) return [];
-
- const multiplier = 2 / (period + 1);
-
- let current = values.slice(0, period)
-  .reduce((a, b) => a + b, 0) / period;
-
+ const multiplier = 2/(period+1);
+ let current = values.slice(0,period).reduce((a,b)=>a+b,0)/period;
  const result = [current];
 
- for (let i = period; i < values.length; i++) {
-  current = values[i] * multiplier + current * (1 - multiplier);
+ for (let i=period;i<values.length;i++) {
+  current = values[i]*multiplier + current*(1-multiplier);
   result.push(current);
  }
-
  return result;
 }
 
-function calculateEMAPoints(candles, period) {
- return calculateEMA(candles.map(c => c.close), period)
-  .map((value, index) => ({
-   time: candles[index + period - 1].time,
-   value
-  }));
+function calculateEMAPoints(candles,period) {
+ return calculateEMA(candles.map(c=>c.close),period).map((value,index)=>({
+  time:candles[index+period-1].time,value
+ }));
 }
 
 function calculateMACD(candles) {
- const values = candles.map(c => c.close);
-
- const ema12 = calculateEMA(values, 12);
- const ema26 = calculateEMA(values, 26);
-
+ const values = candles.map(c=>c.close);
+ const ema12 = calculateEMA(values,12);
+ const ema26 = calculateEMA(values,26);
  if (!ema12.length || !ema26.length) return null;
 
  const macdValues = [];
+ for (let i=0;i<ema26.length;i++) macdValues.push(ema12[i+14]-ema26[i]);
 
- for (let i = 0; i < ema26.length; i++) {
-  macdValues.push(ema12[i + 14] - ema26[i]);
- }
-
- const signalValues = calculateEMA(macdValues, 9);
-
+ const signalValues = calculateEMA(macdValues,9);
  if (!signalValues.length) return null;
 
- const line = [];
- const signal = [];
- const histogram = [];
+ const line=[],signal=[],histogram=[];
 
- for (let i = 0; i < macdValues.length; i++) {
-  const time = candles[i + 25].time;
+ for (let i=0;i<macdValues.length;i++) {
+  const time = candles[i+25].time;
+  line.push({time,value:macdValues[i]});
 
-  line.push({
-   time,
-   value: macdValues[i]
-  });
-
-  if (i >= 8) {
-   const signalValue = signalValues[i - 8];
-   const difference = macdValues[i] - signalValue;
-
-   signal.push({
-    time,
-    value: signalValue
-   });
-
+  if (i>=8) {
+   const signalValue = signalValues[i-8];
+   const difference = macdValues[i]-signalValue;
+   signal.push({time,value:signalValue});
    histogram.push({
-    time,
-    value: difference,
-    color: difference >= 0 ? "#35d6a4" : "#ff687c"
+    time,value:difference,
+    color:difference>=0?"#35d6a4":"#ff687c"
    });
   }
  }
-
- return { line, signal, histogram };
+ return {line,signal,histogram};
 }
 
 // =====================================================
-// NORMALIZACIÓN DE VELAS
+// NORMALIZACIÓN
 // =====================================================
 
 function normalizeCandles(raw) {
- if (!Array.isArray(raw)) {
-  throw new Error("El servidor no ha enviado las velas.");
- }
+ if (!Array.isArray(raw)) throw new Error("El servidor no ha enviado las velas.");
 
- const candles = raw.map(item => ({
-  time: typeof item.time === "number"
-   ? Math.floor(item.time)
-   : Math.floor(Date.parse(item.time) / 1000),
-  open: Number(item.open),
-  high: Number(item.high),
-  low: Number(item.low),
-  close: Number(item.close)
- }))
- .filter(c =>
-  Number.isFinite(c.time) &&
-  Number.isFinite(c.open) &&
-  Number.isFinite(c.high) &&
-  Number.isFinite(c.low) &&
-  Number.isFinite(c.close) &&
-  c.high >= c.low
- )
- .sort((a, b) => a.time - b.time);
+ const candles = raw.map(item=>({
+  time:typeof item.time==="number"?Math.floor(item.time):Math.floor(Date.parse(item.time)/1000),
+  open:Number(item.open),high:Number(item.high),low:Number(item.low),close:Number(item.close)
+ })).filter(c=>
+  Number.isFinite(c.time)&&Number.isFinite(c.open)&&
+  Number.isFinite(c.high)&&Number.isFinite(c.low)&&
+  Number.isFinite(c.close)&&c.high>=c.low
+ ).sort((a,b)=>a.time-b.time);
 
- const unique = [];
-
- candles.forEach(c => {
-  if (!unique.length || unique[unique.length - 1].time !== c.time) {
-   unique.push(c);
-  }
+ const unique=[];
+ candles.forEach(c=>{
+  if (!unique.length || unique[unique.length-1].time!==c.time) unique.push(c);
  });
 
- if (unique.length < 30) {
-  throw new Error("No hay suficientes velas válidas para el gráfico.");
- }
-
+ if (unique.length<30) throw new Error("No hay suficientes velas válidas para el gráfico.");
  return unique;
 }
 
-// =====================================================
-// ESTRUCTURA DEL MERCADO
-// =====================================================
+function normalizeRSI(raw) {
+ if (!Array.isArray(raw)) return [];
 
-function getLatestPivot(items) {
- if (!Array.isArray(items) || !items.length) return null;
- return items[items.length - 1];
+ return raw.map(item=>({
+  time:typeof item.time==="number"?Math.floor(item.time):Math.floor(Date.parse(item.time)/1000),
+  value:Number(item.value)
+ })).filter(item=>
+  Number.isFinite(item.time)&&Number.isFinite(item.value)&&
+  item.value>=0&&item.value<=100
+ ).sort((a,b)=>a.time-b.time)
+ .filter((item,index,array)=>index===0||item.time!==array[index-1].time);
 }
+
+// =====================================================
+// ESTRUCTURA Y RETESTEO v4.7
+// =====================================================
 
 function renderStructure(structure) {
  if (!structure) {
   [
-   "structureBias",
-   "structureDirection",
-   "brokenLevel",
-   "swingHigh",
-   "swingLow",
-   "swingHighTime",
-   "swingLowTime",
-   "flagHH",
-   "flagHL",
-   "flagLH",
-   "flagLL"
-  ].forEach(id => show(id, "—"));
+   "structureBias","structureDirection","brokenLevel","swingHigh","swingLow",
+   "swingHighTime","swingLowTime","flagHH","flagHL","flagLH","flagLL",
+   "retestStatus","retestReason","structureConfirmed","structureConfirmation"
+  ].forEach(id=>show(id,"—"));
 
-  show("structureEvent", "SIN DATOS");
-  show("structureStatus", "El servidor no envió estructura.");
+  show("structureEvent","SIN DATOS");
+  show("structureStatus","El servidor no envió estructura.");
   return;
  }
 
  const bias = structure.bias || "INDEFINIDA";
  const event = structure.event || "NINGUNO";
+ const direction = structure.eventDirection || structure.direction || "NEUTRAL";
 
- // v4.6 utiliza eventDirection. Se conserva compatibilidad con direction.
- const direction =
-  structure.eventDirection ||
-  structure.direction ||
-  "NEUTRAL";
+ show("structureBias",bias);
+ show("structureDirection",direction);
+ show("structureEvent",event);
+ show("brokenLevel",formatPrice(structure.brokenLevel));
 
- show("structureBias", bias);
- show("structureDirection", direction);
- show("structureEvent", event);
- show("brokenLevel", formatPrice(structure.brokenLevel));
+ $("structureBias").className = "structure-bias "+
+  (bias==="ALCISTA"?"good":bias==="BAJISTA"?"bad":"neutral");
 
- $("structureBias").className =
-  "structure-bias " +
-  (bias === "ALCISTA" ? "good" :
-   bias === "BAJISTA" ? "bad" : "neutral");
+ $("structureEvent").className = "structure-event "+
+  (direction==="ALCISTA"?"bullish":direction==="BAJISTA"?"bearish":"neutral");
 
- $("structureEvent").className =
-  "structure-event " +
-  (direction === "ALCISTA" ? "bullish" :
-   direction === "BAJISTA" ? "bearish" : "neutral");
-
- // En v4.6 los swings pueden llegar como objetos.
  const high = structure.swingHigh || getLatestPivot(structure.highs);
  const low = structure.swingLow || getLatestPivot(structure.lows);
 
- show("swingHigh", formatPrice(high));
- show("swingLow", formatPrice(low));
+ show("swingHigh",formatPrice(high));
+ show("swingLow",formatPrice(low));
 
- const highTime = getPivotTime(high) ??
-  (getLatestPivot(structure.highs)?.unix ?? null);
+ const highTime = getPivotTime(high) ?? getPivotTime(getLatestPivot(structure.highs));
+ const lowTime = getPivotTime(low) ?? getPivotTime(getLatestPivot(structure.lows));
 
- const lowTime = getPivotTime(low) ??
-  (getLatestPivot(structure.lows)?.unix ?? null);
+ show("swingHighTime",highTime?formatTime(highTime):"Tiempo no disponible");
+ show("swingLowTime",lowTime?formatTime(lowTime):"Tiempo no disponible");
 
- show("swingHighTime", highTime ? formatTime(highTime) : "Tiempo no disponible");
- show("swingLowTime", lowTime ? formatTime(lowTime) : "Tiempo no disponible");
+ setFlag("flagHH",structure.higherHigh);
+ setFlag("flagHL",structure.higherLow);
+ setFlag("flagLH",structure.lowerHigh);
+ setFlag("flagLL",structure.lowerLow);
 
- setFlag("flagHH", structure.higherHigh);
- setFlag("flagHL", structure.higherLow);
- setFlag("flagLH", structure.lowerHigh);
- setFlag("flagLL", structure.lowerLow);
+ // El Worker informa el estado del retesteo.
+ const retest = structure.retest || {};
+ const retestStatus = String(retest.status || "PENDING").toUpperCase();
 
- let status = "Sesgo: " + bias + ". Evento: " + event + ".";
+ const retestLabel =
+  retest.confirmed===true || retestStatus==="CONFIRMED" || retestStatus==="CONFIRMADO"
+   ? "CONFIRMADO"
+   : retestStatus==="FAILED" || retestStatus==="FAIL" || retestStatus==="FALLIDO"
+    ? "FALLIDO"
+    : retestStatus==="NOT_APPLICABLE" || retestStatus==="N/A"
+     ? "NO APLICA"
+     : "PENDIENTE";
 
- if (structure.eventConfirmed === true) {
-  status += " Ruptura confirmada por el servidor.";
- } else {
-  status += " No hay una ruptura BOS/CHoCH nueva confirmada.";
- }
+ show("retestStatus",retestLabel);
+ show("retestReason",retest.reason || "El servidor no proporcionó detalles del retesteo.");
 
- if (structure.status) {
-  status += " Estado: " + structure.status + ".";
- }
+ $("retestStatus").className =
+  retestLabel==="CONFIRMADO"?"good":
+  retestLabel==="FALLIDO"?"bad":"neutral";
 
- if (structure.confirmation) {
-  status += " Confirmación: " + structure.confirmation + ".";
- }
+ show("structureConfirmed",
+  structure.structureConfirmed===true?"CONFIRMADA":
+  structure.structureConfirmed===false?"NO CONFIRMADA":"—"
+ );
+ show("structureConfirmation",structure.confirmation || "—");
 
- show("structureStatus", status);
+ let status = "Sesgo: "+bias+". Evento: "+event+".";
+ status += structure.eventConfirmed===true
+  ? " Ruptura confirmada por el servidor."
+  : " No hay una ruptura BOS/CHoCH nueva confirmada.";
+
+ if (structure.status) status += " Estado: "+structure.status+".";
+ if (structure.confirmation) status += " Confirmación: "+structure.confirmation+".";
+ status += " Retesteo: "+retestLabel+".";
+ show("structureStatus",status);
 }
 
 // =====================================================
-// VALIDACIÓN DE FILTROS
+// FILTROS
 // =====================================================
 
 function filterState(value) {
- if (value === true) return "pass";
- if (value === false) return "fail";
- if (!value || typeof value !== "object") return "pending";
+ if (value===true) return "pass";
+ if (value===false) return "fail";
+ if (!value || typeof value!=="object") return "pending";
 
- const status = String(value.status || "").toUpperCase();
+ const status=String(value.status||"").toUpperCase();
 
- if (["PASS", "PASSED", "OK", "CONFIRMADO", "CONFIRMADA"].includes(status)) return "pass";
- if (["FAIL", "FAILED", "BLOQUEADO", "BLOQUEADA"].includes(status)) return "fail";
- if (["NO_APLICA", "N/A"].includes(status)) return "na";
-
+ if (["PASS","PASSED","OK","CONFIRMADO","CONFIRMADA"].includes(status)) return "pass";
+ if (["FAIL","FAILED","BLOQUEADO","BLOQUEADA"].includes(status)) return "fail";
+ if (["NO_APLICA","N/A"].includes(status)) return "na";
  return "pending";
 }
 
 function renderValidation(data) {
- const list = $("validationList");
- list.innerHTML = "";
+ const list=$("validationList");
+ list.innerHTML="";
 
- const filters = data.filters || {};
-
- const definitions = [
-  ["Tendencia de 1 hora", "trend"],
-  ["Estructura del mercado", "structure"],
-  ["Evento BOS / CHoCH", "event"],
-  ["Fuerza ADX", "adx"],
-  ["Volatilidad", "volatility"],
-  ["RSI", "rsi"],
-  ["Distancia a niveles", "level"]
+ const filters=data.filters||{};
+ const definitions=[
+  ["Tendencia de 1 hora","trend"],
+  ["Estructura del mercado","structure"],
+  ["Evento BOS / CHoCH","event"],
+  ["Retesteo de ruptura","retest"],
+  ["Fuerza ADX","adx"],
+  ["Volatilidad","volatility"],
+  ["RSI","rsi"],
+  ["Distancia a niveles","level"]
  ];
 
- const results = [];
+ const results=[];
 
- definitions.forEach(([label, key]) => {
-  const value = filters[key];
-  const state = filterState(value);
-  const detail = value && typeof value === "object" ? value.reason || "" : "";
-
+ definitions.forEach(([label,key])=>{
+  const value=filters[key];
+  const state=filterState(value);
+  const detail=value&&typeof value==="object"?value.reason||"":"";
   results.push(state);
 
-  const row = document.createElement("div");
-  row.className = "validation-row";
+  const row=document.createElement("div");
+  row.className="validation-row";
 
-  const name = document.createElement("span");
-  name.textContent = label;
+  const name=document.createElement("span");
+  name.textContent=label;
 
-  const badge = document.createElement("span");
-  badge.className = "validation-status " + state;
+  const badge=document.createElement("span");
+  badge.className="validation-status "+state;
+  badge.textContent=
+   state==="pass"?"CONFIRMADO":
+   state==="fail"?"BLOQUEADO":
+   state==="na"?"NO APLICA":"PENDIENTE";
 
-  badge.textContent =
-   state === "pass" ? "CONFIRMADO" :
-   state === "fail" ? "BLOQUEADO" :
-   state === "na" ? "NO APLICA" : "PENDIENTE";
-
-  row.append(name, badge);
+  row.append(name,badge);
   list.appendChild(row);
 
   if (detail) {
-   const explanation = document.createElement("div");
-   explanation.className = "filter-reason";
-   explanation.textContent = detail;
+   const explanation=document.createElement("div");
+   explanation.className="filter-reason";
+   explanation.textContent=detail;
    list.appendChild(explanation);
   }
  });
 
- const passed = results.filter(x => x === "pass").length;
- const failed = results.filter(x => x === "fail").length;
- const pending = results.filter(x => x === "pending").length;
- const na = results.filter(x => x === "na").length;
+ const passed=results.filter(x=>x==="pass").length;
+ const failed=results.filter(x=>x==="fail").length;
+ const pending=results.filter(x=>x==="pending").length;
+ const na=results.filter(x=>x==="na").length;
 
- let summary =
-  "Confirmados: " + passed +
-  " · Bloqueados: " + failed +
-  " · Pendientes: " + pending +
-  " · No aplica: " + na + ".";
+ let summary="Confirmados: "+passed+" · Bloqueados: "+failed+
+  " · Pendientes: "+pending+" · No aplica: "+na+".";
+ summary+=data.signal==="ESPERAR"
+  ?" El motor no ha validado una entrada."
+  :" Señal generada: "+data.signal+". Revisa el contexto del mercado.";
 
- summary += data.signal === "ESPERAR"
-  ? " El motor no ha validado una entrada."
-  : " Señal generada: " + data.signal + ". Revisa el contexto del mercado.";
-
- show("validationSummary", summary);
+ show("validationSummary",summary);
 }
 
 // =====================================================
-// LÍNEAS DEL GRÁFICO
+// LÍNEAS DE PRECIO
 // =====================================================
 
 function clearPriceLines() {
- priceLines.forEach(line => {
-  try {
-   candleSeries.removePriceLine(line);
-  } catch (error) {}
+ priceLines.forEach(line=>{
+  try { candleSeries.removePriceLine(line); } catch(error) {}
  });
-
- priceLines = [];
+ priceLines=[];
 }
 
-function addPriceLine(price, color, title) {
- price = getPrice(price);
+function addPriceLine(value,color,title) {
+ if (value && typeof value==="object") value=value.price;
+ if (value===null || value===undefined || !Number.isFinite(Number(value))) return;
 
- if (price === null || price === undefined || !Number.isFinite(Number(price))) return;
-
- const line = candleSeries.createPriceLine({
-  price: Number(price),
-  color,
-  lineWidth: 2,
-  lineStyle: LightweightCharts.LineStyle.Dashed,
-  axisLabelVisible: true,
-  title
- });
-
- priceLines.push(line);
+ priceLines.push(candleSeries.createPriceLine({
+  price:Number(value),color,lineWidth:2,
+  lineStyle:LightweightCharts.LineStyle.Dashed,
+  axisLabelVisible:true,title
+ }));
 }
 
 // =====================================================
 // MARCADORES
 // =====================================================
 
-function buildMarkers(data, candles) {
- const markers = [];
- const last = candles[candles.length - 1];
+function buildMarkers(data,candles) {
+ const markers=[];
+ const last=candles[candles.length-1];
 
- let text = "ESPERAR";
- let position = "aboveBar";
- let color = "#f5c66b";
- let shape = "circle";
+ let text="ESPERAR",position="aboveBar",color="#f5c66b",shape="circle";
 
- if (data.signal === "COMPRA") {
-  text = "COMPRA";
-  position = "belowBar";
-  color = "#35d6a4";
-  shape = "arrowUp";
- } else if (data.signal === "VENTA") {
-  text = "VENTA";
-  color = "#ff687c";
-  shape = "arrowDown";
+ if (data.signal==="COMPRA") {
+  text="COMPRA";position="belowBar";color="#35d6a4";shape="arrowUp";
+ } else if (data.signal==="VENTA") {
+  text="VENTA";color="#ff687c";shape="arrowDown";
  }
 
- markers.push({ time: last.time, position, color, shape, text });
+ markers.push({time:last.time,position,color,shape,text});
 
- const structure = data.structure || {};
- const event = String(structure.event || "").toUpperCase();
- const direction = structure.eventDirection || structure.direction;
+ const structure=data.structure||{};
+ const event=String(structure.event||"").toUpperCase();
+ const direction=structure.eventDirection||structure.direction;
 
- if (
-  structure.eventConfirmed === true &&
-  ["BOS", "CHOCH"].includes(event)
- ) {
-  const bullish = direction === "ALCISTA";
-
+ if (structure.eventConfirmed===true && ["BOS","CHOCH"].includes(event)) {
+  const bullish=direction==="ALCISTA";
   markers.push({
-   time: last.time,
-   position: bullish ? "belowBar" : "aboveBar",
-   color: bullish ? "#35d6a4" : "#ff687c",
-   shape: bullish ? "arrowUp" : "arrowDown",
-   text: event
+   time:last.time,
+   position:bullish?"belowBar":"aboveBar",
+   color:bullish?"#35d6a4":"#ff687c",
+   shape:bullish?"arrowUp":"arrowDown",
+   text:event
   });
  }
 
- return markers.sort((a, b) => a.time - b.time);
+ return markers.sort((a,b)=>a.time-b.time);
 }
 
 // =====================================================
-// RSI
-// =====================================================
-
-function normalizeRSI(raw) {
- if (!Array.isArray(raw)) return [];
-
- return raw.map(item => ({
-  time: typeof item.time === "number"
-   ? Math.floor(item.time)
-   : Math.floor(Date.parse(item.time) / 1000),
-  value: Number(item.value)
- }))
- .filter(item =>
-  Number.isFinite(item.time) &&
-  Number.isFinite(item.value) &&
-  item.value >= 0 &&
-  item.value <= 100
- )
- .sort((a, b) => a.time - b.time)
- .filter((item, index, array) =>
-  index === 0 || item.time !== array[index - 1].time
- );
-}
-
-// =====================================================
-// DIBUJAR GRÁFICOS
+// RENDERIZADO DE GRÁFICOS
 // =====================================================
 
 function renderChart(data) {
- const candles = normalizeCandles(data.chartCandles || data.candles);
+ const candles=normalizeCandles(data.chartCandles||data.candles);
 
  candleSeries.setData(candles);
- ema9Series.setData(calculateEMAPoints(candles, 9));
- ema21Series.setData(calculateEMAPoints(candles, 21));
+ ema9Series.setData(calculateEMAPoints(candles,9));
+ ema21Series.setData(calculateEMAPoints(candles,21));
 
  clearPriceLines();
 
- const levels = data.levels || {};
+ const levels=data.levels||{};
+ const support=levels.nearestSupport||levels.support;
+ const resistance=levels.nearestResistance||levels.resistance;
 
- const support = levels.nearestSupport || levels.support;
- const resistance = levels.nearestResistance || levels.resistance;
+ if (support) addPriceLine(support.price??support,"#35d6a4","SOPORTE");
+ if (resistance) addPriceLine(resistance.price??resistance,"#ff687c","RESISTENCIA");
 
- if (support) {
-  addPriceLine(support.price ?? support, "#35d6a4", "SOPORTE");
- }
+ const structure=data.structure||{};
+ addPriceLine(structure.swingHigh,"#b48cff","SWING HIGH");
+ addPriceLine(structure.swingLow,"#54a6ff","SWING LOW");
 
- if (resistance) {
-  addPriceLine(resistance.price ?? resistance, "#ff687c", "RESISTENCIA");
- }
-
- const structure = data.structure || {};
-
- addPriceLine(structure.swingHigh, "#b48cff", "SWING HIGH");
- addPriceLine(structure.swingLow, "#54a6ff", "SWING LOW");
-
- const rsiPoints = normalizeRSI(data.rsiSeries);
+ const rsiPoints=normalizeRSI(data.rsiSeries);
  rsiLineSeries.setData(rsiPoints);
 
- const lastRSI = rsiPoints.length
-  ? rsiPoints[rsiPoints.length - 1].value
-  : null;
-
- show(
-  "rsiStatus",
-  lastRSI === null
-   ? "RSI del servidor no disponible."
-   : "RSI 14: " + lastRSI.toFixed(2) + " · " +
-    (lastRSI >= 70 ? "Sobrecompra" :
-     lastRSI <= 30 ? "Sobreventa" :
-     lastRSI >= 50 ? "Impulso positivo" : "Impulso negativo")
+ const lastRSI=rsiPoints.length?rsiPoints[rsiPoints.length-1].value:null;
+ show("rsiStatus",lastRSI===null
+  ?"RSI del servidor no disponible."
+  :"RSI 14: "+lastRSI.toFixed(2)+" · "+
+   (lastRSI>=70?"Sobrecompra":
+    lastRSI<=30?"Sobreventa":
+    lastRSI>=50?"Impulso positivo":"Impulso negativo")
  );
 
- const macd = calculateMACD(candles);
+ const macd=calculateMACD(candles);
 
  if (macd) {
   macdLineSeries.setData(macd.line);
   macdSignalSeries.setData(macd.signal);
   macdHistogramSeries.setData(macd.histogram);
 
-  const lastHistogram = macd.histogram[macd.histogram.length - 1];
-
-  show(
-   "macdStatus",
-   lastHistogram
-    ? "MACD 12,26,9 · Histograma: " + lastHistogram.value.toFixed(6)
-    : "MACD calculándose"
+  const lastHistogram=macd.histogram[macd.histogram.length-1];
+  show("macdStatus",lastHistogram
+   ?"MACD 12,26,9 · Histograma: "+lastHistogram.value.toFixed(6)
+   :"MACD calculándose"
   );
  } else {
   macdLineSeries.setData([]);
   macdSignalSeries.setData([]);
   macdHistogramSeries.setData([]);
-  show("macdStatus", "Datos insuficientes para MACD.");
+  show("macdStatus","Datos insuficientes para MACD.");
  }
 
  chart.timeScale().fitContent();
  rsiChart.timeScale().fitContent();
  macdChart.timeScale().fitContent();
 
- candleSeries.setMarkers(buildMarkers(data, candles));
+ candleSeries.setMarkers(buildMarkers(data,candles));
 
- show("chartMarket", data.symbol + " · " + data.interval + " · " + candles.length + " velas");
- show("dataTime", "Hora de la última vela: " + formatTime(candles[candles.length - 1].time));
+ show("chartMarket",data.symbol+" · "+data.interval+" · "+candles.length+" velas");
+ show("dataTime","Hora de la última vela: "+formatTime(candles[candles.length-1].time));
 
  return candles.length;
 }
@@ -1093,184 +843,134 @@ function renderChart(data) {
 // =====================================================
 
 function renderAnalysis(data) {
- const indicators = data.indicators || {};
- const levels = data.levels || {};
- const trend = data.trend || {};
- const volatility = data.volatility || {};
- const confluence = data.confluence || {};
+ const indicators=data.indicators||{};
+ const levels=data.levels||{};
+ const trend=data.trend||{};
+ const volatility=data.volatility||{};
+ const confluence=data.confluence||{};
 
  setSignal(data.signal);
+ show("market",data.symbol+" · "+data.interval);
+ show("price",formatPrice(data.price));
+ show("reason",data.reason);
 
- show("market", data.symbol + " · " + data.interval);
- show("price", formatPrice(data.price));
- show("reason", data.reason);
+ show("trend",trend.direction||"—");
+ show("volatility",volatility.level||"—");
 
- show("trend", trend.direction || "—");
- show("volatility", volatility.level || "—");
-
- // Puntuación de confluencia
- const buyScore = Number(confluence.buyScore);
- const sellScore = Number(confluence.sellScore);
-
- const score = Math.max(
-  Number.isFinite(buyScore) ? buyScore : 0,
-  Number.isFinite(sellScore) ? sellScore : 0
+ const buyScore=Number(confluence.buyScore);
+ const sellScore=Number(confluence.sellScore);
+ const score=Math.max(
+  Number.isFinite(buyScore)?buyScore:0,
+  Number.isFinite(sellScore)?sellScore:0
  );
 
- const maximumScore = Number(confluence.maximumScore) || 6;
+ const maximumScore=Number(confluence.maximumScore)||6;
 
- show("score", score + "/" + maximumScore);
- show("buyScore", confluence.buyScore ?? "—");
- show("sellScore", confluence.sellScore ?? "—");
+ show("score",score+"/"+maximumScore);
+ show("buyScore",confluence.buyScore??"—");
+ show("sellScore",confluence.sellScore??"—");
 
- const strength =
-  score >= 5 ? "ALTA" :
-  score >= 4 ? "MEDIA" :
-  score >= 2 ? "BAJA" : "DÉBIL";
+ const strength=confluence.strength||
+  (score>=5?"ALTA":score>=4?"MEDIA":score>=2?"BAJA":"DÉBIL");
 
- show("strength", strength);
-
- $("scoreBar").style.width =
-  Math.min(100, Math.max(0, score / maximumScore * 100)) + "%";
+ show("strength",strength);
+ $("scoreBar").style.width=Math.min(100,Math.max(0,score/maximumScore*100))+"%";
 
  // Soportes y resistencias
- const support = levels.nearestSupport || null;
- const resistance = levels.nearestResistance || null;
+ const support=levels.nearestSupport||null;
+ const resistance=levels.nearestResistance||null;
 
- show("support", support ? formatPrice(support.price) : "—");
- show("resistance", resistance ? formatPrice(resistance.price) : "—");
-
- show(
-  "supportDistance",
-  support ? "Distancia: " + (support.distancePips ?? "—") + " pips" : "Distancia: —"
- );
-
- show(
-  "resistanceDistance",
-  resistance ? "Distancia: " + (resistance.distancePips ?? "—") + " pips" : "Distancia: —"
- );
-
- show("supportTouches", "Contactos: " + (support?.touches ?? "—"));
- show("resistanceTouches", "Contactos: " + (resistance?.touches ?? "—"));
+ show("support",support?formatPrice(support.price):"—");
+ show("resistance",resistance?formatPrice(resistance.price):"—");
+ show("supportDistance",support?"Distancia: "+(support.distancePips??"—")+" pips":"Distancia: —");
+ show("resistanceDistance",resistance?"Distancia: "+(resistance.distancePips??"—")+" pips":"Distancia: —");
+ show("supportTouches","Contactos: "+(support?.touches??"—"));
+ show("resistanceTouches","Contactos: "+(resistance?.touches??"—"));
 
  // RSI
- const rsiValue = indicators.rsi14;
-
- show("rsi", formatNumber(rsiValue));
- setColor("rsi", rsiValue, 50, 50);
+ const rsiValue=indicators.rsi14;
+ show("rsi",formatNumber(rsiValue));
+ setColor("rsi",rsiValue,50,50);
 
  // EMA
- show("ema9", formatPrice(indicators.ema9));
- show("ema21", formatPrice(indicators.ema21));
+ show("ema9",formatPrice(indicators.ema9));
+ show("ema21",formatPrice(indicators.ema21));
 
- // ADX 4.6:
- // indicators.adx puede ser un objeto o un número.
- // adxValue se admite como alternativa de compatibilidad.
- const adxObject =
-  indicators.adx && typeof indicators.adx === "object"
-   ? indicators.adx
-   : {};
+ // ADX: compatible con objeto y valor numérico.
+ const adxObject=indicators.adx&&typeof indicators.adx==="object"
+  ?indicators.adx:{};
 
- const adxValue =
-  adxObject.value ??
-  indicators.adxValue ??
-  (typeof indicators.adx === "number" ? indicators.adx : null);
+ const adxValue=adxObject.value??indicators.adxValue??
+  (typeof indicators.adx==="number"?indicators.adx:null);
 
- const plusDI =
-  adxObject.plusDI ??
-  indicators.plusDI;
+ const plusDI=adxObject.plusDI??indicators.plusDI;
+ const minusDI=adxObject.minusDI??indicators.minusDI;
 
- const minusDI =
-  adxObject.minusDI ??
-  indicators.minusDI;
+ show("adx",formatNumber(adxValue));
 
- show("adx", formatNumber(adxValue));
-
- let adxText = "Fuerza de tendencia";
-
- if (
-  Number.isFinite(Number(plusDI)) &&
-  Number.isFinite(Number(minusDI))
- ) {
-  adxText += " · " +
-   (Number(plusDI) > Number(minusDI)
-    ? "Dirección alcista"
-    : Number(minusDI) > Number(plusDI)
-     ? "Dirección bajista"
-     : "Dirección equilibrada");
+ let adxText="Fuerza de tendencia";
+ if (Number.isFinite(Number(plusDI))&&Number.isFinite(Number(minusDI))) {
+  adxText+=" · "+(
+   Number(plusDI)>Number(minusDI)?"Dirección alcista":
+   Number(minusDI)>Number(plusDI)?"Dirección bajista":"Dirección equilibrada"
+  );
  }
+ show("adxDirection",adxText);
+ setColor("adx",adxValue,25,20);
 
- show("adxDirection", adxText);
- setColor("adx", adxValue, 25, 20);
+ // MACD: los campos de la versión Worker 4.7.
+ const macdObject=indicators.macd&&typeof indicators.macd==="object"
+  ?indicators.macd:{};
 
- // MACD: admite objeto y campos numéricos.
- const macdObject =
-  indicators.macd && typeof indicators.macd === "object"
-   ? indicators.macd
-   : {};
+ const macdHistogram=indicators.macdHistogram??macdObject.histogram;
+ const macdSignal=indicators.macdSignal??macdObject.signal;
 
- const macdHistogram =
-  macdObject.histogram ??
-  indicators.macdHistogram;
-
- const macdSignal =
-  macdObject.signal ??
-  indicators.macdSignal;
-
- show("macd", formatNumber(macdHistogram, 6));
- show("macdSignal", "Línea de señal: " + formatNumber(macdSignal, 6));
- setColor("macd", macdHistogram, 0, 0);
+ show("macd",formatNumber(macdHistogram,6));
+ show("macdSignal","Línea de señal: "+formatNumber(macdSignal,6));
+ setColor("macd",macdHistogram,0,0);
 
  // ATR
- const atrObject =
-  indicators.atr && typeof indicators.atr === "object"
-   ? indicators.atr
-   : {};
+ const atrObject=indicators.atr&&typeof indicators.atr==="object"
+  ?indicators.atr:{};
 
- const atrValue =
-  indicators.atr14 ??
-  atrObject.value ??
-  (typeof indicators.atr === "number" ? indicators.atr : null);
+ const atrValue=indicators.atr14??atrObject.value??
+  (typeof indicators.atr==="number"?indicators.atr:null);
 
- const symbolPipSize = pipSize(data.symbol);
+ const symbolPipSize=pipSize(data.symbol);
 
- show(
-  "atr",
-  atrValue !== null && atrValue !== undefined &&
-  Number.isFinite(Number(atrValue))
-   ? formatNumber(Number(atrValue) / symbolPipSize, 1) + " pips"
-   : "—"
+ show("atr",atrValue!==null&&atrValue!==undefined&&Number.isFinite(Number(atrValue))
+  ?formatNumber(Number(atrValue)/symbolPipSize,1)+" pips":"—"
  );
 
  renderStructure(data.structure);
  renderValidation(data);
 
- show("connection", "Análisis recibido correctamente desde Cloudflare y Twelve Data.");
+ show("connection","Análisis recibido correctamente desde Cloudflare y Twelve Data.");
 
- show(
-  "candleInfo",
-  "Velas recibidas: " + (data.candlesReceived ?? "—") +
-  " · Velas cerradas: " + (data.closedCandlesReceived ?? "—") +
-  " · Velas del gráfico: " + (data.chartCandlesReceived ?? "—") +
-  " · Velas tendencia 1H: " + (data.trendCandlesReceived ?? "—")
+ show("candleInfo",
+  "Velas recibidas: "+(data.candlesReceived??"—")+
+  " · Velas cerradas: "+(data.closedCandlesReceived??"—")+
+  " · Velas del gráfico: "+(data.chartCandlesReceived??"—")+
+  " · Velas tendencia 1H: "+(data.trendCandlesReceived??"—")
  );
 
  if (Number.isFinite(Number(data.dataFreshnessSeconds))) {
-  show(
-   "dataTime",
-   "Antigüedad de la última vela: " +
-   Math.floor(Number(data.dataFreshnessSeconds) / 60) + " minutos."
+  show("dataTime","Antigüedad de la última vela: "+
+   Math.floor(Number(data.dataFreshnessSeconds)/60)+" minutos."
   );
  }
 
- show("updated", "Última actualización: " + new Date().toLocaleString("es-CO"));
+ show("updated","Última actualización: "+new Date().toLocaleString("es-CO"));
+
+ const warnings=Array.isArray(data.warnings)?data.warnings:[];
+ show("warnings",warnings.length?"Avisos: "+warnings.join(" · "):"");
 
  try {
   renderChart(data);
- } catch (error) {
-  console.error("Error de gráficos:", error);
-  show("chartMarket", "Error visual: " + error.message);
-  show("connection", "Análisis recibido, pero hubo un problema al dibujar los gráficos.");
+ } catch(error) {
+  console.error("Error de gráficos:",error);
+  show("chartMarket","Error visual: "+error.message);
+  show("connection","Análisis recibido, pero hubo un problema al dibujar los gráficos.");
  }
 }
 
@@ -1278,69 +978,57 @@ function renderAnalysis(data) {
 // BOTÓN ANALIZAR
 // =====================================================
 
-$("analyze").addEventListener("click", async () => {
- const button = $("analyze");
-
- button.disabled = true;
- button.textContent = "ANALIZANDO...";
+$("analyze").addEventListener("click",async()=>{
+ const button=$("analyze");
+ button.disabled=true;
+ button.textContent="ANALIZANDO...";
 
  setSignal("CARGANDO");
- show("reason", "Consultando datos del mercado...");
- show("connection", "Conectando con Cloudflare...");
+ show("reason","Consultando datos del mercado...");
+ show("connection","Conectando con Cloudflare...");
 
  try {
-  const url = new URL(API_URL + "/analyze");
+  const url=new URL(API_URL+"/analyze");
+  url.searchParams.set("symbol",$("pair").value);
+  url.searchParams.set("interval",$("interval").value);
 
-  url.searchParams.set("symbol", $("pair").value);
-  url.searchParams.set("interval", $("interval").value);
-
-  const response = await fetch(url.toString(), {
-   method: "GET",
-   cache: "no-store"
+  const response=await fetch(url.toString(),{
+   method:"GET",cache:"no-store"
   });
 
   let data;
-
   try {
-   data = await response.json();
-  } catch (error) {
+   data=await response.json();
+  } catch(error) {
    throw new Error("El servidor devolvió una respuesta no válida.");
   }
 
-  if (!response.ok || data.status !== "ok") {
+  if (!response.ok||data.status!=="ok") {
+   throw new Error(data.message||data.error||"No se pudo completar el análisis.");
+  }
+
+  if (String(data.version)!==REQUIRED_VERSION) {
    throw new Error(
-    data.message ||
-    data.error ||
-    "No se pudo completar el análisis."
+    "Versión incorrecta del Worker. Se esperaba "+REQUIRED_VERSION+
+    " y se recibió "+(data.version||"sin versión")+"."
    );
   }
 
-  // Comprobación de versión del Worker
-  if (String(data.version) !== "4.6") {
-   throw new Error(
-    "Versión incorrecta del Worker. Se esperaba 4.6 y se recibió " +
-    (data.version || "sin versión") + "."
-   );
-  }
-
-  const candles = data.chartCandles || data.candles;
-
-  if (!Array.isArray(candles) || candles.length < 30) {
+  const candles=data.chartCandles||data.candles;
+  if (!Array.isArray(candles)||candles.length<30) {
    throw new Error("El servidor no envió suficientes velas para el gráfico.");
   }
 
   renderAnalysis(data);
 
- } catch (error) {
-  console.error("Error de análisis:", error);
-
+ } catch(error) {
+  console.error("Error de análisis:",error);
   setSignal("SIN DATOS");
-  show("reason", error.message);
-  show("connection", "Error de conexión o de datos: " + error.message);
-
+  show("reason",error.message);
+  show("connection","Error de conexión o de datos: "+error.message);
  } finally {
-  button.disabled = false;
-  button.textContent = "ANALIZAR MERCADO";
+  button.disabled=false;
+  button.textContent="ANALIZAR MERCADO";
  }
 });
 
@@ -1350,13 +1038,12 @@ $("analyze").addEventListener("click", async () => {
 
 try {
  initializeCharts();
- show("connection", "Gráficos inicializados. Esperando análisis.");
-} catch (error) {
- console.error("Error inicializando gráficos:", error);
- show("connection", error.message);
- show("chartMarket", "No se pudieron inicializar los gráficos.");
+ show("connection","Gráficos inicializados. Esperando análisis.");
+} catch(error) {
+ console.error("Error inicializando gráficos:",error);
+ show("connection",error.message);
+ show("chartMarket","No se pudieron inicializar los gráficos.");
 }
-
 </script>
 </body>
 </html>
