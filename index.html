@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090f1c">
-<title>IQ OPTION AI | Smart Analysis 4.5</title>
+<title>IQ OPTION AI | Smart Analysis 4.6</title>
 
 <script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
 
@@ -92,7 +92,7 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 <header>
  <div>
   <h1>IQ OPTION AI</h1>
-  <small>SMART MARKET ANALYSIS · v4.5</small>
+  <small>SMART MARKET ANALYSIS · v4.6</small>
  </div>
  <span class="top-status">● DEMO</span>
 </header>
@@ -308,7 +308,7 @@ footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28p
 </section>
 
 <footer>
- IQ OPTION AI · SMART MARKET ANALYSIS v4.5<br>
+ IQ OPTION AI · SMART MARKET ANALYSIS v4.6<br>
  Análisis técnico informativo. No garantiza beneficios.
  No incluye cotizaciones OTC ni ejecuta operaciones.
 </footer>
@@ -347,13 +347,26 @@ function show(id, value) {
 }
 
 function formatPrice(value) {
- if (value === null || value === undefined || !Number.isFinite(Number(value))) return "—";
- return Number(value).toFixed(6);
+ // Admite tanto un precio numérico como un objeto de swing.
+ if (value && typeof value === "object") {
+  value = value.price;
+ }
+
+ if (value === null || value === undefined || value === "") return "—";
+
+ const number = Number(value);
+ if (!Number.isFinite(number)) return "—";
+
+ return number.toFixed(6);
 }
 
 function formatNumber(value, decimals = 2) {
- if (value === null || value === undefined || !Number.isFinite(Number(value))) return "—";
- return Number(value).toFixed(decimals);
+ if (value === null || value === undefined || value === "") return "—";
+
+ const number = Number(value);
+ if (!Number.isFinite(number)) return "—";
+
+ return number.toFixed(decimals);
 }
 
 function pipSize(symbol) {
@@ -363,9 +376,15 @@ function pipSize(symbol) {
 function formatTime(value) {
  if (value === null || value === undefined || value === "") return "—";
 
- const timestamp = typeof value === "number"
-  ? value
-  : Date.parse(value) / 1000;
+ let timestamp;
+
+ if (typeof value === "number") {
+  timestamp = value;
+ } else if (typeof value === "string" && /^\d+$/.test(value)) {
+  timestamp = Number(value);
+ } else {
+  timestamp = Date.parse(value) / 1000;
+ }
 
  if (!Number.isFinite(timestamp)) return "—";
 
@@ -375,6 +394,18 @@ function formatTime(value) {
   hour: "2-digit",
   minute: "2-digit"
  });
+}
+
+function getPrice(value) {
+ if (value && typeof value === "object") {
+  return value.price ?? null;
+ }
+ return value ?? null;
+}
+
+function getPivotTime(pivot) {
+ if (!pivot || typeof pivot !== "object") return null;
+ return pivot.unix ?? pivot.time ?? null;
 }
 
 function setSignal(signal) {
@@ -391,13 +422,17 @@ function setSignal(signal) {
 
 function setColor(id, value, positive, negative) {
  const element = $(id);
+ if (!element) return;
+
  element.classList.remove("good", "bad", "neutral");
 
- if (!Number.isFinite(Number(value))) {
+ const number = Number(value);
+
+ if (!Number.isFinite(number)) {
   element.classList.add("neutral");
- } else if (Number(value) > positive) {
+ } else if (number > positive) {
   element.classList.add("good");
- } else if (Number(value) < negative) {
+ } else if (number < negative) {
   element.classList.add("bad");
  } else {
   element.classList.add("neutral");
@@ -406,6 +441,7 @@ function setColor(id, value, positive, negative) {
 
 function setFlag(id, value) {
  const element = $(id);
+ if (!element) return;
 
  element.textContent =
   value === true ? "SÍ" :
@@ -528,6 +564,7 @@ function initializeCharts() {
     ["macdChart", macdChart]
    ].forEach(([id, instance]) => {
     const element = $(id);
+
     if (instance && element.clientWidth > 0) {
      instance.applyOptions({ width: element.clientWidth });
     }
@@ -563,7 +600,7 @@ function initializeCharts() {
 }
 
 // =====================================================
-// CÁLCULO DE EMA Y MACD PARA LOS GRÁFICOS
+// EMA Y MACD
 // =====================================================
 
 function calculateEMA(values, period) {
@@ -686,7 +723,7 @@ function normalizeCandles(raw) {
 }
 
 // =====================================================
-// ESTRUCTURA Y PIVOTES
+// ESTRUCTURA DEL MERCADO
 // =====================================================
 
 function getLatestPivot(items) {
@@ -696,21 +733,33 @@ function getLatestPivot(items) {
 
 function renderStructure(structure) {
  if (!structure) {
-  show("structureBias", "—");
-  show("structureDirection", "—");
+  [
+   "structureBias",
+   "structureDirection",
+   "brokenLevel",
+   "swingHigh",
+   "swingLow",
+   "swingHighTime",
+   "swingLowTime",
+   "flagHH",
+   "flagHL",
+   "flagLH",
+   "flagLL"
+  ].forEach(id => show(id, "—"));
+
   show("structureEvent", "SIN DATOS");
-  show("brokenLevel", "—");
-  show("swingHigh", "—");
-  show("swingLow", "—");
-  show("swingHighTime", "—");
-  show("swingLowTime", "—");
   show("structureStatus", "El servidor no envió estructura.");
   return;
  }
 
  const bias = structure.bias || "INDEFINIDA";
  const event = structure.event || "NINGUNO";
- const direction = structure.direction || "NEUTRAL";
+
+ // v4.6 utiliza eventDirection. Se conserva compatibilidad con direction.
+ const direction =
+  structure.eventDirection ||
+  structure.direction ||
+  "NEUTRAL";
 
  show("structureBias", bias);
  show("structureDirection", direction);
@@ -727,14 +776,21 @@ function renderStructure(structure) {
   (direction === "ALCISTA" ? "bullish" :
    direction === "BAJISTA" ? "bearish" : "neutral");
 
- const high = getLatestPivot(structure.highs);
- const low = getLatestPivot(structure.lows);
+ // En v4.6 los swings pueden llegar como objetos.
+ const high = structure.swingHigh || getLatestPivot(structure.highs);
+ const low = structure.swingLow || getLatestPivot(structure.lows);
 
- show("swingHigh", formatPrice(structure.swingHigh));
- show("swingLow", formatPrice(structure.swingLow));
+ show("swingHigh", formatPrice(high));
+ show("swingLow", formatPrice(low));
 
- show("swingHighTime", high ? formatTime(high.unix) : "Tiempo no disponible");
- show("swingLowTime", low ? formatTime(low.unix) : "Tiempo no disponible");
+ const highTime = getPivotTime(high) ??
+  (getLatestPivot(structure.highs)?.unix ?? null);
+
+ const lowTime = getPivotTime(low) ??
+  (getLatestPivot(structure.lows)?.unix ?? null);
+
+ show("swingHighTime", highTime ? formatTime(highTime) : "Tiempo no disponible");
+ show("swingLowTime", lowTime ? formatTime(lowTime) : "Tiempo no disponible");
 
  setFlag("flagHH", structure.higherHigh);
  setFlag("flagHL", structure.higherLow);
@@ -743,10 +799,18 @@ function renderStructure(structure) {
 
  let status = "Sesgo: " + bias + ". Evento: " + event + ".";
 
- if (structure.eventConfirmed) {
-  status += " Ruptura confirmada en la última vela analizada.";
+ if (structure.eventConfirmed === true) {
+  status += " Ruptura confirmada por el servidor.";
  } else {
   status += " No hay una ruptura BOS/CHoCH nueva confirmada.";
+ }
+
+ if (structure.status) {
+  status += " Estado: " + structure.status + ".";
+ }
+
+ if (structure.confirmation) {
+  status += " Confirmación: " + structure.confirmation + ".";
  }
 
  show("structureStatus", status);
@@ -763,8 +827,8 @@ function filterState(value) {
 
  const status = String(value.status || "").toUpperCase();
 
- if (["PASS", "PASSED", "OK", "CONFIRMADO"].includes(status)) return "pass";
- if (["FAIL", "FAILED", "BLOQUEADO"].includes(status)) return "fail";
+ if (["PASS", "PASSED", "OK", "CONFIRMADO", "CONFIRMADA"].includes(status)) return "pass";
+ if (["FAIL", "FAILED", "BLOQUEADO", "BLOQUEADA"].includes(status)) return "fail";
  if (["NO_APLICA", "N/A"].includes(status)) return "na";
 
  return "pending";
@@ -853,6 +917,8 @@ function clearPriceLines() {
 }
 
 function addPriceLine(price, color, title) {
+ price = getPrice(price);
+
  if (price === null || price === undefined || !Number.isFinite(Number(price))) return;
 
  const line = candleSeries.createPriceLine({
@@ -894,19 +960,21 @@ function buildMarkers(data, candles) {
  markers.push({ time: last.time, position, color, shape, text });
 
  const structure = data.structure || {};
+ const event = String(structure.event || "").toUpperCase();
+ const direction = structure.eventDirection || structure.direction;
 
  if (
   structure.eventConfirmed === true &&
-  ["BOS", "CHOCH"].includes(String(structure.event).toUpperCase())
+  ["BOS", "CHOCH"].includes(event)
  ) {
-  const bullish = structure.direction === "ALCISTA";
+  const bullish = direction === "ALCISTA";
 
   markers.push({
    time: last.time,
    position: bullish ? "belowBar" : "aboveBar",
    color: bullish ? "#35d6a4" : "#ff687c",
    shape: bullish ? "arrowUp" : "arrowDown",
-   text: structure.event
+   text: event
   });
  }
 
@@ -914,14 +982,16 @@ function buildMarkers(data, candles) {
 }
 
 // =====================================================
-// SERIES RSI
+// RSI
 // =====================================================
 
 function normalizeRSI(raw) {
  if (!Array.isArray(raw)) return [];
 
  return raw.map(item => ({
-  time: Number(item.time),
+  time: typeof item.time === "number"
+   ? Math.floor(item.time)
+   : Math.floor(Date.parse(item.time) / 1000),
   value: Number(item.value)
  }))
  .filter(item =>
@@ -951,12 +1021,15 @@ function renderChart(data) {
 
  const levels = data.levels || {};
 
- if (levels.nearestSupport) {
-  addPriceLine(levels.nearestSupport.price, "#35d6a4", "SOPORTE");
+ const support = levels.nearestSupport || levels.support;
+ const resistance = levels.nearestResistance || levels.resistance;
+
+ if (support) {
+  addPriceLine(support.price ?? support, "#35d6a4", "SOPORTE");
  }
 
- if (levels.nearestResistance) {
-  addPriceLine(levels.nearestResistance.price, "#ff687c", "RESISTENCIA");
+ if (resistance) {
+  addPriceLine(resistance.price ?? resistance, "#ff687c", "RESISTENCIA");
  }
 
  const structure = data.structure || {};
@@ -1035,7 +1108,7 @@ function renderAnalysis(data) {
  show("trend", trend.direction || "—");
  show("volatility", volatility.level || "—");
 
- // La versión 4.5 devuelve las puntuaciones de compra y venta.
+ // Puntuación de confluencia
  const buyScore = Number(confluence.buyScore);
  const sellScore = Number(confluence.sellScore);
 
@@ -1069,59 +1142,103 @@ function renderAnalysis(data) {
 
  show(
   "supportDistance",
-  support ? "Distancia: " + support.distancePips + " pips" : "Distancia: —"
+  support ? "Distancia: " + (support.distancePips ?? "—") + " pips" : "Distancia: —"
  );
 
  show(
   "resistanceDistance",
-  resistance ? "Distancia: " + resistance.distancePips + " pips" : "Distancia: —"
+  resistance ? "Distancia: " + (resistance.distancePips ?? "—") + " pips" : "Distancia: —"
  );
 
  show("supportTouches", "Contactos: " + (support?.touches ?? "—"));
  show("resistanceTouches", "Contactos: " + (resistance?.touches ?? "—"));
 
  // RSI
- show("rsi", formatNumber(indicators.rsi14));
+ const rsiValue = indicators.rsi14;
 
- setColor("rsi", indicators.rsi14, 50, 50);
+ show("rsi", formatNumber(rsiValue));
+ setColor("rsi", rsiValue, 50, 50);
 
  // EMA
  show("ema9", formatPrice(indicators.ema9));
  show("ema21", formatPrice(indicators.ema21));
 
- // ADX
- show("adx", formatNumber(indicators.adx));
+ // ADX 4.6:
+ // indicators.adx puede ser un objeto o un número.
+ // adxValue se admite como alternativa de compatibilidad.
+ const adxObject =
+  indicators.adx && typeof indicators.adx === "object"
+   ? indicators.adx
+   : {};
+
+ const adxValue =
+  adxObject.value ??
+  indicators.adxValue ??
+  (typeof indicators.adx === "number" ? indicators.adx : null);
+
+ const plusDI =
+  adxObject.plusDI ??
+  indicators.plusDI;
+
+ const minusDI =
+  adxObject.minusDI ??
+  indicators.minusDI;
+
+ show("adx", formatNumber(adxValue));
 
  let adxText = "Fuerza de tendencia";
 
  if (
-  Number.isFinite(Number(indicators.plusDI)) &&
-  Number.isFinite(Number(indicators.minusDI))
+  Number.isFinite(Number(plusDI)) &&
+  Number.isFinite(Number(minusDI))
  ) {
   adxText += " · " +
-   (indicators.plusDI > indicators.minusDI
+   (Number(plusDI) > Number(minusDI)
     ? "Dirección alcista"
-    : indicators.minusDI > indicators.plusDI
+    : Number(minusDI) > Number(plusDI)
      ? "Dirección bajista"
      : "Dirección equilibrada");
  }
 
  show("adxDirection", adxText);
- setColor("adx", Number(indicators.adx), 25, 20);
+ setColor("adx", adxValue, 25, 20);
 
- // MACD
- show("macd", formatNumber(indicators.macdHistogram, 6));
- show("macdSignal", "Línea de señal: " + formatNumber(indicators.macdSignal, 6));
- setColor("macd", indicators.macdHistogram, 0, 0);
+ // MACD: admite objeto y campos numéricos.
+ const macdObject =
+  indicators.macd && typeof indicators.macd === "object"
+   ? indicators.macd
+   : {};
 
- // ATR en pips
+ const macdHistogram =
+  macdObject.histogram ??
+  indicators.macdHistogram;
+
+ const macdSignal =
+  macdObject.signal ??
+  indicators.macdSignal;
+
+ show("macd", formatNumber(macdHistogram, 6));
+ show("macdSignal", "Línea de señal: " + formatNumber(macdSignal, 6));
+ setColor("macd", macdHistogram, 0, 0);
+
+ // ATR
+ const atrObject =
+  indicators.atr && typeof indicators.atr === "object"
+   ? indicators.atr
+   : {};
+
+ const atrValue =
+  indicators.atr14 ??
+  atrObject.value ??
+  (typeof indicators.atr === "number" ? indicators.atr : null);
+
  const symbolPipSize = pipSize(data.symbol);
- const atrValue = Number(indicators.atr14);
 
  show(
   "atr",
-  Number.isFinite(atrValue)
-   ? formatNumber(atrValue / symbolPipSize, 1) + " pips"
+  atrValue !== null && atrValue !== undefined &&
+  Number.isFinite(Number(atrValue))
+   ? formatNumber(Number(atrValue) / symbolPipSize, 1) + " pips"
    : "—"
  );
 
@@ -1198,8 +1315,12 @@ $("analyze").addEventListener("click", async () => {
    );
   }
 
-  if (data.version !== "4.5") {
-   console.warn("Versión del Worker diferente a la esperada:", data.version);
+  // Comprobación de versión del Worker
+  if (String(data.version) !== "4.6") {
+   throw new Error(
+    "Versión incorrecta del Worker. Se esperaba 4.6 y se recibió " +
+    (data.version || "sin versión") + "."
+   );
   }
 
   const candles = data.chartCandles || data.candles;
