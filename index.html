@@ -3,1047 +3,809 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090f1c">
-<title>IQ OPTION AI | Smart Analysis 4.7</title>
-<script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090d18">
+<title>IQ OPTION AI | Smart Analysis 4.8</title>
+
+<script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
 
 <style>
+:root {
+  --bg:#090d18;
+  --panel:#111827;
+  --panel2:#172033;
+  --border:#273449;
+  --text:#eef3ff;
+  --muted:#91a0b8;
+  --green:#19c784;
+  --red:#ff5268;
+  --yellow:#f4b942;
+  --blue:#54a8ff;
+}
 *{box-sizing:border-box}
-body{margin:0;background:#090f1c;color:#eef4ff;font-family:Arial,sans-serif}
-main{max-width:760px;margin:auto;padding:16px}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-h1{color:#35d6a4;font-size:25px;margin:0}
-h2{font-size:17px;margin:0 0 17px}
-small,.muted{color:#91a3bd}
-.card{background:#141e30;border:1px solid #293750;border-radius:16px;padding:17px;margin:15px 0}
-label{display:block;color:#a9bad1;margin:13px 0 8px;font-size:13px}
-select,button{width:100%;padding:14px;border-radius:10px;font-size:15px}
-select{background:#0b1120;color:white;border:1px solid #394963}
-button{background:#35d6a4;color:#071810;font-weight:bold;border:0;margin-top:17px}
-button:disabled{opacity:.55}
-.top-status{font-size:12px;color:#35d6a4;border:1px solid #245b4b;padding:8px 11px;border-radius:20px}
-.signal-card{text-align:center;padding:24px 16px}
-.signal{font-size:32px;font-weight:bold;margin:15px 0;color:#f5c66b}
-.buy-signal{color:#35d6a4}.sell-signal{color:#ff687c}.wait-signal{color:#f5c66b}
-.market-price{font-size:25px;font-weight:bold;margin:12px 0}
-.reason{color:#a9bad1;font-size:13px;line-height:1.6}
-.grid,.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.stat,.level{background:#0b1120;border-radius:11px;padding:13px;min-width:0}
-.stat small,.level small{font-size:11px}
-.stat b,.level b{display:block;font-size:19px;margin-top:8px;overflow-wrap:anywhere}
-.detail{font-size:11px;color:#91a3bd;margin-top:6px;line-height:1.5}
-.good{color:#35d6a4}.bad{color:#ff687c}.neutral{color:#f5c66b}
-.level{padding:14px}
-.score-track{height:9px;border-radius:10px;background:#26354c;overflow:hidden;margin:13px 0}
-.score-fill{height:100%;width:0%;background:#35d6a4;transition:width .3s}
-.chart-card{padding:15px 10px}
-.chart-heading{padding:0 7px}
-.chart-legend{display:flex;flex-wrap:wrap;gap:13px;padding:10px 7px;font-size:11px;color:#a9bad1}
-.legend-item{display:flex;align-items:center;gap:5px}
-.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.chart-box{width:100%;height:300px;overflow:hidden;border-radius:10px}
-.indicator-box{width:100%;height:175px;overflow:hidden;border-radius:10px;margin-top:8px}
-.chart-note{font-size:11px;color:#91a3bd;padding:10px 7px 0;line-height:1.5}
-.panel-title{padding:15px 7px 5px}
-.panel-subtitle{font-size:11px;color:#91a3bd;padding:0 7px 9px}
-.connection{font-size:13px;line-height:1.6}
-.structure-bias{font-size:25px;font-weight:bold;margin:8px 0}
-.structure-event{display:inline-block;padding:7px 13px;border-radius:20px;font-size:12px;font-weight:bold;background:#26354c;color:#f5c66b}
-.structure-event.bullish{background:#123e35;color:#35d6a4}
-.structure-event.bearish{background:#451f2a;color:#ff687c}
-.structure-event.neutral{background:#26354c;color:#f5c66b}
-.structure-flags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
-.structure-flag{background:#0b1120;border-radius:9px;padding:12px 5px;text-align:center}
-.structure-flag small{display:block;font-size:10px}
-.structure-flag b{display:block;font-size:16px;margin-top:7px}
-.structure-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
-.structure-info .stat b{font-size:16px}
-.structure-note{font-size:12px;color:#91a3bd;line-height:1.6;margin:14px 0 0}
-.validation-list{display:grid;gap:9px}
-.validation-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0b1120;padding:12px;border-radius:10px}
-.validation-row span:first-child{font-size:13px;color:#c4d0e1}
-.validation-status{font-size:11px;font-weight:bold;padding:6px 9px;border-radius:20px;white-space:nowrap}
-.validation-status.pass{background:#123e35;color:#35d6a4}
-.validation-status.fail{background:#451f2a;color:#ff687c}
-.validation-status.pending{background:#3c3320;color:#f5c66b}
-.validation-status.na{background:#26354c;color:#a9bad1}
-.validation-summary{font-size:13px;line-height:1.6;color:#a9bad1;margin-top:13px}
-.validation-footnote{font-size:11px;color:#91a3bd;line-height:1.6;margin-top:12px}
-.data-time{font-size:12px;color:#91a3bd;line-height:1.6;margin-top:10px}
-.filter-reason{font-size:11px;color:#91a3bd;line-height:1.5;padding:0 12px 5px}
-footer{text-align:center;color:#91a3bd;font-size:11px;line-height:1.7;margin:28px 0}
-@media(max-width:380px){
- main{padding:11px}.card{padding:13px}
- .signal{font-size:28px}.chart-box{height:270px}
- .indicator-box{height:155px}
- .structure-flags{gap:5px}
- .structure-flag{padding:10px 3px}
- .structure-flag b{font-size:14px}
- .validation-row{padding:10px}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+header{
+  padding:20px 16px;background:#0d1422;
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  max-width:1100px;margin:auto;
+  display:flex;justify-content:space-between;
+  align-items:center;gap:12px;flex-wrap:wrap;
+}
+.brand{font-size:21px;font-weight:850;letter-spacing:.5px}
+.brand span{color:var(--blue)}
+.version{font-size:11px;color:var(--muted);margin-top:5px}
+.status{
+  display:flex;align-items:center;gap:7px;
+  font-size:12px;color:var(--green);
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+main{max-width:1100px;margin:auto;padding:16px}
+.panel{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:15px;padding:16px;margin-bottom:14px;
+}
+h2{font-size:15px;margin:0 0 14px}
+h3{font-size:13px;margin:0 0 10px;color:var(--muted)}
+.controls{
+  display:grid;grid-template-columns:1fr 1fr auto;
+  gap:10px;align-items:end;
+}
+label{display:block;color:var(--muted);font-size:11px;margin-bottom:7px}
+select,button{
+  width:100%;padding:13px;border-radius:10px;
+  border:1px solid var(--border);background:var(--panel2);
+  color:var(--text);font-size:14px;
+}
+button{
+  background:#2479db;border:0;font-weight:750;
+  cursor:pointer;min-height:44px;
+}
+button:disabled{opacity:.55;cursor:wait}
+.signal-box{
+  display:flex;justify-content:space-between;
+  align-items:center;gap:15px;flex-wrap:wrap;
+}
+.signal{
+  font-size:27px;font-weight:900;letter-spacing:1px;
+}
+.signal.BUY{color:var(--green)}
+.signal.SELL{color:var(--red)}
+.signal.WAIT{color:var(--yellow)}
+.reason{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.5}
+.score{text-align:right}
+.score strong{font-size:27px}
+.score small{display:block;color:var(--muted);font-size:11px}
+.metrics{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+}
+.metric{
+  padding:12px;background:var(--panel2);
+  border-radius:10px;min-width:0;
+}
+.metric span{display:block;color:var(--muted);font-size:10px;margin-bottom:7px}
+.metric strong{font-size:15px;overflow-wrap:anywhere}
+.chart{height:300px;width:100%}
+.chart-small{height:190px;width:100%}
+.chart-note{font-size:10px;color:var(--muted);margin-top:8px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.filter-list{display:grid;gap:8px}
+.filter{
+  display:flex;justify-content:space-between;gap:10px;
+  align-items:flex-start;padding:11px;background:var(--panel2);
+  border-radius:9px;
+}
+.filter-name{font-size:12px;font-weight:700}
+.filter-reason{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+.tag{
+  font-size:10px;font-weight:800;padding:5px 8px;
+  border-radius:20px;white-space:nowrap;
+}
+.PASS{background:#123c30;color:#4de0a5}
+.FAIL{background:#49202b;color:#ff8290}
+.PENDING{background:#49391b;color:#ffd16a}
+.UNKNOWN{background:#273449;color:#b8c6dc}
+.data-line{
+  display:flex;justify-content:space-between;gap:10px;
+  padding:9px 0;border-bottom:1px solid var(--border);
+  font-size:12px;
+}
+.data-line span{color:var(--muted)}
+.level-item{
+  display:flex;justify-content:space-between;
+  gap:10px;padding:9px;background:var(--panel2);
+  border-radius:8px;margin-bottom:7px;font-size:12px;
+}
+.warning{
+  color:var(--yellow);font-size:12px;line-height:1.5;
+  padding:9px;background:#302718;border-radius:8px;margin-top:8px;
+}
+.good{color:var(--green)}
+.bad{color:var(--red)}
+.muted{color:var(--muted)}
+footer{
+  text-align:center;color:var(--muted);font-size:10px;
+  padding:20px 10px 30px;
+}
+#message{font-size:12px;color:var(--muted);margin-top:10px}
+.hidden{display:none}
+@media(max-width:650px){
+  main{padding:10px}
+  .controls{grid-template-columns:1fr 1fr}
+  .controls button{grid-column:1/-1}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .chart{height:260px}
+  .chart-small{height:170px}
+  .panel{padding:13px}
+  .signal{font-size:24px}
 }
 </style>
 </head>
 
 <body>
-<main>
 
 <header>
- <div>
-  <h1>IQ OPTION AI</h1>
-  <small>SMART MARKET ANALYSIS · v4.7</small>
- </div>
- <span class="top-status">● DEMO</span>
+  <div class="header-inner">
+    <div>
+      <div class="brand">IQ OPTION <span>AI</span></div>
+      <div class="version">SMART MARKET ANALYSIS · VERSION 4.8</div>
+    </div>
+    <div class="status"><span class="dot"></span><span id="connection">API preparada</span></div>
+  </div>
 </header>
 
-<section class="card">
- <h2>Configuración del mercado</h2>
- <label for="pair">Par de divisas</label>
- <select id="pair">
-  <option value="EUR/USD">EUR/USD</option>
-  <option value="GBP/USD">GBP/USD</option>
-  <option value="USD/JPY">USD/JPY</option>
-  <option value="AUD/USD">AUD/USD</option>
-  <option value="EUR/JPY">EUR/JPY</option>
-  <option value="USD/CAD">USD/CAD</option>
- </select>
+<main>
 
- <label for="interval">Temporalidad</label>
- <select id="interval">
-  <option value="1min">1 minuto</option>
-  <option value="5min" selected>5 minutos</option>
-  <option value="15min">15 minutos</option>
-  <option value="30min">30 minutos</option>
-  <option value="1h">1 hora</option>
- </select>
+  <section class="panel">
+    <h2>Configuración del análisis</h2>
+    <div class="controls">
+      <div>
+        <label for="symbol">PAR DE DIVISAS</label>
+        <select id="symbol">
+          <option>EUR/USD</option>
+          <option>GBP/USD</option>
+          <option>USD/JPY</option>
+          <option>AUD/USD</option>
+          <option>EUR/JPY</option>
+          <option>USD/CAD</option>
+        </select>
+      </div>
+      <div>
+        <label for="interval">TEMPORALIDAD</label>
+        <select id="interval">
+          <option value="1min">1 minuto</option>
+          <option value="5min" selected>5 minutos</option>
+          <option value="15min">15 minutos</option>
+          <option value="30min">30 minutos</option>
+          <option value="1h">1 hora</option>
+        </select>
+      </div>
+      <button id="analyzeBtn" onclick="analyze()">ANALIZAR MERCADO</button>
+    </div>
+    <div id="message">Selecciona un par y una temporalidad para comenzar.</div>
+  </section>
 
- <button id="analyze">ANALIZAR MERCADO</button>
-</section>
+  <section class="panel">
+    <div class="signal-box">
+      <div>
+        <h3>SEÑAL DEL MERCADO</h3>
+        <div id="signal" class="signal WAIT">ESPERAR</div>
+        <div id="reason" class="reason">Esperando el primer análisis.</div>
+      </div>
+      <div class="score">
+        <strong id="score">—</strong>
+        <small>CONFLUENCIA / 6</small>
+        <small id="strength">Sin evaluar</small>
+      </div>
+    </div>
+  </section>
 
-<section class="card signal-card">
- <small id="market">EUR/USD · 5min</small>
- <div id="signal" class="signal wait-signal">SIN DATOS</div>
- <div class="market-price" id="price">—</div>
- <p id="reason" class="reason">Pulsa analizar mercado para comenzar.</p>
- <div class="grid">
-  <div class="stat"><small>TENDENCIA 1H</small><b id="trend">—</b></div>
-  <div class="stat"><small>VOLATILIDAD</small><b id="volatility">—</b></div>
- </div>
-</section>
+  <section class="panel">
+    <h2>Indicadores principales</h2>
+    <div class="metrics">
+      <div class="metric"><span>PRECIO</span><strong id="price">—</strong></div>
+      <div class="metric"><span>RSI 14</span><strong id="rsi">—</strong></div>
+      <div class="metric"><span>ADX</span><strong id="adx">—</strong></div>
+      <div class="metric"><span>ATR</span><strong id="atr">—</strong></div>
+      <div class="metric"><span>EMA 9</span><strong id="ema9">—</strong></div>
+      <div class="metric"><span>EMA 21</span><strong id="ema21">—</strong></div>
+      <div class="metric"><span>MACD</span><strong id="macd">—</strong></div>
+      <div class="metric"><span>TENDENCIA 1H</span><strong id="trend">—</strong></div>
+    </div>
+  </section>
 
-<section class="card">
- <h2>Validación de señal</h2>
- <div id="validationList" class="validation-list">
-  <div class="validation-row">
-   <span>Esperando análisis</span>
-   <span class="validation-status pending">SIN DATOS</span>
+  <section class="panel">
+    <h2>Gráfico de mercado · Velas y EMA</h2>
+    <div id="priceChart" class="chart"></div>
+    <div class="chart-note">Velas cerradas · EMA 9 y EMA 21 calculadas sobre el historial recibido.</div>
+  </section>
+
+  <section class="panel">
+    <h2>RSI · Índice de fuerza relativa</h2>
+    <div id="rsiChart" class="chart-small"></div>
+  </section>
+
+  <section class="panel">
+    <h2>MACD · Convergencia y divergencia</h2>
+    <div id="macdChart" class="chart-small"></div>
+  </section>
+
+  <div class="two-col">
+    <section class="panel">
+      <h2>Validación de filtros</h2>
+      <div id="filters" class="filter-list">
+        <div class="muted">Los filtros aparecerán después del análisis.</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Estructura del mercado</h2>
+      <div id="structureInfo">
+        <div class="data-line"><span>Sesgo</span><strong>—</strong></div>
+        <div class="data-line"><span>Evento</span><strong>—</strong></div>
+        <div class="data-line"><span>Retesteo</span><strong>—</strong></div>
+      </div>
+    </section>
   </div>
- </div>
- <p id="validationSummary" class="validation-summary">Los filtros aparecerán después del análisis.</p>
- <p class="validation-footnote">Los filtros describen condiciones técnicas. No representan probabilidades ni garantizan resultados.</p>
-</section>
 
-<section class="card">
- <h2>Estructura del mercado</h2>
- <small>SESGO ESTRUCTURAL</small>
- <div id="structureBias" class="structure-bias neutral">—</div>
- <div><span id="structureEvent" class="structure-event neutral">ESPERANDO DATOS</span></div>
-
- <div class="structure-info">
-  <div class="stat"><small>EVENTO DIRECCIONAL</small><b id="structureDirection">—</b></div>
-  <div class="stat"><small>NIVEL ROTO</small><b id="brokenLevel">—</b></div>
-  <div class="stat">
-   <small>SWING HIGH</small><b id="swingHigh">—</b>
-   <div class="detail" id="swingHighTime">—</div>
+  <div class="two-col">
+    <section class="panel">
+      <h2>Soportes</h2>
+      <div id="supports" class="muted">Sin datos.</div>
+    </section>
+    <section class="panel">
+      <h2>Resistencias</h2>
+      <div id="resistances" class="muted">Sin datos.</div>
+    </section>
   </div>
-  <div class="stat">
-   <small>SWING LOW</small><b id="swingLow">—</b>
-   <div class="detail" id="swingLowTime">—</div>
-  </div>
-  <div class="stat">
-   <small>RETESTEO</small><b id="retestStatus">—</b>
-   <div class="detail" id="retestReason">Esperando información.</div>
-  </div>
-  <div class="stat">
-   <small>ESTRUCTURA</small><b id="structureConfirmed">—</b>
-   <div class="detail" id="structureConfirmation">—</div>
-  </div>
- </div>
 
- <div class="structure-flags">
-  <div class="structure-flag"><small>HH</small><b id="flagHH">—</b></div>
-  <div class="structure-flag"><small>HL</small><b id="flagHL">—</b></div>
-  <div class="structure-flag"><small>LH</small><b id="flagLH">—</b></div>
-  <div class="structure-flag"><small>LL</small><b id="flagLL">—</b></div>
- </div>
+  <section class="panel">
+    <h2>Calidad de datos</h2>
+    <div id="dataInfo">
+      <div class="data-line"><span>Estado</span><strong>—</strong></div>
+    </div>
+  </section>
 
- <p class="structure-note" id="structureStatus">La estructura aparecerá después del análisis.</p>
-</section>
-
-<section class="card chart-card">
- <div class="chart-heading">
-  <h2>Gráfico de velas japonesas</h2>
-  <small id="chartMarket">Esperando cotizaciones...</small>
- </div>
-
- <div class="chart-legend">
-  <span class="legend-item"><i class="dot" style="background:#35d6a4"></i>Alcista</span>
-  <span class="legend-item"><i class="dot" style="background:#ff687c"></i>Bajista</span>
-  <span class="legend-item"><i class="dot" style="background:#f5c66b"></i>EMA 9</span>
-  <span class="legend-item"><i class="dot" style="background:#54a6ff"></i>EMA 21</span>
-  <span class="legend-item"><i class="dot" style="background:#b48cff"></i>Swing High</span>
-  <span class="legend-item"><i class="dot" style="background:#54a6ff"></i>Swing Low</span>
- </div>
-
- <div id="chart" class="chart-box"></div>
- <p class="chart-note">BOS = ruptura de estructura · CHoCH = cambio de carácter. Los swings representan pivotes detectados.</p>
-
- <div class="panel-title"><h2>RSI · Fuerza relativa</h2></div>
- <div class="panel-subtitle" id="rsiStatus">RSI 14 · Esperando datos</div>
- <div id="rsiChart" class="indicator-box"></div>
-
- <div class="panel-title"><h2>MACD · Impulso del mercado</h2></div>
- <div class="panel-subtitle" id="macdStatus">MACD 12, 26, 9 · Esperando datos</div>
- <div id="macdChart" class="indicator-box"></div>
-</section>
-
-<section class="card">
- <h2>Confluencia técnica</h2>
- <div class="grid">
-  <div class="stat"><small>PUNTUACIÓN</small><b id="score">—</b></div>
-  <div class="stat"><small>FUERZA</small><b id="strength">—</b></div>
- </div>
- <div class="score-track"><div class="score-fill" id="scoreBar"></div></div>
- <div class="grid">
-  <div class="stat"><small>COMPRA</small><b id="buyScore" class="good">—</b></div>
-  <div class="stat"><small>VENTA</small><b id="sellScore" class="bad">—</b></div>
- </div>
- <p class="muted">Coincidencia técnica entre indicadores. No representa una probabilidad de éxito.</p>
-</section>
-
-<section class="card">
- <h2>Soportes y resistencias</h2>
- <div class="grid">
-  <div class="level">
-   <small class="good">SOPORTE</small><b id="support">—</b>
-   <small id="supportDistance">Distancia: —</small>
-   <p class="muted" id="supportTouches">Contactos: —</p>
-  </div>
-  <div class="level">
-   <small class="bad">RESISTENCIA</small><b id="resistance">—</b>
-   <small id="resistanceDistance">Distancia: —</small>
-   <p class="muted" id="resistanceTouches">Contactos: —</p>
-  </div>
- </div>
-</section>
-
-<section class="card">
- <h2>Indicadores técnicos</h2>
- <div class="stats">
-  <div class="stat"><small>RSI 14</small><b id="rsi">—</b><div class="detail">Fuerza relativa</div></div>
-  <div class="stat"><small>ADX</small><b id="adx">—</b><div class="detail" id="adxDirection">Fuerza de tendencia</div></div>
-  <div class="stat"><small>EMA 9</small><b id="ema9">—</b><div class="detail">Media rápida</div></div>
-  <div class="stat"><small>EMA 21</small><b id="ema21">—</b><div class="detail">Media lenta</div></div>
-  <div class="stat"><small>MACD</small><b id="macd">—</b><div class="detail" id="macdSignal">Línea de señal: —</div></div>
-  <div class="stat"><small>ATR</small><b id="atr">—</b><div class="detail">Volatilidad en pips</div></div>
- </div>
-</section>
-
-<section class="card">
- <h2>Estado del sistema</h2>
- <p id="connection" class="connection muted">Esperando análisis...</p>
- <p class="muted" id="candleInfo">Velas recibidas: —</p>
- <p class="muted" id="updated">Última actualización: —</p>
- <p class="data-time" id="dataTime">Hora de la última vela: —</p>
- <div id="warnings" class="detail"></div>
-</section>
-
-<footer>
- IQ OPTION AI · SMART MARKET ANALYSIS v4.7<br>
- Análisis técnico informativo. No garantiza beneficios.
- No incluye cotizaciones OTC ni ejecuta operaciones.
-</footer>
+  <section class="panel">
+    <h2>Advertencias del sistema</h2>
+    <div id="warnings" class="muted">No hay advertencias.</div>
+  </section>
 
 </main>
 
+<footer>
+  IQ OPTION AI · SMART ANALYSIS 4.8<br>
+  Herramienta de análisis técnico. No ejecuta operaciones.
+  Las señales no garantizan resultados.
+</footer>
+
 <script>
-"use strict";
+const API_URL =
+ "https://iq-option-ai-api.marcozmonsalve.workers.dev/analyze";
 
-const API_URL = "https://iq-option-ai-api.marcozmonsalve.workers.dev";
-const REQUIRED_VERSION = "4.7";
+const EXPECTED_VERSION = "4.8";
 
-const $ = id => document.getElementById(id);
+let priceChart = null;
+let rsiChart = null;
+let macdChart = null;
 
-let chart, rsiChart, macdChart;
-let candleSeries, ema9Series, ema21Series;
-let rsiLineSeries, macdLineSeries, macdSignalSeries, macdHistogramSeries;
-let priceLines = [];
-let resizeObserver = null;
+let candleSeries = null;
+let ema9Series = null;
+let ema21Series = null;
+let rsiLine = null;
+let macdLine = null;
+let signalLine = null;
+let histogramSeries = null;
 
-// =====================================================
-// UTILIDADES
-// =====================================================
-
-function show(id, value) {
- const element = $(id);
- if (element) element.textContent = value ?? "—";
-}
-
-function formatPrice(value) {
- if (value && typeof value === "object") value = value.price;
- if (value === null || value === undefined || value === "") return "—";
- const number = Number(value);
- return Number.isFinite(number) ? number.toFixed(6) : "—";
-}
-
-function formatNumber(value, decimals = 2) {
- if (value === null || value === undefined || value === "") return "—";
- const number = Number(value);
- return Number.isFinite(number) ? number.toFixed(decimals) : "—";
-}
-
-function pipSize(symbol) {
- return symbol && symbol.includes("JPY") ? 0.01 : 0.0001;
-}
-
-function formatTime(value) {
- if (value === null || value === undefined || value === "") return "—";
- let timestamp;
-
- if (typeof value === "number") timestamp = value;
- else if (typeof value === "string" && /^\d+$/.test(value)) timestamp = Number(value);
- else timestamp = Date.parse(value) / 1000;
-
- if (!Number.isFinite(timestamp)) return "—";
-
- return new Date(timestamp * 1000).toLocaleString("es-CO", {
-  day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"
- });
-}
-
-function setSignal(signal) {
- const element = $("signal");
- element.textContent = signal || "ESPERAR";
- element.className = "signal";
- element.classList.add(
-  signal === "COMPRA" ? "buy-signal" :
-  signal === "VENTA" ? "sell-signal" : "wait-signal"
- );
-}
-
-function setColor(id, value, positive, negative) {
- const element = $(id);
- if (!element) return;
- element.classList.remove("good","bad","neutral");
- const number = Number(value);
-
- if (!Number.isFinite(number)) element.classList.add("neutral");
- else if (number > positive) element.classList.add("good");
- else if (number < negative) element.classList.add("bad");
- else element.classList.add("neutral");
-}
-
-function setFlag(id, value) {
- const element = $(id);
- if (!element) return;
-
- element.textContent = value === true ? "SÍ" : value === false ? "NO" : "—";
- element.className = value === true ? "good" : value === false ? "bad" : "neutral";
-}
-
-function getPivotTime(pivot) {
- if (!pivot || typeof pivot !== "object") return null;
- return pivot.unix ?? pivot.time ?? null;
-}
-
-function getLatestPivot(items) {
- return Array.isArray(items) && items.length ? items[items.length - 1] : null;
-}
-
-// =====================================================
-// GRÁFICOS
-// =====================================================
-
-function createBaseChart(id, height) {
- const element = $(id);
- return LightweightCharts.createChart(element, {
-  width: Math.max(element.clientWidth,300),
-  height,
-  layout:{background:{color:"#0b1120"},textColor:"#a9bad1"},
-  grid:{vertLines:{color:"#18243a"},horzLines:{color:"#18243a"}},
-  rightPriceScale:{borderColor:"#293750"},
-  timeScale:{borderColor:"#293750",timeVisible:true,secondsVisible:false},
-  crosshair:{mode:LightweightCharts.CrosshairMode.Normal},
-  handleScroll:true,
-  handleScale:true
- });
-}
-
-function initializeCharts() {
- if (typeof LightweightCharts === "undefined") {
-  throw new Error("No se pudo cargar la biblioteca de gráficos.");
- }
-
- chart = createBaseChart("chart",300);
-
- candleSeries = chart.addCandlestickSeries({
-  upColor:"#35d6a4",downColor:"#ff687c",
-  borderUpColor:"#35d6a4",borderDownColor:"#ff687c",
-  wickUpColor:"#35d6a4",wickDownColor:"#ff687c"
- });
-
- ema9Series = chart.addLineSeries({
-  color:"#f5c66b",lineWidth:2,priceLineVisible:false
- });
- ema21Series = chart.addLineSeries({
-  color:"#54a6ff",lineWidth:2,priceLineVisible:false
- });
-
- rsiChart = createBaseChart("rsiChart",175);
- rsiLineSeries = rsiChart.addLineSeries({
-  color:"#b48cff",lineWidth:2,priceLineVisible:false,
-  priceFormat:{type:"price",precision:2,minMove:0.01}
- });
-
- [30,50,70].forEach(level => {
-  rsiLineSeries.createPriceLine({
-   price:level,
-   color:level===50?"#53647c":"#394963",
-   lineWidth:1,
-   lineStyle:LightweightCharts.LineStyle.Dashed,
-   axisLabelVisible:true,
-   title:String(level)
-  });
- });
-
- macdChart = createBaseChart("macdChart",175);
- macdHistogramSeries = macdChart.addHistogramSeries({
-  priceLineVisible:false,lastValueVisible:false,base:0
- });
- macdLineSeries = macdChart.addLineSeries({
-  color:"#35d6a4",lineWidth:2,priceLineVisible:false
- });
- macdSignalSeries = macdChart.addLineSeries({
-  color:"#f5c66b",lineWidth:2,priceLineVisible:false
- });
-
- if (typeof ResizeObserver !== "undefined") {
-  resizeObserver = new ResizeObserver(() => {
-   [["chart",chart],["rsiChart",rsiChart],["macdChart",macdChart]]
-   .forEach(([id,instance]) => {
-    const element = $(id);
-    if (instance && element.clientWidth > 0) {
-     instance.applyOptions({width:element.clientWidth});
-    }
-   });
-  });
-  ["chart","rsiChart","macdChart"].forEach(id => resizeObserver.observe($(id)));
- }
-
- let syncing = false;
- function synchronize(source,targets) {
-  source.timeScale().subscribeVisibleLogicalRangeChange(range => {
-   if (!range || syncing) return;
-   syncing = true;
-   targets.forEach(target => {
-    try { target.timeScale().setVisibleLogicalRange(range); } catch(error) {}
-   });
-   syncing = false;
-  });
- }
- synchronize(chart,[rsiChart,macdChart]);
- synchronize(rsiChart,[chart,macdChart]);
- synchronize(macdChart,[chart,rsiChart]);
-}
-
-// =====================================================
-// INDICADORES PARA LOS GRÁFICOS
-// =====================================================
-
-function calculateEMA(values,period) {
- if (values.length < period) return [];
- const multiplier = 2/(period+1);
- let current = values.slice(0,period).reduce((a,b)=>a+b,0)/period;
- const result = [current];
-
- for (let i=period;i<values.length;i++) {
-  current = values[i]*multiplier + current*(1-multiplier);
-  result.push(current);
- }
- return result;
-}
-
-function calculateEMAPoints(candles,period) {
- return calculateEMA(candles.map(c=>c.close),period).map((value,index)=>({
-  time:candles[index+period-1].time,value
- }));
-}
-
-function calculateMACD(candles) {
- const values = candles.map(c=>c.close);
- const ema12 = calculateEMA(values,12);
- const ema26 = calculateEMA(values,26);
- if (!ema12.length || !ema26.length) return null;
-
- const macdValues = [];
- for (let i=0;i<ema26.length;i++) macdValues.push(ema12[i+14]-ema26[i]);
-
- const signalValues = calculateEMA(macdValues,9);
- if (!signalValues.length) return null;
-
- const line=[],signal=[],histogram=[];
-
- for (let i=0;i<macdValues.length;i++) {
-  const time = candles[i+25].time;
-  line.push({time,value:macdValues[i]});
-
-  if (i>=8) {
-   const signalValue = signalValues[i-8];
-   const difference = macdValues[i]-signalValue;
-   signal.push({time,value:signalValue});
-   histogram.push({
-    time,value:difference,
-    color:difference>=0?"#35d6a4":"#ff687c"
-   });
+function createCharts() {
+  if (typeof LightweightCharts === "undefined") {
+    document.getElementById("message").textContent =
+      "No se pudo cargar la librería de gráficos. Revisa tu conexión.";
+    return;
   }
- }
- return {line,signal,histogram};
-}
 
-// =====================================================
-// NORMALIZACIÓN
-// =====================================================
-
-function normalizeCandles(raw) {
- if (!Array.isArray(raw)) throw new Error("El servidor no ha enviado las velas.");
-
- const candles = raw.map(item=>({
-  time:typeof item.time==="number"?Math.floor(item.time):Math.floor(Date.parse(item.time)/1000),
-  open:Number(item.open),high:Number(item.high),low:Number(item.low),close:Number(item.close)
- })).filter(c=>
-  Number.isFinite(c.time)&&Number.isFinite(c.open)&&
-  Number.isFinite(c.high)&&Number.isFinite(c.low)&&
-  Number.isFinite(c.close)&&c.high>=c.low
- ).sort((a,b)=>a.time-b.time);
-
- const unique=[];
- candles.forEach(c=>{
-  if (!unique.length || unique[unique.length-1].time!==c.time) unique.push(c);
- });
-
- if (unique.length<30) throw new Error("No hay suficientes velas válidas para el gráfico.");
- return unique;
-}
-
-function normalizeRSI(raw) {
- if (!Array.isArray(raw)) return [];
-
- return raw.map(item=>({
-  time:typeof item.time==="number"?Math.floor(item.time):Math.floor(Date.parse(item.time)/1000),
-  value:Number(item.value)
- })).filter(item=>
-  Number.isFinite(item.time)&&Number.isFinite(item.value)&&
-  item.value>=0&&item.value<=100
- ).sort((a,b)=>a.time-b.time)
- .filter((item,index,array)=>index===0||item.time!==array[index-1].time);
-}
-
-// =====================================================
-// ESTRUCTURA Y RETESTEO v4.7
-// =====================================================
-
-function renderStructure(structure) {
- if (!structure) {
-  [
-   "structureBias","structureDirection","brokenLevel","swingHigh","swingLow",
-   "swingHighTime","swingLowTime","flagHH","flagHL","flagLH","flagLL",
-   "retestStatus","retestReason","structureConfirmed","structureConfirmation"
-  ].forEach(id=>show(id,"—"));
-
-  show("structureEvent","SIN DATOS");
-  show("structureStatus","El servidor no envió estructura.");
-  return;
- }
-
- const bias = structure.bias || "INDEFINIDA";
- const event = structure.event || "NINGUNO";
- const direction = structure.eventDirection || structure.direction || "NEUTRAL";
-
- show("structureBias",bias);
- show("structureDirection",direction);
- show("structureEvent",event);
- show("brokenLevel",formatPrice(structure.brokenLevel));
-
- $("structureBias").className = "structure-bias "+
-  (bias==="ALCISTA"?"good":bias==="BAJISTA"?"bad":"neutral");
-
- $("structureEvent").className = "structure-event "+
-  (direction==="ALCISTA"?"bullish":direction==="BAJISTA"?"bearish":"neutral");
-
- const high = structure.swingHigh || getLatestPivot(structure.highs);
- const low = structure.swingLow || getLatestPivot(structure.lows);
-
- show("swingHigh",formatPrice(high));
- show("swingLow",formatPrice(low));
-
- const highTime = getPivotTime(high) ?? getPivotTime(getLatestPivot(structure.highs));
- const lowTime = getPivotTime(low) ?? getPivotTime(getLatestPivot(structure.lows));
-
- show("swingHighTime",highTime?formatTime(highTime):"Tiempo no disponible");
- show("swingLowTime",lowTime?formatTime(lowTime):"Tiempo no disponible");
-
- setFlag("flagHH",structure.higherHigh);
- setFlag("flagHL",structure.higherLow);
- setFlag("flagLH",structure.lowerHigh);
- setFlag("flagLL",structure.lowerLow);
-
- // El Worker informa el estado del retesteo.
- const retest = structure.retest || {};
- const retestStatus = String(retest.status || "PENDING").toUpperCase();
-
- const retestLabel =
-  retest.confirmed===true || retestStatus==="CONFIRMED" || retestStatus==="CONFIRMADO"
-   ? "CONFIRMADO"
-   : retestStatus==="FAILED" || retestStatus==="FAIL" || retestStatus==="FALLIDO"
-    ? "FALLIDO"
-    : retestStatus==="NOT_APPLICABLE" || retestStatus==="N/A"
-     ? "NO APLICA"
-     : "PENDIENTE";
-
- show("retestStatus",retestLabel);
- show("retestReason",retest.reason || "El servidor no proporcionó detalles del retesteo.");
-
- $("retestStatus").className =
-  retestLabel==="CONFIRMADO"?"good":
-  retestLabel==="FALLIDO"?"bad":"neutral";
-
- show("structureConfirmed",
-  structure.structureConfirmed===true?"CONFIRMADA":
-  structure.structureConfirmed===false?"NO CONFIRMADA":"—"
- );
- show("structureConfirmation",structure.confirmation || "—");
-
- let status = "Sesgo: "+bias+". Evento: "+event+".";
- status += structure.eventConfirmed===true
-  ? " Ruptura confirmada por el servidor."
-  : " No hay una ruptura BOS/CHoCH nueva confirmada.";
-
- if (structure.status) status += " Estado: "+structure.status+".";
- if (structure.confirmation) status += " Confirmación: "+structure.confirmation+".";
- status += " Retesteo: "+retestLabel+".";
- show("structureStatus",status);
-}
-
-// =====================================================
-// FILTROS
-// =====================================================
-
-function filterState(value) {
- if (value===true) return "pass";
- if (value===false) return "fail";
- if (!value || typeof value!=="object") return "pending";
-
- const status=String(value.status||"").toUpperCase();
-
- if (["PASS","PASSED","OK","CONFIRMADO","CONFIRMADA"].includes(status)) return "pass";
- if (["FAIL","FAILED","BLOQUEADO","BLOQUEADA"].includes(status)) return "fail";
- if (["NO_APLICA","N/A"].includes(status)) return "na";
- return "pending";
-}
-
-function renderValidation(data) {
- const list=$("validationList");
- list.innerHTML="";
-
- const filters=data.filters||{};
- const definitions=[
-  ["Tendencia de 1 hora","trend"],
-  ["Estructura del mercado","structure"],
-  ["Evento BOS / CHoCH","event"],
-  ["Retesteo de ruptura","retest"],
-  ["Fuerza ADX","adx"],
-  ["Volatilidad","volatility"],
-  ["RSI","rsi"],
-  ["Distancia a niveles","level"]
- ];
-
- const results=[];
-
- definitions.forEach(([label,key])=>{
-  const value=filters[key];
-  const state=filterState(value);
-  const detail=value&&typeof value==="object"?value.reason||"":"";
-  results.push(state);
-
-  const row=document.createElement("div");
-  row.className="validation-row";
-
-  const name=document.createElement("span");
-  name.textContent=label;
-
-  const badge=document.createElement("span");
-  badge.className="validation-status "+state;
-  badge.textContent=
-   state==="pass"?"CONFIRMADO":
-   state==="fail"?"BLOQUEADO":
-   state==="na"?"NO APLICA":"PENDIENTE";
-
-  row.append(name,badge);
-  list.appendChild(row);
-
-  if (detail) {
-   const explanation=document.createElement("div");
-   explanation.className="filter-reason";
-   explanation.textContent=detail;
-   list.appendChild(explanation);
-  }
- });
-
- const passed=results.filter(x=>x==="pass").length;
- const failed=results.filter(x=>x==="fail").length;
- const pending=results.filter(x=>x==="pending").length;
- const na=results.filter(x=>x==="na").length;
-
- let summary="Confirmados: "+passed+" · Bloqueados: "+failed+
-  " · Pendientes: "+pending+" · No aplica: "+na+".";
- summary+=data.signal==="ESPERAR"
-  ?" El motor no ha validado una entrada."
-  :" Señal generada: "+data.signal+". Revisa el contexto del mercado.";
-
- show("validationSummary",summary);
-}
-
-// =====================================================
-// LÍNEAS DE PRECIO
-// =====================================================
-
-function clearPriceLines() {
- priceLines.forEach(line=>{
-  try { candleSeries.removePriceLine(line); } catch(error) {}
- });
- priceLines=[];
-}
-
-function addPriceLine(value,color,title) {
- if (value && typeof value==="object") value=value.price;
- if (value===null || value===undefined || !Number.isFinite(Number(value))) return;
-
- priceLines.push(candleSeries.createPriceLine({
-  price:Number(value),color,lineWidth:2,
-  lineStyle:LightweightCharts.LineStyle.Dashed,
-  axisLabelVisible:true,title
- }));
-}
-
-// =====================================================
-// MARCADORES
-// =====================================================
-
-function buildMarkers(data,candles) {
- const markers=[];
- const last=candles[candles.length-1];
-
- let text="ESPERAR",position="aboveBar",color="#f5c66b",shape="circle";
-
- if (data.signal==="COMPRA") {
-  text="COMPRA";position="belowBar";color="#35d6a4";shape="arrowUp";
- } else if (data.signal==="VENTA") {
-  text="VENTA";color="#ff687c";shape="arrowDown";
- }
-
- markers.push({time:last.time,position,color,shape,text});
-
- const structure=data.structure||{};
- const event=String(structure.event||"").toUpperCase();
- const direction=structure.eventDirection||structure.direction;
-
- if (structure.eventConfirmed===true && ["BOS","CHOCH"].includes(event)) {
-  const bullish=direction==="ALCISTA";
-  markers.push({
-   time:last.time,
-   position:bullish?"belowBar":"aboveBar",
-   color:bullish?"#35d6a4":"#ff687c",
-   shape:bullish?"arrowUp":"arrowDown",
-   text:event
-  });
- }
-
- return markers.sort((a,b)=>a.time-b.time);
-}
-
-// =====================================================
-// RENDERIZADO DE GRÁFICOS
-// =====================================================
-
-function renderChart(data) {
- const candles=normalizeCandles(data.chartCandles||data.candles);
-
- candleSeries.setData(candles);
- ema9Series.setData(calculateEMAPoints(candles,9));
- ema21Series.setData(calculateEMAPoints(candles,21));
-
- clearPriceLines();
-
- const levels=data.levels||{};
- const support=levels.nearestSupport||levels.support;
- const resistance=levels.nearestResistance||levels.resistance;
-
- if (support) addPriceLine(support.price??support,"#35d6a4","SOPORTE");
- if (resistance) addPriceLine(resistance.price??resistance,"#ff687c","RESISTENCIA");
-
- const structure=data.structure||{};
- addPriceLine(structure.swingHigh,"#b48cff","SWING HIGH");
- addPriceLine(structure.swingLow,"#54a6ff","SWING LOW");
-
- const rsiPoints=normalizeRSI(data.rsiSeries);
- rsiLineSeries.setData(rsiPoints);
-
- const lastRSI=rsiPoints.length?rsiPoints[rsiPoints.length-1].value:null;
- show("rsiStatus",lastRSI===null
-  ?"RSI del servidor no disponible."
-  :"RSI 14: "+lastRSI.toFixed(2)+" · "+
-   (lastRSI>=70?"Sobrecompra":
-    lastRSI<=30?"Sobreventa":
-    lastRSI>=50?"Impulso positivo":"Impulso negativo")
- );
-
- const macd=calculateMACD(candles);
-
- if (macd) {
-  macdLineSeries.setData(macd.line);
-  macdSignalSeries.setData(macd.signal);
-  macdHistogramSeries.setData(macd.histogram);
-
-  const lastHistogram=macd.histogram[macd.histogram.length-1];
-  show("macdStatus",lastHistogram
-   ?"MACD 12,26,9 · Histograma: "+lastHistogram.value.toFixed(6)
-   :"MACD calculándose"
+  const common = {
+    layout: {
+      background: { color: "#111827" },
+      textColor: "#aab8cc"
+    },
+    grid: {
+      vertLines: { color: "#202b3d" },
+      horzLines: { color: "#202b3d" }
+    },
+    rightPriceScale: {
+      borderColor: "#273449"
+    },
+    timeScale: {
+      borderColor: "#273449",
+      timeVisible: true,
+      secondsVisible: false
+    },
+    crosshair: {
+      mode: LightweightCharts.CrosshairMode.Normal
+    },
+    width: document.getElementById("priceChart").clientWidth
+  };
+
+  priceChart = LightweightCharts.createChart(
+    document.getElementById("priceChart"),
+    {...common, height: 300}
   );
- } else {
-  macdLineSeries.setData([]);
-  macdSignalSeries.setData([]);
-  macdHistogramSeries.setData([]);
-  show("macdStatus","Datos insuficientes para MACD.");
- }
 
- chart.timeScale().fitContent();
- rsiChart.timeScale().fitContent();
- macdChart.timeScale().fitContent();
+  candleSeries = priceChart.addCandlestickSeries({
+    upColor: "#19c784",
+    downColor: "#ff5268",
+    borderUpColor: "#19c784",
+    borderDownColor: "#ff5268",
+    wickUpColor: "#19c784",
+    wickDownColor: "#ff5268"
+  });
 
- candleSeries.setMarkers(buildMarkers(data,candles));
+  ema9Series = priceChart.addLineSeries({
+    color:"#54a8ff", lineWidth:2, title:"EMA 9"
+  });
 
- show("chartMarket",data.symbol+" · "+data.interval+" · "+candles.length+" velas");
- show("dataTime","Hora de la última vela: "+formatTime(candles[candles.length-1].time));
+  ema21Series = priceChart.addLineSeries({
+    color:"#f4b942", lineWidth:2, title:"EMA 21"
+  });
 
- return candles.length;
+  rsiChart = LightweightCharts.createChart(
+    document.getElementById("rsiChart"),
+    {...common, height:190}
+  );
+
+  rsiLine = rsiChart.addLineSeries({
+    color:"#b58aff", lineWidth:2, title:"RSI 14"
+  });
+
+  rsiLine.createPriceLine({
+    price:70,color:"#ff5268",lineStyle:2,
+    title:"Sobrecompra"
+  });
+
+  rsiLine.createPriceLine({
+    price:30,color:"#19c784",lineStyle:2,
+    title:"Sobreventa"
+  });
+
+  macdChart = LightweightCharts.createChart(
+    document.getElementById("macdChart"),
+    {...common, height:190}
+  );
+
+  macdLine = macdChart.addLineSeries({
+    color:"#54a8ff",lineWidth:2,title:"MACD"
+  });
+
+  signalLine = macdChart.addLineSeries({
+    color:"#f4b942",lineWidth:2,title:"Señal"
+  });
+
+  histogramSeries = macdChart.addHistogramSeries({
+    priceFormat:{type:"price",precision:6,minMove:0.000001},
+    title:"Histograma"
+  });
+
+  window.addEventListener("resize", resizeCharts);
 }
 
-// =====================================================
-// ANÁLISIS PRINCIPAL
-// =====================================================
+function resizeCharts() {
+  if (!priceChart) return;
+
+  [
+    ["priceChart",priceChart],
+    ["rsiChart",rsiChart],
+    ["macdChart",macdChart]
+  ].forEach(([id,chart]) => {
+    const el = document.getElementById(id);
+    if (el && chart) {
+      chart.applyOptions({width:el.clientWidth});
+    }
+  });
+}
+
+function fmt(value, digits=5) {
+  if (value === null || value === undefined ||
+      !Number.isFinite(Number(value))) return "—";
+  return Number(value).toFixed(digits);
+}
+
+function setText(id,value) {
+  document.getElementById(id).textContent = value ?? "—";
+}
+
+function emaSeries(values, period) {
+  if (!values.length) return [];
+
+  const multiplier = 2 / (period + 1);
+  let current = values[0];
+
+  return values.map((value,index) => {
+    if (index === 0) current = value;
+    else current = value * multiplier + current * (1-multiplier);
+    return current;
+  });
+}
+
+function calculateRSI(values, period=14) {
+  const result = [];
+  if (values.length <= period) return result;
+
+  let gains=0, losses=0;
+
+  for(let i=1;i<=period;i++){
+    const change=values[i]-values[i-1];
+    if(change>0) gains+=change;
+    else losses-=change;
+  }
+
+  let avgGain=gains/period;
+  let avgLoss=losses/period;
+
+  for(let i=period;i<values.length;i++){
+    if(i>period){
+      const change=values[i]-values[i-1];
+      avgGain=((avgGain*(period-1))+Math.max(change,0))/period;
+      avgLoss=((avgLoss*(period-1))+Math.max(-change,0))/period;
+    }
+
+    const value=avgLoss===0 ? 100 :
+      100-(100/(1+avgGain/avgLoss));
+
+    result.push({index:i,value});
+  }
+
+  return result;
+}
+
+function calculateMACD(values) {
+  const fast=emaSeries(values,12);
+  const slow=emaSeries(values,26);
+  const macd=values.map((_,i)=>fast[i]-slow[i]);
+  const signal=emaSeries(macd,9);
+
+  return {
+    macd,
+    signal,
+    histogram:macd.map((v,i)=>v-signal[i])
+  };
+}
+
+function setChartData(data) {
+  if (!priceChart) createCharts();
+  if (!priceChart) return;
+
+  const candles = (data.chartCandles || data.candles || [])
+    .filter(c => Number.isFinite(Number(c.time)))
+    .map(c => ({
+      time:Number(c.time),
+      open:Number(c.open),
+      high:Number(c.high),
+      low:Number(c.low),
+      close:Number(c.close)
+    }))
+    .sort((a,b)=>a.time-b.time);
+
+  if (!candles.length) {
+    throw new Error("El servidor no devolvió velas para el gráfico.");
+  }
+
+  candleSeries.setData(candles);
+
+  const closes=candles.map(c=>c.close);
+  const times=candles.map(c=>c.time);
+
+  const e9=emaSeries(closes,9);
+  const e21=emaSeries(closes,21);
+
+  ema9Series.setData(times.map((time,i)=>({
+    time,value:e9[i]
+  })));
+
+  ema21Series.setData(times.map((time,i)=>({
+    time,value:e21[i]
+  })));
+
+  const rsiData=(data.rsiSeries || [])
+    .filter(x=>Number.isFinite(Number(x.time)) &&
+               Number.isFinite(Number(x.value)))
+    .map(x=>({time:Number(x.time),value:Number(x.value)}))
+    .sort((a,b)=>a.time-b.time);
+
+  if (rsiData.length) {
+    rsiLine.setData(rsiData);
+  } else {
+    rsiLine.setData(calculateRSI(closes).map(x=>({
+      time:times[x.index],value:x.value
+    })));
+  }
+
+  const macd=calculateMACD(closes);
+
+  macdLine.setData(times.map((time,i)=>({
+    time,value:macd.macd[i]
+  })));
+
+  signalLine.setData(times.map((time,i)=>({
+    time,value:macd.signal[i]
+  })));
+
+  histogramSeries.setData(times.map((time,i)=>({
+    time,value:macd.histogram[i],
+    color:macd.histogram[i]>=0 ? "#19c784" : "#ff5268"
+  })));
+
+  priceChart.timeScale().fitContent();
+  rsiChart.timeScale().fitContent();
+  macdChart.timeScale().fitContent();
+}
+
+function renderFilters(filters) {
+  const container=document.getElementById("filters");
+  container.innerHTML="";
+
+  const names={
+    trend:"Tendencia",
+    structure:"Estructura",
+    event:"Evento BOS/CHoCH",
+    retest:"Retesteo",
+    adx:"Fuerza ADX",
+    volatility:"Volatilidad",
+    rsi:"RSI",
+    level:"Nivel técnico",
+    data:"Calidad de datos"
+  };
+
+  Object.entries(names).forEach(([key,label])=>{
+    const item=filters?.[key];
+    const status=item?.status || "UNKNOWN";
+    const reason=item?.reason || "Sin información disponible.";
+
+    const div=document.createElement("div");
+    div.className="filter";
+
+    const left=document.createElement("div");
+    const name=document.createElement("div");
+    name.className="filter-name";
+    name.textContent=label;
+
+    const description=document.createElement("div");
+    description.className="filter-reason";
+    description.textContent=reason;
+
+    left.append(name,description);
+
+    const badge=document.createElement("span");
+    badge.className="tag "+status;
+    badge.textContent=status;
+
+    div.append(left,badge);
+    container.appendChild(div);
+  });
+}
+
+function renderLevels(items,id) {
+  const container=document.getElementById(id);
+  container.innerHTML="";
+
+  if(!Array.isArray(items)||!items.length){
+    container.textContent="No se encontraron niveles.";
+    return;
+  }
+
+  items.slice(0,5).forEach(item=>{
+    const div=document.createElement("div");
+    div.className="level-item";
+
+    const price=document.createElement("strong");
+    price.textContent=fmt(item.price,5);
+
+    const detail=document.createElement("span");
+    detail.textContent=
+      (item.touches ?? 0)+" toques · "+
+      fmt(item.distancePips,1)+" pips";
+
+    div.append(price,detail);
+    container.appendChild(div);
+  });
+}
+
+function renderStructure(data) {
+  const s=data.structure || {};
+  const retest=s.retest || {};
+
+  const rows=[
+    ["Sesgo",s.bias || "—"],
+    ["Estado",s.status || "—"],
+    ["Evento",s.event || "—"],
+    ["Dirección del evento",s.eventDirection || "—"],
+    ["Evento confirmado",s.eventConfirmed===true ? "Sí" :
+      s.eventConfirmed===false ? "No" : "—"],
+    ["Retesteo",retest.status || "—"],
+    ["Retesteo confirmado",retest.confirmed===true ? "Sí" :
+      retest.confirmed===false ? "No" : "—"],
+    ["Razón del retesteo",retest.reason || "Sin información"]
+  ];
+
+  const container=document.getElementById("structureInfo");
+  container.innerHTML="";
+
+  rows.forEach(([label,value])=>{
+    const row=document.createElement("div");
+    row.className="data-line";
+
+    const a=document.createElement("span");
+    a.textContent=label;
+
+    const b=document.createElement("strong");
+    b.textContent=value;
+
+    row.append(a,b);
+    container.appendChild(row);
+  });
+}
+
+function renderDataQuality(data) {
+  const q=data.dataQuality || {};
+  const container=document.getElementById("dataInfo");
+
+  const freshness=q.freshnessSeconds ??
+    data.dataFreshnessSeconds;
+
+  const rows=[
+    ["Estado",q.status || "Sin información"],
+    ["Datos antiguos",q.stale===true ? "Sí" :
+      q.stale===false ? "No" : "—"],
+    ["Antigüedad de datos",
+      freshness!==undefined ? freshness+" segundos" : "—"],
+    ["Última vela cerrada",
+      q.lastClosedCandle ?? data.lastClosedCandle ?? "—"],
+    ["Duración de vela",
+      data.candleDurationSeconds ?
+      data.candleDurationSeconds+" segundos" : "—"],
+    ["Velas recibidas",data.candlesReceived ?? "—"],
+    ["Velas cerradas",data.closedCandlesReceived ?? "—"]
+  ];
+
+  container.innerHTML="";
+
+  rows.forEach(([label,value])=>{
+    const row=document.createElement("div");
+    row.className="data-line";
+
+    const a=document.createElement("span");
+    a.textContent=label;
+
+    const b=document.createElement("strong");
+    b.textContent=value;
+
+    row.append(a,b);
+    container.appendChild(row);
+  });
+}
+
+function renderWarnings(warnings) {
+  const container=document.getElementById("warnings");
+  container.innerHTML="";
+
+  if(!Array.isArray(warnings)||!warnings.length){
+    container.textContent="No hay advertencias.";
+    return;
+  }
+
+  warnings.forEach(w=>{
+    const div=document.createElement("div");
+    div.className="warning";
+    div.textContent="⚠ "+w;
+    container.appendChild(div);
+  });
+}
 
 function renderAnalysis(data) {
- const indicators=data.indicators||{};
- const levels=data.levels||{};
- const trend=data.trend||{};
- const volatility=data.volatility||{};
- const confluence=data.confluence||{};
+  if(data.version !== EXPECTED_VERSION){
+    throw new Error(
+      "Versión incorrecta del servidor. Esperada 4.8; recibida "+
+      (data.version || "desconocida")
+    );
+  }
 
- setSignal(data.signal);
- show("market",data.symbol+" · "+data.interval);
- show("price",formatPrice(data.price));
- show("reason",data.reason);
+  if(data.status!=="ok"){
+    throw new Error(data.error || "El análisis no pudo completarse.");
+  }
 
- show("trend",trend.direction||"—");
- show("volatility",volatility.level||"—");
+  const signal=data.signal || "ESPERAR";
+  const signalEl=document.getElementById("signal");
 
- const buyScore=Number(confluence.buyScore);
- const sellScore=Number(confluence.sellScore);
- const score=Math.max(
-  Number.isFinite(buyScore)?buyScore:0,
-  Number.isFinite(sellScore)?sellScore:0
- );
+  signalEl.className="signal "+
+    (signal==="COMPRA"?"BUY":
+     signal==="VENTA"?"SELL":"WAIT");
 
- const maximumScore=Number(confluence.maximumScore)||6;
+  signalEl.textContent=signal;
+  setText("reason",data.reason || "Sin explicación disponible.");
 
- show("score",score+"/"+maximumScore);
- show("buyScore",confluence.buyScore??"—");
- show("sellScore",confluence.sellScore??"—");
-
- const strength=confluence.strength||
-  (score>=5?"ALTA":score>=4?"MEDIA":score>=2?"BAJA":"DÉBIL");
-
- show("strength",strength);
- $("scoreBar").style.width=Math.min(100,Math.max(0,score/maximumScore*100))+"%";
-
- // Soportes y resistencias
- const support=levels.nearestSupport||null;
- const resistance=levels.nearestResistance||null;
-
- show("support",support?formatPrice(support.price):"—");
- show("resistance",resistance?formatPrice(resistance.price):"—");
- show("supportDistance",support?"Distancia: "+(support.distancePips??"—")+" pips":"Distancia: —");
- show("resistanceDistance",resistance?"Distancia: "+(resistance.distancePips??"—")+" pips":"Distancia: —");
- show("supportTouches","Contactos: "+(support?.touches??"—"));
- show("resistanceTouches","Contactos: "+(resistance?.touches??"—"));
-
- // RSI
- const rsiValue=indicators.rsi14;
- show("rsi",formatNumber(rsiValue));
- setColor("rsi",rsiValue,50,50);
-
- // EMA
- show("ema9",formatPrice(indicators.ema9));
- show("ema21",formatPrice(indicators.ema21));
-
- // ADX: compatible con objeto y valor numérico.
- const adxObject=indicators.adx&&typeof indicators.adx==="object"
-  ?indicators.adx:{};
-
- const adxValue=adxObject.value??indicators.adxValue??
-  (typeof indicators.adx==="number"?indicators.adx:null);
-
- const plusDI=adxObject.plusDI??indicators.plusDI;
- const minusDI=adxObject.minusDI??indicators.minusDI;
-
- show("adx",formatNumber(adxValue));
-
- let adxText="Fuerza de tendencia";
- if (Number.isFinite(Number(plusDI))&&Number.isFinite(Number(minusDI))) {
-  adxText+=" · "+(
-   Number(plusDI)>Number(minusDI)?"Dirección alcista":
-   Number(minusDI)>Number(plusDI)?"Dirección bajista":"Dirección equilibrada"
+  const confluence=data.confluence || {};
+  setText("score",
+    (confluence.score ?? "—")+" / "+
+    (confluence.maximumScore ?? confluence.maxScore ?? 6)
   );
- }
- show("adxDirection",adxText);
- setColor("adx",adxValue,25,20);
 
- // MACD: los campos de la versión Worker 4.7.
- const macdObject=indicators.macd&&typeof indicators.macd==="object"
-  ?indicators.macd:{};
+  setText("strength",confluence.strength || "Sin evaluar");
 
- const macdHistogram=indicators.macdHistogram??macdObject.histogram;
- const macdSignal=indicators.macdSignal??macdObject.signal;
+  const ind=data.indicators || {};
 
- show("macd",formatNumber(macdHistogram,6));
- show("macdSignal","Línea de señal: "+formatNumber(macdSignal,6));
- setColor("macd",macdHistogram,0,0);
+  setText("price",fmt(data.price,5));
+  setText("rsi",fmt(ind.rsi14,2));
+  setText("adx",fmt(ind.adx?.value ?? ind.adxValue ?? ind.adx,2));
+  setText("atr",fmt(ind.atrPips,2)+" pips");
+  setText("ema9",fmt(ind.ema9,5));
+  setText("ema21",fmt(ind.ema21,5));
+  setText("macd",fmt(ind.macdHistogram,6));
 
- // ATR
- const atrObject=indicators.atr&&typeof indicators.atr==="object"
-  ?indicators.atr:{};
+  const trend=data.trend || {};
+  setText("trend",trend.direction || "—");
 
- const atrValue=indicators.atr14??atrObject.value??
-  (typeof indicators.atr==="number"?indicators.atr:null);
+  renderFilters(data.filters || {});
+  renderStructure(data);
+  renderLevels(data.levels?.support,"supports");
+  renderLevels(data.levels?.resistance,"resistances");
+  renderDataQuality(data);
+  renderWarnings(data.warnings || []);
 
- const symbolPipSize=pipSize(data.symbol);
+  setChartData(data);
 
- show("atr",atrValue!==null&&atrValue!==undefined&&Number.isFinite(Number(atrValue))
-  ?formatNumber(Number(atrValue)/symbolPipSize,1)+" pips":"—"
- );
-
- renderStructure(data.structure);
- renderValidation(data);
-
- show("connection","Análisis recibido correctamente desde Cloudflare y Twelve Data.");
-
- show("candleInfo",
-  "Velas recibidas: "+(data.candlesReceived??"—")+
-  " · Velas cerradas: "+(data.closedCandlesReceived??"—")+
-  " · Velas del gráfico: "+(data.chartCandlesReceived??"—")+
-  " · Velas tendencia 1H: "+(data.trendCandlesReceived??"—")
- );
-
- if (Number.isFinite(Number(data.dataFreshnessSeconds))) {
-  show("dataTime","Antigüedad de la última vela: "+
-   Math.floor(Number(data.dataFreshnessSeconds)/60)+" minutos."
-  );
- }
-
- show("updated","Última actualización: "+new Date().toLocaleString("es-CO"));
-
- const warnings=Array.isArray(data.warnings)?data.warnings:[];
- show("warnings",warnings.length?"Avisos: "+warnings.join(" · "):"");
-
- try {
-  renderChart(data);
- } catch(error) {
-  console.error("Error de gráficos:",error);
-  show("chartMarket","Error visual: "+error.message);
-  show("connection","Análisis recibido, pero hubo un problema al dibujar los gráficos.");
- }
+  document.getElementById("connection").textContent=
+    "API conectada · v"+data.version;
 }
 
-// =====================================================
-// BOTÓN ANALIZAR
-// =====================================================
+async function analyze() {
+  const btn=document.getElementById("analyzeBtn");
+  const message=document.getElementById("message");
+  const symbol=document.getElementById("symbol").value;
+  const interval=document.getElementById("interval").value;
 
-$("analyze").addEventListener("click",async()=>{
- const button=$("analyze");
- button.disabled=true;
- button.textContent="ANALIZANDO...";
+  btn.disabled=true;
+  btn.textContent="ANALIZANDO...";
+  message.textContent="Consultando datos y calculando indicadores...";
 
- setSignal("CARGANDO");
- show("reason","Consultando datos del mercado...");
- show("connection","Conectando con Cloudflare...");
-
- try {
-  const url=new URL(API_URL+"/analyze");
-  url.searchParams.set("symbol",$("pair").value);
-  url.searchParams.set("interval",$("interval").value);
-
-  const response=await fetch(url.toString(),{
-   method:"GET",cache:"no-store"
-  });
-
-  let data;
   try {
-   data=await response.json();
+    const url=new URL(API_URL);
+    url.searchParams.set("symbol",symbol);
+    url.searchParams.set("interval",interval);
+
+    const response=await fetch(url.toString(),{
+      method:"GET",
+      headers:{"Accept":"application/json"}
+    });
+
+    if(!response.ok){
+      throw new Error("Error HTTP "+response.status);
+    }
+
+    const data=await response.json();
+    renderAnalysis(data);
+
+    message.textContent=
+      "Análisis completado · "+symbol+" · "+interval+
+      " · "+new Date().toLocaleTimeString();
+
   } catch(error) {
-   throw new Error("El servidor devolvió una respuesta no válida.");
+    console.error(error);
+    message.textContent="Error: "+error.message;
+    document.getElementById("connection").textContent=
+      "Error de conexión";
+  } finally {
+    btn.disabled=false;
+    btn.textContent="ANALIZAR MERCADO";
   }
-
-  if (!response.ok||data.status!=="ok") {
-   throw new Error(data.message||data.error||"No se pudo completar el análisis.");
-  }
-
-  if (String(data.version)!==REQUIRED_VERSION) {
-   throw new Error(
-    "Versión incorrecta del Worker. Se esperaba "+REQUIRED_VERSION+
-    " y se recibió "+(data.version||"sin versión")+"."
-   );
-  }
-
-  const candles=data.chartCandles||data.candles;
-  if (!Array.isArray(candles)||candles.length<30) {
-   throw new Error("El servidor no envió suficientes velas para el gráfico.");
-  }
-
-  renderAnalysis(data);
-
- } catch(error) {
-  console.error("Error de análisis:",error);
-  setSignal("SIN DATOS");
-  show("reason",error.message);
-  show("connection","Error de conexión o de datos: "+error.message);
- } finally {
-  button.disabled=false;
-  button.textContent="ANALIZAR MERCADO";
- }
-});
-
-// =====================================================
-// INICIALIZACIÓN
-// =====================================================
-
-try {
- initializeCharts();
- show("connection","Gráficos inicializados. Esperando análisis.");
-} catch(error) {
- console.error("Error inicializando gráficos:",error);
- show("connection",error.message);
- show("chartMarket","No se pudieron inicializar los gráficos.");
 }
+
+createCharts();
 </script>
+
 </body>
 </html>
